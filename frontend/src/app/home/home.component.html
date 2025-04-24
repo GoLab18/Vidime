@@ -1,0 +1,58 @@
+<main class="main-content">
+  <section class="featured-section">
+    <h2>Featured Content</h2>
+    <div class="featured-video">
+      <img src="https://picsum.photos/1600/900" alt="Featured video thumbnail">
+      <div class="featured-info">
+        <h3>Featured Video Title</h3>
+        <p>Featured video description goes here. This is a special highlight section for premium content.</p>
+        <button class="play-button">
+          <i class="material-icons">play_arrow</i>
+          Play Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="trending-tags">
+    <button class="tag-button">All</button>
+    <button class="tag-button">Music</button>
+    <button class="tag-button">Gaming</button>
+    <button class="tag-button">Sports</button>
+    <button class="tag-button">Technology</button>
+    <button class="tag-button">Entertainment</button>
+  </div>
+
+  <section class="video-grid">
+    <div class="video-card" *ngFor="let video of videos">
+      <div class="thumbnail-container">
+        <img [src]="video.thumbnail" [alt]="video.title">
+        <div class="duration">{{video.duration}}</div>
+        <div class="video-tags">
+          <span class="tag" *ngFor="let tag of video.tags">{{tag}}</span>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="channel-info">
+          <div class="channel-avatar">
+            <img [src]="video.channel.avatar" [alt]="video.channel.name">
+          </div>
+          <div class="channel-details">
+            <div class="channel-name">
+              {{video.channel.name}}
+              <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
+            </div>
+          </div>
+        </div>
+        <h3 class="video-title">{{video.title}}</h3>
+        <div class="video-stats">
+          <div class="stats-primary">
+            <span>{{video.views}} views</span>
+            <span class="dot">•</span>
+            <span>{{video.timestamp}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
