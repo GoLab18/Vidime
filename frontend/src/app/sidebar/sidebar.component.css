@@ -7,7 +7,7 @@
   position: sticky;
   overflow-x: hidden;
   top: 56px;
-  height: calc(100vh-56px);
+  height: calc(100vh - 56px);
   width: 240px;
   border-right: 1px solid #1db954;
   transition: width 0.3s ease;
@@ -45,7 +45,7 @@
 }
 
 .nav-item span.collapsed {
-  transform: translateX(480px);
+  transform: translateX(240px);
   transition: transform 0.2s cubic-bezier(0, 0.1, 0, 0);
 }
 
