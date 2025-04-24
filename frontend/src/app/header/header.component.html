@@ -1,0 +1,36 @@
+<header class="header">
+  <div class="header-left">
+    <button class="menu-button" (click)="toggleSidebar()">
+      <i class="material-icons">menu</i>
+    </button>
+    <a routerLink="/" class="logo">
+      <span class="logo-text">Vidime</span>
+    </a>
+  </div>
+
+  <div class="header-center">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery"
+        placeholder="Search..."
+        class="search-input"
+      >
+      <button class="search-button" (click)="onSearch()">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-button">
+      <i class="material-icons">video_call</i>
+    </button>
+    <button class="icon-button">
+      <i class="material-icons">notifications</i>
+    </button>
+    <button class="profile-button">
+      <i class="material-icons">account_circle</i>
+    </button>
+  </div>
+</header>
