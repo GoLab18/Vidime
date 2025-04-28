@@ -13,8 +13,8 @@ public class Rating {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "channel_id", referencedColumnName = "id")
+    private Channel channel;
 
     @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id")

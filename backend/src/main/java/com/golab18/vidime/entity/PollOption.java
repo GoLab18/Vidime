@@ -20,4 +20,7 @@ public class PollOption {
 
     @Column
     private Integer votes = 0;
+
+    // @Column  TODO might be needed
+    // private Float votesPercentage = 0.0f;
 }

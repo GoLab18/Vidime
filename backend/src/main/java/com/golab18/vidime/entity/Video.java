@@ -2,6 +2,8 @@ package com.golab18.vidime.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.Data;
@@ -20,6 +22,14 @@ public class Video {
     @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
+
+    @ManyToMany
+    @JoinTable(
+        name = "videos_tags",
+        joinColumns = @JoinColumn(name = "video_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    )
+    private List<Tag> tags;
 
     @Column(nullable = false)
     private String title;

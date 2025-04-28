@@ -13,8 +13,8 @@ public class Playlist {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "channel_id", referencedColumnName = "id")
+    private Channel channel;
 
     @Column(nullable = false)
     private String title;

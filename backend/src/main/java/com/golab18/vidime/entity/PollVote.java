@@ -17,8 +17,8 @@ public class PollVote {
     private Poll poll;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "voter_id", referencedColumnName = "id")
+    private Channel voter;
 
     @ManyToOne
     @JoinColumn(name = "option_id", referencedColumnName = "id")

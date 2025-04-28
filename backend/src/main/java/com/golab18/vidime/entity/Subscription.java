@@ -16,6 +16,10 @@ public class Subscription {
     @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
     private User subscriber;
 
+    @ManyToOne
+    @JoinColumn(name = "channel_id", referencedColumnName = "id")
+    private Channel channel;
+
     @Column(name = "subscribed_at")
     private Timestamp subscribedAt;
 }

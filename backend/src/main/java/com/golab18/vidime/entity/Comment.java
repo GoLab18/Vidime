@@ -14,8 +14,8 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "channel_id", referencedColumnName = "id")
+    private Channel channel;
 
     @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id") // TODO May be better to be just a video id annotated with @Column
