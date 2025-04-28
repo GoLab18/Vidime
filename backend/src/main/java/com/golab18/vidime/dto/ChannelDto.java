@@ -1,0 +1,13 @@
+package com.golab18.vidime.dto;
+
+import lombok.Data;
+
+@Data
+public class ChannelDto {
+    private Long id;
+    private String name;
+    private String picture;
+    private UserDto user;
+    private Integer videosAmount;
+    private Integer subscribersCount;
+}
