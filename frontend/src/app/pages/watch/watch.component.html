@@ -1,0 +1,62 @@
+<main id="main-content">
+  <div id="video-section">
+    <div id="video-player-container">
+      <video #videoPlayer>
+        <source [src]="videoUrl" type="video/mp4">
+      </video>
+      <div id="video-overlay" #videoOverlay tabindex="0">
+        <div id="video-timeline"></div>
+        <div id="video-controls">
+          <div id="state-button" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
+            <i class="material-icons">{{ controlIcon }}</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="video-info">
+      <div class="video-title">{{ videoTitle }}</div>
+      <div class="video-stats">{{ videoViews }} views • {{ videoDate }}</div>
+      <div class="video-description">{{ videoDescription }}</div>
+    </div>
+  </div>
+  <div id="info-panel" [class.collapsed]="infoCollapsed">
+    <button id="collapse-btn" (click)="toggleInfoPanel()">
+      <span *ngIf="infoCollapsed">Show Info</span>
+      <span *ngIf="!infoCollapsed">Hide Info</span>
+    </button>
+    <div *ngIf="!infoCollapsed">
+      <div class="video-title">{{ videoTitle }}</div>
+      <div class="video-stats">{{ videoViews }} views • {{ videoDate }}</div>
+      <div class="video-description">{{ videoDescription }}</div>
+      <div class="comments-section">
+        <div class="comments-title">Comments</div>
+        <div *ngFor="let comment of comments" class="comment">
+          <div class="comment-author">{{ comment.author }}</div>
+          <div class="comment-text">{{ comment.text }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="side-section">
+    <div class="related-carousel">
+      <div class="carousel-title">Related Videos</div>
+      <div class="carousel-list">
+        <div *ngFor="let related of relatedVideos" class="related-card" [ngClass]="{'loading': !related.thumbnailLoaded}">
+          <div class="image-container" [ngClass]="{'loading': !related.thumbnailLoaded}">
+            <div class="loading-placeholder"></div>
+            <img [src]="related.thumbnail" (load)="onImageLoad(related)"/>
+            <div class="duration">{{ related.duration }}</div>
+          </div>
+          <div class="related-info">
+            <div class="related-title">{{ related.title }}</div>
+            <div class="related-meta">
+              <span class="views">{{ related.views }} views</span>
+              <span class="added">• {{ related.added }}</span>
+            </div>
+            <div class="related-channel">{{ related.channel }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
