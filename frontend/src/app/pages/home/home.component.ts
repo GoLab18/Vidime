@@ -51,6 +51,104 @@ export class HomeComponent {
       timestamp: '1 week ago',
       duration: '15:20',
       tags: ['Cooking', 'Food']
+    },
+    {
+      id: 4,
+      thumbnail: 'https://picsum.photos/300/200?random=3',
+      title: 'Space Exploration: Mars Mission Update',
+      channel: {
+        name: 'SpaceX Live',
+        avatar: 'https://picsum.photos/50/50?random=3',
+        verified: true
+      },
+      views: '1.2M',
+      timestamp: '2 days ago',
+      duration: '12:30',
+      tags: ['Space', 'Science', 'Technology']
+    },
+    {
+      id: 5,
+      thumbnail: 'https://picsum.photos/300/200?random=4',
+      title: 'Street Food Around the World',
+      channel: {
+        name: 'FoodieLife',
+        avatar: 'https://picsum.photos/50/50?random=4',
+        verified: false
+      },
+      views: '456K',
+      timestamp: '3 days ago',
+      duration: '25:45',
+      tags: ['Food', 'Travel', 'Cooking']
+    },
+    {
+      id: 6,
+      thumbnail: 'https://picsum.photos/300/200?random=5',
+      title: 'AI and Machine Learning Basics',
+      channel: {
+        name: 'AI Academy',
+        avatar: 'https://picsum.photos/50/50?random=5',
+        verified: true
+      },
+      views: '890K',
+      timestamp: '1 week ago',
+      duration: '45:15',
+      tags: ['AI', 'Machine Learning', 'Programming']
+    },
+    {
+      id: 7,
+      thumbnail: 'https://picsum.photos/300/200?random=6',
+      title: 'Street Photography: Capturing Moments',
+      channel: {
+        name: 'PhotoVoyage',
+        avatar: 'https://picsum.photos/50/50?random=6',
+        verified: false
+      },
+      views: '321K',
+      timestamp: '4 days ago',
+      duration: '18:20',
+      tags: ['Photography', 'Street', 'Art']
+    },
+    {
+      id: 8,
+      thumbnail: 'https://picsum.photos/300/200?random=7',
+      title: 'Gaming News: Latest Releases',
+      channel: {
+        name: 'GameSpot',
+        avatar: 'https://picsum.photos/50/50?random=7',
+        verified: true
+      },
+      views: '1.5M',
+      timestamp: '1 day ago',
+      duration: '35:45',
+      tags: ['Gaming', 'News', 'Reviews']
+    },
+    {
+      id: 9,
+      thumbnail: 'https://picsum.photos/300/200?random=8',
+      title: 'Music Production: Beginner Guide',
+      channel: {
+        name: 'BeatLab',
+        avatar: 'https://picsum.photos/50/50?random=8',
+        verified: false
+      },
+      views: '678K',
+      timestamp: '3 hours ago',
+      duration: '15:30',
+      tags: ['Music', 'Production', 'Tutorial']
+    },
+    {
+      id: 10,
+      thumbnail: 'https://picsum.photos/300/200?random=9',
+      title: 'Fitness Challenge: 30 Day Plan',
+      channel: {
+        name: 'FitLife',
+        avatar: 'https://picsum.photos/50/50?random=9',
+        verified: true
+      },
+      views: '987K',
+      timestamp: '2 weeks ago',
+      duration: '22:15',
+      tags: ['Fitness', 'Workout', 'Health']
     }
   ];
 }

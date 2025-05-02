@@ -5,12 +5,11 @@
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: #1db954 #121212;
 }
 
 body {
   height: 100%;
   background-color: #121212;
   color: white;
-  background-attachment: fixed;
-  overflow: auto;
 }
