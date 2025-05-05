@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'watch',
+    path: 'watch/:videoUuid',
     component: WatchComponent
   },
   {
