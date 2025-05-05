@@ -2,7 +2,7 @@
   <div id="video-section">
     <div id="video-player-container">
       <video #videoPlayer>
-        <source [src]="videoUrl" type="video/mp4">
+        <source [src]="video.cdnUrl" type="video/mp4">
       </video>
       <div id="video-overlay" #videoOverlay tabindex="0">
         <div id="video-timeline"></div>
@@ -14,25 +14,91 @@
       </div>
     </div>
     <div id="video-info">
-      <div class="video-title">{{ videoTitle }}</div>
-      <div class="video-stats">{{ videoViews }} views • {{ videoDate }}</div>
-      <div class="video-description">{{ videoDescription }}</div>
+      <div class="video-info-base">
+        <div class="video-info-base-background"></div>
+        <div class="video-title">{{ video.title }}</div>
+        <div class="video-stats-container">
+          <div class="video-stats">{{ video.views }} views • {{ video.addedAt }}</div>
+          <div class="rating-container">
+            <span class="rating-label">Average Rating:</span>
+            <div class="rating-bar" [style.--rating-value]="video.averageRating / 5"></div>
+          </div>
+        </div>
+      </div>
+      <div class="channel-info">
+        <div class="channel-avatar">
+          <img [src]="channel.picture" [alt]="channel.name">
+        </div>
+        <div class="channel-details">
+          <div class="channel-name">
+            {{channel.name}}
+            <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+          </div>
+          <div class="channel-stats">
+            {{channel.subscribersCount}} subscribers • {{channel.videosAmount}} videos
+          </div>
+        </div>
+      </div>
+      <div class="video-description-container">
+        <div class="video-description">{{ video.description }}</div>
+      </div>
     </div>
   </div>
-  <div id="info-panel" [class.collapsed]="infoCollapsed">
-    <button id="collapse-btn" (click)="toggleInfoPanel()">
-      <span *ngIf="infoCollapsed">Show Info</span>
-      <span *ngIf="!infoCollapsed">Hide Info</span>
+  <div id="info-panel" [class.collapsed]="commentSectionCollapsed">
+    <button id="collapse-btn" (click)="toggleCommentSectionPanel()">
+      <span *ngIf="commentSectionCollapsed">Show Comments</span>
+      <span *ngIf="!commentSectionCollapsed">Hide Comments</span>
     </button>
-    <div *ngIf="!infoCollapsed">
-      <div class="video-title">{{ videoTitle }}</div>
-      <div class="video-stats">{{ videoViews }} views • {{ videoDate }}</div>
-      <div class="video-description">{{ videoDescription }}</div>
-      <div class="comments-section">
-        <div class="comments-title">Comments</div>
-        <div *ngFor="let comment of comments" class="comment">
-          <div class="comment-author">{{ comment.author }}</div>
-          <div class="comment-text">{{ comment.text }}</div>
+    <div *ngIf="!commentSectionCollapsed" class="comments-section">
+      <div class="comments-header">
+        <h3>{{ comments.length }} Comments</h3>
+        <div class="sort-options">
+          <button class="sort-button active">Newest</button>
+          <button class="sort-button">Top</button>
+        </div>
+      </div>
+      
+      <div class="comment-form">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="newComment.author" placeholder="Your name" class="author-input">
+        </div>
+        <div class="form-group">
+          <textarea [(ngModel)]="newComment.content" placeholder="Write a comment..." class="comment-input"></textarea>
+        </div>
+        <button (click)="addComment()" class="submit-button" [disabled]="!newComment.content.trim()">Post Comment</button>
+      </div>
+
+      <div class="comments-list">
+        <div *ngFor="let comment of comments" class="comment-item">
+          <div class="comment-header">
+            <div class="comment-author">
+              <span class="author-name">{{comment.author}}</span>
+              <span class="comment-timestamp">• {{comment.timestamp}}</span>
+            </div>
+            <div class="comment-actions">
+              <button class="action-button">
+                <i class="material-icons">thumb_up</i>
+                <span>{{comment.likes}}</span>
+              </button>
+              <button class="action-button">
+                <i class="material-icons">reply</i>
+              </button>
+            </div>
+          </div>
+          <div class="comment-content">
+            {{comment.content}}
+          </div>
+          <div class="replies" *ngIf="comment.replies.length > 0">
+            <div *ngFor="let reply of comment.replies" class="reply-item">
+              <div class="reply-header">
+                <span class="author-name">{{reply.author}}</span>
+                <span class="comment-timestamp">• {{reply.timestamp}}</span>
+              </div>
+              <div class="reply-content">
+                {{reply.content}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

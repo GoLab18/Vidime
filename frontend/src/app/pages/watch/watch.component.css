@@ -10,14 +10,14 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 12px;
-  gap: 12px;
+  border-right: 1px solid #1db954;
 }
 
 #video-player-container {
   position: relative;
   width: 100%;
   padding-top: 56.25%;
+  max-height: 1280px;
 }
 
 #video-player-container > video {
@@ -26,7 +26,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 #video-player-container > * {
@@ -82,7 +82,7 @@
   bottom: 0;
   width: 100%;
   aspect-ratio: 8 / 1;
-  z-index: 1;
+  z-index: -1;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
   pointer-events: none;
 }
@@ -272,21 +272,162 @@
   font-weight: 600;
 }
 
-#side-section::-webkit-scrollbar {
-  width: 6px;
+#collapse-btn {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  margin-bottom: 8px;
 }
 
-#side-section::-webkit-scrollbar-track {
-  background: #111;
+#video-info {
+  color: white;
+  position: relative;
+  max-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-#side-section::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 3px;
+.video-info-base {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 16px;
+  position: relative;
+  background: rgba(19, 128, 57, 0.1);
+  border-radius: 8px;
 }
 
-#side-section::-webkit-scrollbar-thumb:hover {
-  background: #666;
+.video-info-base-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #1db954;
+  border-left: none;
+  border-right: none;
+}
+
+.video-description-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-description {
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 16px 16px 16px;
+  height: 100%;
+}
+
+.channel-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 8px 8px 8px;
+}
+
+.video-info-first-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.video-stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.channel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #1db954;
+}
+
+.channel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.channel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.channel-stats {
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+.channel-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: #1db954;
+  gap: 4px;
+}
+
+.verified {
+  color: #1db954;
+  font-size: 16px;
+}
+
+.video-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.video-stats {
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rating-label {
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+.rating-bar {
+  position: relative;
+  width: 200px;
+  height: 12px;
+  background: #242424;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rating-bar {
+  --rating-value: 0;
+}
+
+.rating-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #1db954, #1ed760);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  width: calc(var(--rating-value) * 100%);
+  box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
 }
 
 #info-panel {
@@ -297,7 +438,7 @@
   background: rgba(24,24,24,0.98);
   border-radius: 22px;
   box-shadow: 0 -2px 18px rgba(0, 0, 0, 0.4);
-  padding: 24px 38px 18px 38px;
+  padding: 24px 12px 18px 12px;
   z-index: 20;
   max-width: 850px;
   margin: 0 auto;
@@ -313,11 +454,179 @@
   padding: 12px 38px 0px 38px;
 }
 
-#collapse-btn {
+.comments-section {
+  padding: 24px;
+}
+
+.comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.comments-header h3 {
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}
+
+.sort-options {
+  display: flex;
+  gap: 8px;
+}
+
+.sort-button {
   background: none;
-  color: #fff;
   border: none;
-  font-size: 1.05rem;
+  color: #a0a0a0;
+  font-size: 14px;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.sort-button.active {
+  color: #1db954;
+}
+
+.sort-button:hover {
+  color: #1db954;
+}
+
+.comment-form {
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.author-input {
+  width: 100%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background: #1db954;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submit-button:hover {
+  background: #1ed760;
+}
+
+.submit-button:disabled {
+  background: rgba(29, 185, 84, 0.5);
+  cursor: not-allowed;
+}
+
+.comment-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 8px;
+}
+
+.comment-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-name {
+  color: #1db954;
+  font-weight: 500;
+}
+
+.comment-timestamp {
+  color: #a0a0a0;
+  font-size: 12px;
+}
+
+.comment-content {
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  color: #a0a0a0;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.action-button:hover {
+  color: #1db954;
+}
+
+.replies {
+  margin-top: 16px;
+  padding-left: 24px;
+  border-left: 2px solid rgba(29, 185, 84, 0.2);
+}
+
+.reply-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.reply-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.reply-content {
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
 }
