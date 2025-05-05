@@ -343,6 +343,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .channel-avatar {
@@ -399,11 +400,6 @@
   gap: 8px;
 }
 
-.rating-label {
-  color: #a0a0a0;
-  font-size: 14px;
-}
-
 .rating-bar {
   position: relative;
   width: 200px;
@@ -428,6 +424,18 @@
   transition: width 0.3s ease;
   width: calc(var(--rating-value) * 100%);
   box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+}
+
+.rating-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 #info-panel {

@@ -19,9 +19,8 @@
         <div class="video-title">{{ video.title }}</div>
         <div class="video-stats-container">
           <div class="video-stats">{{ video.views }} views • {{ video.addedAt }}</div>
-          <div class="rating-container">
-            <span class="rating-label">Average Rating:</span>
-            <div class="rating-bar" [style.--rating-value]="video.averageRating / 5"></div>
+          <div class="rating-bar" [style.--rating-value]="video.averageRating / 5">
+            <span class="rating-value">{{ (video.averageRating / 5 * 100) | number:'1.0-0' }}%</span>
           </div>
         </div>
       </div>
