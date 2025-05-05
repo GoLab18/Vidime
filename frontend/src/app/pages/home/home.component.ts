@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,16 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(private router: Router) {}
+
+  navigateToVideo(videoUuid: string, id: number) {
+    this.router.navigate(['/watch', videoUuid], { state: { id } });
+  }
+
   videos = [
     {
       id: 1,
+      uuid: '123e4567-e89b-12d3-a456-426614174000',
       thumbnail: 'https://picsum.photos/300/200',
       title: 'Amazing Nature Documentary',
       channel: {
@@ -26,6 +34,7 @@ export class HomeComponent {
     },
     {
       id: 2,
+      uuid: '123e4567-e89b-12d3-a456-426614174001',
       thumbnail: 'https://picsum.photos/300/200?random=1',
       title: 'Tech Review: Latest Gadgets 2025',
       channel: {
@@ -40,6 +49,7 @@ export class HomeComponent {
     },
     {
       id: 3,
+      uuid: '123e4567-e89b-12d3-a456-426614174002',
       thumbnail: 'https://picsum.photos/300/200?random=2',
       title: 'Cooking Masterclass: Italian Cuisine',
       channel: {
@@ -54,6 +64,7 @@ export class HomeComponent {
     },
     {
       id: 4,
+      uuid: '123e4567-e89b-12d3-a456-426614174003',
       thumbnail: 'https://picsum.photos/300/200?random=3',
       title: 'Space Exploration: Mars Mission Update',
       channel: {
@@ -68,6 +79,7 @@ export class HomeComponent {
     },
     {
       id: 5,
+      uuid: '123e4567-e89b-12d3-a456-426614174004',
       thumbnail: 'https://picsum.photos/300/200?random=4',
       title: 'Street Food Around the World',
       channel: {
@@ -82,6 +94,7 @@ export class HomeComponent {
     },
     {
       id: 6,
+      uuid: '123e4567-e89b-12d3-a456-426614174005',
       thumbnail: 'https://picsum.photos/300/200?random=5',
       title: 'AI and Machine Learning Basics',
       channel: {
@@ -96,6 +109,7 @@ export class HomeComponent {
     },
     {
       id: 7,
+      uuid: '123e4567-e89b-12d3-a456-426614174006',
       thumbnail: 'https://picsum.photos/300/200?random=6',
       title: 'Street Photography: Capturing Moments',
       channel: {
@@ -110,6 +124,7 @@ export class HomeComponent {
     },
     {
       id: 8,
+      uuid: '123e4567-e89b-12d3-a456-426614174007',
       thumbnail: 'https://picsum.photos/300/200?random=7',
       title: 'Gaming News: Latest Releases',
       channel: {
@@ -124,6 +139,7 @@ export class HomeComponent {
     },
     {
       id: 9,
+      uuid: '123e4567-e89b-12d3-a456-426614174008',
       thumbnail: 'https://picsum.photos/300/200?random=8',
       title: 'Music Production: Beginner Guide',
       channel: {
@@ -138,6 +154,7 @@ export class HomeComponent {
     },
     {
       id: 10,
+      uuid: '123e4567-e89b-12d3-a456-426614174009',
       thumbnail: 'https://picsum.photos/300/200?random=9',
       title: 'Fitness Challenge: 30 Day Plan',
       channel: {

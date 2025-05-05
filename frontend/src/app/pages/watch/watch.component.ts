@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 enum VideoState {
   PLAYING,
@@ -7,17 +9,34 @@ enum VideoState {
   ENDED
 }
 
+interface Comment {
+  id: number;
+  content: string;
+  author: string;
+  timestamp: string;
+  likes: number;
+  replies: Comment[];
+}
+
 @Component({
   selector: 'app-watch',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './watch.component.html',
   styleUrls: ['./watch.component.css'],
 })
 export class WatchComponent implements AfterViewInit {
-  infoCollapsed: boolean = true;
+  commentSectionCollapsed: boolean = true;
   videoState: VideoState = VideoState.PAUSED;
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.video.uuid = this.route.snapshot.paramMap.get('uuid')!;
+    var navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.video.id = navigation.extras.state['id'];
+    }
+  }
 
   ngAfterViewInit() {
     this.videoOverlay.nativeElement.focus();
@@ -52,7 +71,7 @@ export class WatchComponent implements AfterViewInit {
     return {
       playing: this.videoState === VideoState.PLAYING,
       paused: this.videoState === VideoState.PAUSED,
-      ended: this.videoState === VideoState.ENDED
+      ended: this.videoState === VideoState.ENDED,
     };
   }
 
@@ -60,8 +79,8 @@ export class WatchComponent implements AfterViewInit {
     video.thumbnailLoaded = true;
   }
 
-  toggleInfoPanel() {
-    this.infoCollapsed = !this.infoCollapsed;
+  toggleCommentSectionPanel() {
+    this.commentSectionCollapsed = !this.commentSectionCollapsed;
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -70,32 +89,95 @@ export class WatchComponent implements AfterViewInit {
 
     switch (event.key) {
       case 'ArrowLeft':
+        event.preventDefault();
         this.videoPlayer.nativeElement.currentTime -= 10;
         break;
       case 'ArrowRight':
+        event.preventDefault();
         this.videoPlayer.nativeElement.currentTime += 10;
         break;
       case 'ArrowUp':
+        event.preventDefault();
         this.videoPlayer.nativeElement.volume += 0.1;
         break;
       case 'ArrowDown':
+        event.preventDefault();
         this.videoPlayer.nativeElement.volume -= 0.1;
         break;
       case 'm':
+        event.preventDefault();
         this.videoPlayer.nativeElement.muted = !this.videoPlayer.nativeElement.muted;
         break;
       case ' ':
+        event.preventDefault();
         this.handleVideoStateButton();
         break;
     }
   }
 
-  videoUrl: string = 'https://www.w3schools.com/html/mov_bbb.mp4';
-  videoThumbnailUrl: string = 'https://picsum.photos/1600/900';
-  videoTitle: string = 'A Unique Video Experience';
-  videoViews: number = 12054;
-  videoDate: string = '2025-04-28';
-  videoDescription: string = 'This is a demonstration of a unique, immersive watch page with live reactions, chapters, and a modern layout.';
+  video = {
+    id: 0,
+    uuid: '123e4567-e89b-12d3-a456-426614172137',
+    title: 'It was a good day',
+    description: 'It is my first ever video, enjoy! :)',
+    cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: 'https://picsum.photos/1600/900',
+    duration: 120,
+    views: 120,
+    ratings: 5,
+    avgRating: 4.5,
+    addedAt: '28-04-2025',
+    averageRating: 4.3,
+  }
+
+  channel = {
+    id: 0,
+    name: 'Random Nights',
+    picture: 'https://picsum.photos/50/50',
+    subscribersCount: 120,
+    videosAmount: 120,
+    verified: false
+  }
+
+  comments: Comment[] = [
+    {
+      id: 1,
+      content: 'Amazing video! The production quality is top-notch.',
+      author: 'TechFan',
+      timestamp: '2 hours ago',
+      likes: 123,
+      replies: []
+    },
+    {
+      id: 2,
+      content: 'I love the editing style. Very engaging!',
+      author: 'VideoEnthusiast',
+      timestamp: '3 hours ago',
+      likes: 85,
+      replies: []
+    }
+  ];
+
+  newComment = {
+    content: '',
+    author: 'Anonymous'
+  };
+
+  addComment() {
+    if (this.newComment.content.trim()) {
+      const newId = this.comments.length + 1;
+      const comment: Comment = {
+        id: newId,
+        content: this.newComment.content,
+        author: this.newComment.author,
+        timestamp: 'just now',
+        likes: 0,
+        replies: []
+      };
+      this.comments.unshift(comment);
+      this.newComment.content = '';
+    }
+  }
 
   relatedVideos: any[] = [
     {
@@ -190,7 +272,7 @@ export class WatchComponent implements AfterViewInit {
     }
   ];
 
-  comments = [
+  commentsList = [
     { author: 'Alice', text: 'Love this unique layout!' },
     { author: 'Bob', text: 'The reactions are so fun!' },
     { author: 'Charlie', text: 'Chapters make navigation easy.' }

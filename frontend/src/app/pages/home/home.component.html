@@ -24,8 +24,8 @@
   </div>
 
   <section class="video-grid">
-    <div class="video-card" *ngFor="let video of videos">
-      <div class="thumbnail-container">
+    <div class="video-card" *ngFor="let video of videos" tabindex="0">
+      <div class="thumbnail-container" (click)="navigateToVideo(video.uuid, video.id)">
         <img [src]="video.thumbnail" [alt]="video.title">
         <div class="duration">{{video.duration}}</div>
         <div class="video-tags">
