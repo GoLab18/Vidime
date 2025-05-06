@@ -44,6 +44,10 @@ export class WatchComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.videoOverlay.nativeElement.focus();
+
+    this.videoPlayer.nativeElement.addEventListener('ended', () => {
+      this.videoState = VideoState.ENDED;
+    });
   }
 
   handleVideoStateButton() {
@@ -57,8 +61,9 @@ export class WatchComponent implements AfterViewInit {
         this.videoPlayer.nativeElement.play();
         break;
       case VideoState.ENDED:
-        this.videoState = VideoState.PAUSED;
-        this.videoPlayer.nativeElement.pause();
+        this.videoPlayer.nativeElement.currentTime = 0;
+        this.videoState = VideoState.PLAYING;
+        this.videoPlayer.nativeElement.play();
         break;
     }
   }
@@ -97,11 +102,15 @@ export class WatchComponent implements AfterViewInit {
     switch (event.key) {
       case 'ArrowLeft':
         event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime -= 10;
+        this.videoPlayer.nativeElement.currentTime -= 5;
+        if (this.videoState !== VideoState.PLAYING) {
+          this.videoState = VideoState.PLAYING;
+          this.videoPlayer.nativeElement.play();
+        }
         break;
       case 'ArrowRight':
         event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime += 10;
+        this.videoPlayer.nativeElement.currentTime += 5;
         break;
       case 'ArrowUp':
         event.preventDefault();

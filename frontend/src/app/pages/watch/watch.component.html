@@ -44,10 +44,12 @@
     </div>
   </div>
   <div id="info-panel" [class.collapsed]="commentSectionCollapsed">
-    <button id="collapse-btn" (click)="toggleCommentSectionPanel()">
-      <span *ngIf="commentSectionCollapsed">Show Comments</span>
-      <span *ngIf="!commentSectionCollapsed">Hide Comments</span>
-    </button>
+    <div class="collapse-btn-wrapper">
+      <button id="collapse-btn" (click)="toggleCommentSectionPanel()">
+        <span *ngIf="commentSectionCollapsed">Show Comments</span>
+        <span *ngIf="!commentSectionCollapsed" class="hide-comments">Hide Comments</span>
+      </button>
+    </div>
     <div *ngIf="!commentSectionCollapsed" class="comments-section">
       <div class="comments-header">
         <h3>{{ comments.length }} Comments</h3>
@@ -108,7 +110,7 @@
       <div class="related-carousel">
         <div class="carousel-title">Related Videos</div>
         <div class="carousel-list">
-          <div *ngFor="let related of relatedVideos" class="related-card" [ngClass]="{'loading': !related.thumbnailLoaded}">
+          <div *ngFor="let related of relatedVideos" class="related-card" (click)="navigateToVideo(related.uuid, related.id)" [ngClass]="{'loading': !related.thumbnailLoaded}">
             <div class="image-container" [ngClass]="{'loading': !related.thumbnailLoaded}">
               <div class="loading-placeholder"></div>
               <img [src]="related.thumbnail" (load)="onImageLoad(related)"/>
