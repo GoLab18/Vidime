@@ -38,6 +38,10 @@ export class WatchComponent implements AfterViewInit {
     }
   }
 
+  navigateToVideo(videoUuid: string, id: number) {
+    this.router.navigate(['/watch', videoUuid], { state: { id } });
+  }
+
   ngAfterViewInit() {
     this.videoOverlay.nativeElement.focus();
   }
@@ -46,12 +50,15 @@ export class WatchComponent implements AfterViewInit {
     switch (this.videoState) {
       case VideoState.PLAYING:
         this.videoState = VideoState.PAUSED;
+        this.videoPlayer.nativeElement.pause();
         break;
       case VideoState.PAUSED:
         this.videoState = VideoState.PLAYING;
+        this.videoPlayer.nativeElement.play();
         break;
       case VideoState.ENDED:
         this.videoState = VideoState.PAUSED;
+        this.videoPlayer.nativeElement.pause();
         break;
     }
   }
@@ -181,6 +188,8 @@ export class WatchComponent implements AfterViewInit {
 
   relatedVideos: any[] = [
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174010',
+      id: 18,
       thumbnail: 'https://picsum.photos/1600/900?random=1',
       title: 'Next Up: Adventure',
       channel: 'Vidime Channel',
@@ -190,6 +199,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174011',
+      id: 19,
       thumbnail: 'https://picsum.photos/1600/900?random=2',
       title: 'Learning Angular 19 in 2025 - from beginner to master web designer - learn today',
       channel: 'CodeLab',
@@ -199,6 +210,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174012',
+      id: 20,
       thumbnail: 'https://picsum.photos/1600/900?random=3',
       title: 'Top 10 UI Trends',
       channel: 'DesignHub',
@@ -208,6 +221,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174013',
+      id: 21,
       thumbnail: 'https://picsum.photos/1600/900?random=4',
       title: 'React vs Vue: Which is Better?',
       channel: 'DevTalk',
@@ -217,6 +232,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174014',
+      id: 22,
       thumbnail: 'https://picsum.photos/1600/900?random=5',
       title: 'Modern CSS Techniques',
       channel: 'CSS Master',
@@ -226,6 +243,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174015',
+      id: 23,
       thumbnail: 'https://picsum.photos/1600/900?random=6',
       title: 'Node.js Best Practices',
       channel: 'Node Academy',
@@ -235,6 +254,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174016',
+      id: 24,
       thumbnail: 'https://picsum.photos/1600/900?random=7',
       title: 'Web Performance Optimization',
       channel: 'Performance Pro',
@@ -244,6 +265,8 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174017',
+      id: 25,
       thumbnail: 'https://picsum.photos/1600/900?random=8',
       title: 'TypeScript Fundamentals',
       channel: 'TypeScript Tutor',
@@ -253,21 +276,14 @@ export class WatchComponent implements AfterViewInit {
       thumbnailLoaded: false
     },
     {
+      uuid: '123e4567-e89b-12d3-a456-426614174018',
+      id: 26,
       thumbnail: 'https://picsum.photos/1600/900?random=9',
       title: 'Git for Beginners',
       channel: 'Git Guru',
       views: 34567,
       duration: '15:30',
       added: '2 months ago',
-      thumbnailLoaded: false
-    },
-    {
-      thumbnail: 'https://picsum.photos/1600/900?random=10',
-      title: 'Docker Containerization',
-      channel: 'Docker Expert',
-      views: 54321,
-      duration: '40:25',
-      added: '3 months ago',
       thumbnailLoaded: false
     }
   ];
