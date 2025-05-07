@@ -1,13 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-enum VideoState {
-  PLAYING,
-  PAUSED,
-  ENDED
-}
+import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 
 interface Comment {
   id: number;
@@ -20,15 +15,12 @@ interface Comment {
 
 @Component({
   selector: 'app-watch',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, VideoPlayerComponent],
   templateUrl: './watch.component.html',
   styleUrls: ['./watch.component.css'],
 })
-export class WatchComponent implements AfterViewInit {
+export class WatchComponent {
   commentSectionCollapsed: boolean = true;
-  videoState: VideoState = VideoState.PAUSED;
-  @ViewChild('videoOverlay') videoOverlay!: ElementRef;
-  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.video.uuid = this.route.snapshot.paramMap.get('uuid')!;
@@ -42,93 +34,12 @@ export class WatchComponent implements AfterViewInit {
     this.router.navigate(['/watch', videoUuid], { state: { id } });
   }
 
-  ngAfterViewInit() {
-    this.videoOverlay.nativeElement.focus();
-
-    this.videoPlayer.nativeElement.addEventListener('ended', () => {
-      this.videoState = VideoState.ENDED;
-    });
-  }
-
-  handleVideoStateButton() {
-    switch (this.videoState) {
-      case VideoState.PLAYING:
-        this.videoState = VideoState.PAUSED;
-        this.videoPlayer.nativeElement.pause();
-        break;
-      case VideoState.PAUSED:
-        this.videoState = VideoState.PLAYING;
-        this.videoPlayer.nativeElement.play();
-        break;
-      case VideoState.ENDED:
-        this.videoPlayer.nativeElement.currentTime = 0;
-        this.videoState = VideoState.PLAYING;
-        this.videoPlayer.nativeElement.play();
-        break;
-    }
-  }
-
-  get controlIcon(): string {
-    switch (this.videoState) {
-      case VideoState.PLAYING:
-        return 'pause';
-      case VideoState.ENDED:
-        return 'replay';
-      case VideoState.PAUSED:
-        return 'play_arrow';
-    }
-  }
-
-  setVideoStateClass() {
-    return {
-      playing: this.videoState === VideoState.PLAYING,
-      paused: this.videoState === VideoState.PAUSED,
-      ended: this.videoState === VideoState.ENDED,
-    };
-  }
-
   onImageLoad(video: any) {
     video.thumbnailLoaded = true;
   }
 
   toggleCommentSectionPanel() {
     this.commentSectionCollapsed = !this.commentSectionCollapsed;
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  handleKeyDownEvent(event: KeyboardEvent) {
-    if (document.activeElement !== this.videoOverlay.nativeElement) return;
-
-    switch (event.key) {
-      case 'ArrowLeft':
-        event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime -= 5;
-        if (this.videoState !== VideoState.PLAYING) {
-          this.videoState = VideoState.PLAYING;
-          this.videoPlayer.nativeElement.play();
-        }
-        break;
-      case 'ArrowRight':
-        event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime += 5;
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.videoPlayer.nativeElement.volume += 0.1;
-        break;
-      case 'ArrowDown':
-        event.preventDefault();
-        this.videoPlayer.nativeElement.volume -= 0.1;
-        break;
-      case 'm':
-        event.preventDefault();
-        this.videoPlayer.nativeElement.muted = !this.videoPlayer.nativeElement.muted;
-        break;
-      case ' ':
-        event.preventDefault();
-        this.handleVideoStateButton();
-        break;
-    }
   }
 
   video = {
