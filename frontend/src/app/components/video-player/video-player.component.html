@@ -1,0 +1,44 @@
+<div id="video-section">
+    <div id="video-player-container">
+      <video #videoPlayer>
+        <source [src]="video.cdnUrl" type="video/mp4">
+      </video>
+      <div id="video-overlay" #videoOverlay tabindex="0">
+        <div id="video-timeline"></div>
+        <div id="video-controls">
+          <div id="state-button" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
+            <i class="material-icons">{{ controlIcon }}</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="video-info">
+      <div class="video-info-base">
+        <div class="video-info-base-background"></div>
+        <div class="video-title">{{ video.title }}</div>
+        <div class="video-stats-container">
+          <div class="video-stats">{{ video.views }} views • {{ video.addedAt }}</div>
+          <div class="rating-bar" [style.--rating-value]="video.averageRating / 5">
+            <span class="rating-value">{{ (video.averageRating / 5 * 100) | number:'1.0-0' }}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="channel-info">
+        <div class="channel-avatar">
+          <img [src]="channel.picture" [alt]="channel.name">
+        </div>
+        <div class="channel-details">
+          <div class="channel-name">
+            {{channel.name}}
+            <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+          </div>
+          <div class="channel-stats">
+            {{channel.subscribersCount}} subscribers • {{channel.videosAmount}} videos
+          </div>
+        </div>
+      </div>
+      <div class="video-description-container">
+        <div class="video-description">{{ video.description }}</div>
+      </div>
+    </div>
+  </div>
