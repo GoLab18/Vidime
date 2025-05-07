@@ -68,7 +68,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20px;
+  padding: 8px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -87,6 +87,7 @@
 }
 
 #video-controls > div {
+  user-select: none;    /* TODO: add to anything besides text */
   display: inline-block;
   cursor: pointer;
   opacity: 1;
@@ -97,8 +98,12 @@
   color: #1db954;
 }
 
-#video-controls > div > i {
-  font-size: 2rem;
+#fullscreen-button > i, #state-button > i {
+  font-size: 32px;
+}
+
+#mini-player-button > i {
+  font-size: 28px;
 }
 
 #video-info {

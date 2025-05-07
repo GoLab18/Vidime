@@ -17,9 +17,13 @@ export class VideoPlayerComponent implements AfterViewInit {
   @Input() video: any;
   @Input() channel: any;
 
-  videoState: VideoState = VideoState.PAUSED;
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
+  @ViewChild('videoPlayerContainer') videoPlayerContainer!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+
+  videoState: VideoState = VideoState.PAUSED;
+  isFullscreen = false;
+  isMiniPlayer = false;
 
   ngAfterViewInit() {
     this.videoOverlay.nativeElement.focus();
@@ -66,11 +70,60 @@ export class VideoPlayerComponent implements AfterViewInit {
     };
   }
 
+  toggleFullscreen() {
+    if (this.isFullscreen) document.exitFullscreen();
+    else this.videoPlayerContainer.nativeElement.requestFullscreen();
+
+    this.isFullscreen = !this.isFullscreen;
+  }
+
+  toggleMiniPlayer() {
+    if (this.isMiniPlayer) this.videoPlayer.nativeElement.requestPictureInPicture();
+    else document.exitPictureInPicture();
+
+    this.isMiniPlayer = !this.isMiniPlayer;
+  }
+
+  handleTabSpaceInvoke(active: HTMLElement) {
+    switch (active.id) {
+      case 'state-button':
+        this.handleVideoStateButton();
+        break;
+      case 'mini-player-button':
+        this.toggleMiniPlayer();
+        break;
+      case 'fullscreen-button':
+        this.toggleFullscreen();
+        break;
+      default:
+        this.handleVideoStateButton();
+        break;
+    }
+  }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyDownEvent(event: KeyboardEvent) {
-    if (document.activeElement !== this.videoOverlay.nativeElement) return;
+    let active = document.activeElement as HTMLElement;
+  
+    if (!this.videoOverlay.nativeElement.contains(active)) return;
 
     switch (event.key) {
+      case ' ':
+        event.preventDefault();
+        this.handleTabSpaceInvoke(active);
+        break;
+      case 'i':
+        event.preventDefault();
+        this.toggleMiniPlayer();
+        break;
+      case 'f':
+        event.preventDefault();
+        this.toggleFullscreen();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        if (this.isFullscreen) this.toggleFullscreen();
+        break;
       case 'ArrowLeft':
         event.preventDefault();
         this.videoPlayer.nativeElement.currentTime -= 5;
@@ -85,19 +138,24 @@ export class VideoPlayerComponent implements AfterViewInit {
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this.videoPlayer.nativeElement.volume += 0.1;
+        this.videoPlayer.nativeElement.volume = Math.min(this.videoPlayer.nativeElement.volume + 0.1, 1);
         break;
       case 'ArrowDown':
         event.preventDefault();
-        this.videoPlayer.nativeElement.volume -= 0.1;
+        this.videoPlayer.nativeElement.volume = Math.max(this.videoPlayer.nativeElement.volume - 0.1, 0);
         break;
       case 'm':
         event.preventDefault();
         this.videoPlayer.nativeElement.muted = !this.videoPlayer.nativeElement.muted;
         break;
-      case ' ':
-        event.preventDefault();
-        this.handleVideoStateButton();
+    }
+  }
+
+  @HostListener('document:fullscreenchange', ['$event'])
+  handleFullscreenChange(event: KeyboardEvent) {
+    switch (event.type) {
+      case 'fullscreenchange':
+        this.isFullscreen = !!document.fullscreenElement;
         break;
     }
   }

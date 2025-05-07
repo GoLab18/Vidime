@@ -1,13 +1,19 @@
 <div id="video-section">
-    <div id="video-player-container">
+    <div id="video-player-container" #videoPlayerContainer>
       <video #videoPlayer>
         <source [src]="video.cdnUrl" type="video/mp4">
       </video>
       <div id="video-overlay" #videoOverlay tabindex="0">
         <div id="video-timeline"></div>
         <div id="video-controls">
-          <div id="state-button" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
+          <div id="state-button" tabindex="0" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
             <i class="material-icons">{{ controlIcon }}</i>
+          </div>
+          <div id="mini-player-button" tabindex="0" (click)="toggleMiniPlayer()">
+            <i class="material-icons">picture_in_picture</i>
+          </div>
+          <div id="fullscreen-button" tabindex="0" (click)="toggleFullscreen()">
+            <i class="material-icons">{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</i>
           </div>
         </div>
       </div>
