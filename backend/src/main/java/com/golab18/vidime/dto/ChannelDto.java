@@ -5,9 +5,11 @@ import lombok.Data;
 @Data
 public class ChannelDto {
     private Long id;
+    private String uuid;
     private String name;
     private String picture;
     private UserDto user;
     private Integer videosAmount;
     private Integer subscribersCount;
+    private String createdAt;
 }
