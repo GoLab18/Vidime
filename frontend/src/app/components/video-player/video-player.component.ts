@@ -20,10 +20,13 @@ export class VideoPlayerComponent implements AfterViewInit {
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
   @ViewChild('videoPlayerContainer') videoPlayerContainer!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+  @ViewChild('volumeSliderContainer') volumeSliderContainer!: ElementRef;
 
   videoState: VideoState = VideoState.PAUSED;
   isFullscreen = false;
   isMiniPlayer = false;
+  isMuted = false;
+  volume = 1;
 
   ngAfterViewInit() {
     this.videoOverlay.nativeElement.focus();
@@ -101,6 +104,42 @@ export class VideoPlayerComponent implements AfterViewInit {
     }
   }
 
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    this.videoPlayer.nativeElement.muted = this.isMuted;
+    
+    this.videoPlayer.nativeElement.volume = this.isMuted ? 0 : this.volume;
+  }
+
+  handleVolumeChange(event: Event) {
+    let target = event.target as HTMLInputElement;
+    let newVolume = parseFloat(target.value) / 100;
+    
+    this.isMuted
+      ? this.isMuted = false
+      : this.videoPlayer.nativeElement.muted = false;
+    
+    this.volume = newVolume;
+    this.videoPlayer.nativeElement.volume = newVolume;
+  }
+
+  handleArrowsVolumeChange(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        event.preventDefault();
+        this.videoPlayer.nativeElement.volume = Math.max(this.videoPlayer.nativeElement.volume - 0.05, 0);
+        this.volume = this.videoPlayer.nativeElement.volume;
+        break;
+      case 'ArrowRight':
+      case 'ArrowUp':
+        event.preventDefault();
+        this.videoPlayer.nativeElement.volume = Math.min(this.videoPlayer.nativeElement.volume + 0.05, 1);
+        this.volume = this.videoPlayer.nativeElement.volume;
+        break;
+    }
+  }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyDownEvent(event: KeyboardEvent) {
     let active = document.activeElement as HTMLElement;
@@ -126,27 +165,31 @@ export class VideoPlayerComponent implements AfterViewInit {
         break;
       case 'ArrowLeft':
         event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime -= 5;
-        if (this.videoState === VideoState.ENDED) {
-          this.videoState = VideoState.PLAYING;
-          this.videoPlayer.nativeElement.play();
+        if (this.volumeSliderContainer.nativeElement === active) this.handleArrowsVolumeChange(event);
+        else {
+          this.videoPlayer.nativeElement.currentTime -= 5;
+          if (this.videoState === VideoState.ENDED) {
+            this.videoState = VideoState.PLAYING;
+            this.videoPlayer.nativeElement.play();
+          }
         }
         break;
       case 'ArrowRight':
         event.preventDefault();
-        this.videoPlayer.nativeElement.currentTime += 5;
+        if (this.volumeSliderContainer.nativeElement === active) this.handleArrowsVolumeChange(event);
+        else this.videoPlayer.nativeElement.currentTime += 5;
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this.videoPlayer.nativeElement.volume = Math.min(this.videoPlayer.nativeElement.volume + 0.1, 1);
+        this.handleArrowsVolumeChange(event);
         break;
       case 'ArrowDown':
         event.preventDefault();
-        this.videoPlayer.nativeElement.volume = Math.max(this.videoPlayer.nativeElement.volume - 0.1, 0);
+        this.handleArrowsVolumeChange(event);
         break;
       case 'm':
         event.preventDefault();
-        this.videoPlayer.nativeElement.muted = !this.videoPlayer.nativeElement.muted;
+        this.toggleMute();
         break;
     }
   }
