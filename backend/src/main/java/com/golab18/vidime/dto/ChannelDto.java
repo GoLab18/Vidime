@@ -11,5 +11,6 @@ public class ChannelDto {
     private UserDto user;
     private Integer videosAmount;
     private Integer subscribersCount;
+    private Boolean verified;
     private String createdAt;
 }

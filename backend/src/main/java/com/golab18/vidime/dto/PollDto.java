@@ -9,5 +9,6 @@ public class PollDto {
     private Long videoId;
     private List<PollOptionDto> options;
     private String textHeader;
+    private Boolean isAnonymous;
     private String createdAt;
 }

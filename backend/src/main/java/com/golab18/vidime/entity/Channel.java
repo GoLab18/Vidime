@@ -33,6 +33,9 @@ public class Channel {
     @Column(name = "subscribers_count", nullable = false)
     private Integer subscribersCount = 0;
 
+    @Column(name = "verified")
+    private Boolean verified = false;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 }

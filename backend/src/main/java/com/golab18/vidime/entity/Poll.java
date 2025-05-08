@@ -25,7 +25,7 @@ public class Poll {
     private String textHeader;
 
     @Column(name = "is_anonymous", nullable = false)
-    private Boolean isAnonymous;
+    private Boolean isAnonymous = false;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
