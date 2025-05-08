@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class PlaylistDto {
     private Long id;
+    private String uuid;
     private ChannelDto channel;
     private String title;
     private String description;
