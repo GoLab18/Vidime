@@ -40,7 +40,7 @@ public class Video {
     @Column(name = "cdn_url", nullable = false)
     private String cdnUrl;
 
-    @Column(name = "thumbnail_url")
+    @Column(name = "thumbnail_url", nullable = false)
     private String thumbnailUrl;
 
     @Column(nullable = false)
