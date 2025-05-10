@@ -1,0 +1,33 @@
+<div class="video-card" tabindex="0" (click)="navigateToVideo(video.id, video.uuid)">
+  <div class="thumbnail-container" [class.loading]="!thumbnailLoaded">
+    <div class="loading-placeholder"></div>
+    <img [src]="video.thumbnailUrl" (load)="onImageLoad()"/>
+    <div class="duration">{{video.duration}}</div>
+    <div class="video-tags">
+      @for (tag of video.tags; track tag.id) {
+        <span class="tag">{{tag.name}}</span>
+      }
+    </div>
+  </div>
+  <div class="video-info">
+    <div class="channel-info">
+      <div class="channel-avatar">
+        <img [src]="video.channel.picture" [alt]="video.channel.name">
+      </div>
+      <div class="channel-details">
+        <div class="channel-name">
+          {{video.channel.name}}
+          <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
+        </div>
+      </div>
+    </div>
+    <h3 class="video-title">{{video.title}}</h3>
+    <div class="video-stats">
+      <div class="stats-primary">
+        <span>{{video.views | formatViews}} views</span>
+        <span class="dot">•</span>
+        <span>{{video.addedAt | formatDate}}</span>
+      </div>
+    </div>
+  </div>
+</div>

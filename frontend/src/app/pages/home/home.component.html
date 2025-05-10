@@ -24,35 +24,8 @@
   </div>
 
   <section class="video-grid">
-    <div class="video-card" *ngFor="let video of videos" tabindex="0">
-      <div class="thumbnail-container" (click)="navigateToVideo(video.uuid, video.id)">
-        <img [src]="video.thumbnail" [alt]="video.title">
-        <div class="duration">{{video.duration}}</div>
-        <div class="video-tags">
-          <span class="tag" *ngFor="let tag of video.tags">{{tag}}</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="channel-info">
-          <div class="channel-avatar">
-            <img [src]="video.channel.avatar" [alt]="video.channel.name">
-          </div>
-          <div class="channel-details">
-            <div class="channel-name">
-              {{video.channel.name}}
-              <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
-            </div>
-          </div>
-        </div>
-        <h3 class="video-title">{{video.title}}</h3>
-        <div class="video-stats">
-          <div class="stats-primary">
-            <span>{{video.views}} views</span>
-            <span class="dot">•</span>
-            <span>{{video.timestamp}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    @for (video of videos; track video.id) {
+      <app-home-video [video]="video"></app-home-video>
+    }
   </section>
 </main>
