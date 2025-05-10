@@ -1,0 +1,28 @@
+<div id="channel-header">
+  <div id="channel-content">
+    <div id="description-container">
+      <span>Description</span>
+      <div id="channel-description">
+        <p>{{ channel.description }}</p>
+      </div>
+    </div>
+    <div id="channel-avatar-name">
+      <div id="channel-avatar">
+        <img [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+      </div>
+      <div class="channel-name">
+        {{ channel.name }}
+        <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+      </div>
+    </div>
+    <div id="channel-utils">
+      <div id="channel-actions">
+        <button id="subscribe-button">Sub</button>
+      </div>
+      <div id="channel-stats">
+        <span>{{ channel.videosAmount }} videos</span>
+        <span>{{ channel.subscribersCount }} subs</span>
+      </div>
+    </div>
+  </div>
+</div>

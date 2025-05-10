@@ -1,0 +1,111 @@
+#channel-header {
+  position: relative;
+  padding: 24px;
+  height: 200px;
+}
+
+#channel-content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+}
+
+#channel-content > * {
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+#description-container {
+  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#description-container > span {
+  font-weight: 600;
+  color: #1db954;
+}
+
+#channel-description {
+  flex: 1;
+  min-width: 0;
+}
+
+.channel-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #1db954;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.channel-name p {
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#channel-avatar-name {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#channel-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #1db954;
+}
+
+#avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#channel-stats {
+  display: flex;
+  gap: 16px;
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+#channel-stats span {
+  white-space: nowrap;
+}
+
+#channel-actions {
+  margin-top: 8px;
+}
+
+#subscribe-button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#subscribe-button:hover {
+  background-color: #159d43;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.verified {
+  font-size: 16px;
+  color: #1db954;
+}
