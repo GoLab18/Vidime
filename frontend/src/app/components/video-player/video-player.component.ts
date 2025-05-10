@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Video } from '../../models/video.model';
+import { FormatViewsPipe } from '../../pipes/format-views.pipe';
+import { FormatDatePipe } from '../../pipes/format-date.pipe';
+import { VideoService } from '../../services/video.service';
 
 enum VideoState {
   PLAYING,
@@ -11,16 +15,18 @@ enum VideoState {
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css',
-  imports: [CommonModule]
+  imports: [CommonModule, FormatViewsPipe, FormatDatePipe]
 })
-export class VideoPlayerComponent implements AfterViewInit {
-  @Input() video: any;
-  @Input() channel: any;
+export class VideoPlayerComponent implements OnInit, OnChanges {
+  @Input({required: true}) videoId!: number;
 
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
   @ViewChild('videoPlayerContainer') videoPlayerContainer!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('volumeSliderContainer') volumeSliderContainer!: ElementRef;
+
+  video: Video | undefined;
+  isLoading = true;
 
   videoState: VideoState = VideoState.PAUSED;
   isFullscreen = false;
@@ -28,12 +34,32 @@ export class VideoPlayerComponent implements AfterViewInit {
   isMuted = false;
   volume = 1;
 
-  ngAfterViewInit() {
-    this.videoOverlay.nativeElement.focus();
+  constructor(private videoService: VideoService) {}
 
-    this.videoPlayer.nativeElement.addEventListener('ended', () => {
-      this.videoState = VideoState.ENDED;
+  ngOnInit() {
+    this.loadVideo();
+  }
+
+  loadVideo() {
+    this.isLoading = true;
+
+    this.videoService.getVideo(this.videoId).subscribe((video) => {
+      this.video = video;
+      this.isLoading = false;
+
+      setTimeout(() => {
+        this.videoOverlay?.nativeElement?.focus();
+        this.videoPlayer.nativeElement.addEventListener('ended', () => {
+          this.videoState = VideoState.ENDED;
+        });
+      });
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['videoId']) {
+      this.loadVideo();
+    }
   }
 
   handleVideoStateButton() {

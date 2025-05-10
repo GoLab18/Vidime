@@ -1,74 +1,74 @@
 <div id="video-section">
-    <div id="video-player-container" #videoPlayerContainer>
-      <video #videoPlayer>
-        <source [src]="video.cdnUrl" type="video/mp4">
-      </video>
-      <div id="video-overlay" #videoOverlay tabindex="0">
-        <div id="video-timeline"></div>
-        <div id="video-controls">
-          <div id="left-video-controls">
-            <div id="volume-controls">
-              <div id="volume-button" tabindex="0" (click)="toggleMute()">
-                <i class="material-icons">{{ isMuted ? 'volume_off' : 'volume_up' }}</i>
-              </div>
-              <div id="volume-slider-container" tabindex="0" #volumeSliderContainer>
-                <input
-                  tabindex="-1"
-                  type="range"
-                  id="volume-slider"
-                  min="0"
-                  max="100"
-                  step="1"
-                  [value]="volume * 100"
-                  (input)="handleVolumeChange($event)"
-                  (change)="handleVolumeChange($event)"
-                />
-              </div>
+  <div id="video-player-container" *ngIf="!isLoading && video" #videoPlayerContainer>
+    <video #videoPlayer>
+      <source [src]="video.cdnUrl" type="video/mp4">
+    </video>
+    <div id="video-overlay" #videoOverlay tabindex="0">
+      <div id="video-timeline"></div>
+      <div id="video-controls">
+        <div id="left-video-controls">
+          <div id="volume-controls">
+            <div id="volume-button" tabindex="0" (click)="toggleMute()">
+              <i class="material-icons">{{ isMuted ? 'volume_off' : 'volume_up' }}</i>
             </div>
-          </div>
-          <div id="middle-video-controls">
-            <div id="state-button" tabindex="0" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
-              <i class="material-icons">{{ controlIcon }}</i>
-            </div>
-          </div>
-          <div id="right-video-controls">
-            <div id="mini-player-button" tabindex="0" (click)="toggleMiniPlayer()">
-              <i class="material-icons">picture_in_picture</i>
-            </div>
-            <div id="fullscreen-button" tabindex="0" (click)="toggleFullscreen()">
-              <i class="material-icons">{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</i>
+            <div id="volume-slider-container" tabindex="0" #volumeSliderContainer>
+              <input
+                tabindex="-1"
+                type="range"
+                id="volume-slider"
+                min="0"
+                max="100"
+                step="1"
+                [value]="volume * 100"
+                (input)="handleVolumeChange($event)"
+                (change)="handleVolumeChange($event)"
+              />
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div id="video-info">
-      <div class="video-info-base">
-        <div class="video-info-base-background"></div>
-        <div class="video-title">{{ video.title }}</div>
-        <div class="video-stats-container">
-          <div class="video-stats">{{ video.views }} views • {{ video.addedAt }}</div>
-          <div class="rating-bar" [style.--rating-value]="video.averageRating / 5">
-            <span class="rating-value">{{ (video.averageRating / 5 * 100) | number:'1.0-0' }}%</span>
+        <div id="middle-video-controls">
+          <div id="state-button" tabindex="0" (click)="handleVideoStateButton()" [ngClass]="setVideoStateClass()">
+            <i class="material-icons">{{ controlIcon }}</i>
           </div>
         </div>
-      </div>
-      <div class="channel-info">
-        <div class="channel-avatar">
-          <img [src]="channel.picture" [alt]="channel.name">
-        </div>
-        <div class="channel-details">
-          <div class="channel-name">
-            {{channel.name}}
-            <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+        <div id="right-video-controls">
+          <div id="mini-player-button" tabindex="0" (click)="toggleMiniPlayer()">
+            <i class="material-icons">picture_in_picture</i>
           </div>
-          <div class="channel-stats">
-            {{channel.subscribersCount}} subscribers • {{channel.videosAmount}} videos
+          <div id="fullscreen-button" tabindex="0" (click)="toggleFullscreen()">
+            <i class="material-icons">{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</i>
           </div>
         </div>
-      </div>
-      <div class="video-description-container">
-        <div class="video-description">{{ video.description }}</div>
       </div>
     </div>
   </div>
+  <div id="video-info" *ngIf="!isLoading && video">
+    <div class="video-info-base">
+      <div class="video-info-base-background"></div>
+      <div class="video-title">{{ video.title }}</div>
+      <div class="video-stats-container">
+        <div class="video-stats">{{ video.views | formatViews }} views • {{ video.addedAt | formatDate }}</div>
+        <div class="rating-bar" [style.--rating-value]="video.avgRating / 5">
+          <span class="rating-value">{{ (video.avgRating / 5 * 100) | number:'1.0-0' }}%</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-info">
+      <div class="channel-avatar">
+        <img [src]="video.channel.picture" [alt]="video.channel.name">
+      </div>
+      <div class="channel-details">
+        <div class="channel-name">
+          {{video.channel.name}}
+          <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
+        </div>
+        <div class="channel-stats">
+          {{video.channel.subscribersCount}} subscribers • {{video.channel.videosAmount}} videos
+        </div>
+      </div>
+    </div>
+    <div class="video-description-container">
+      <div class="video-description">{{ video.description }}</div>
+    </div>
+  </div>
+</div>
