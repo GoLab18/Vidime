@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.video-card:hover {
+.video-card:hover, .video-card:focus-within {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 16px rgba(29, 185, 84, 0.2);
 }
@@ -52,7 +52,7 @@
   z-index: 2;
 }
 
-.video-card:hover .thumbnail-container img {
+.video-card:hover .thumbnail-container img, .video-card:focus-within .thumbnail-container img {
   transform: scale(1.05);
 }
 

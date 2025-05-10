@@ -166,7 +166,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     }
   }
 
-  @HostListener('document:keydown', ['$event'])
+  @HostListener('keydown', ['$event'])
   handleKeyDownEvent(event: KeyboardEvent) {
     let active = document.activeElement as HTMLElement;
   
