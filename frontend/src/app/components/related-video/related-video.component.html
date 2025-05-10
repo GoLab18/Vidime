@@ -1,0 +1,15 @@
+<div class="related-card" (click)="navigateToVideo(video.id, video.uuid)">
+    <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}">
+        <div class="loading-placeholder"></div>
+        <img [src]="video.thumbnailUrl" (load)="onImageLoad()"/>
+        <div class="duration">{{ video.duration }}</div>
+    </div>
+    <div class="related-info">
+        <div class="related-title">{{ video.title }}</div>
+        <div class="related-meta">
+            <span class="views">{{ video.views | formatViews }}</span>
+            <span class="addedAt">• {{ video.addedAt | formatDate }}</span>
+        </div>
+        <div class="related-channel">{{ video.channel.name }}</div>
+    </div>
+</div>

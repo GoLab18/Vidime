@@ -1,5 +1,5 @@
 <main id="main-content">
-  <app-video-player [video]="video" [channel]="channel"></app-video-player>
+  <app-video-player [videoId]="videoId"></app-video-player>
   
   <div id="info-panel" [class.collapsed]="commentSectionCollapsed">
     <div class="collapse-btn-wrapper">
@@ -28,61 +28,54 @@
       </div>
 
       <div class="comments-list">
-        <div *ngFor="let comment of comments" class="comment-item">
-          <div class="comment-header">
-            <div class="comment-author">
-              <span class="author-name">{{comment.author}}</span>
-              <span class="comment-timestamp">• {{comment.timestamp}}</span>
-            </div>
-            <div class="comment-actions">
-              <button class="action-button">
-                <i class="material-icons">thumb_up</i>
-                <span>{{comment.likes}}</span>
-              </button>
-              <button class="action-button">
-                <i class="material-icons">reply</i>
-              </button>
-            </div>
-          </div>
-          <div class="comment-content">
-            {{comment.content}}
-          </div>
-          <div class="replies" *ngIf="comment.replies.length > 0">
-            <div *ngFor="let reply of comment.replies" class="reply-item">
-              <div class="reply-header">
-                <span class="author-name">{{reply.author}}</span>
-                <span class="comment-timestamp">• {{reply.timestamp}}</span>
+        @for (comment of comments; track comment.id) {
+          <div class="comment-item">
+            <div class="comment-header">
+              <div class="comment-author">
+                <span class="author-name">{{comment.author}}</span>
+                <span class="comment-timestamp">• {{comment.timestamp}}</span>
               </div>
-              <div class="reply-content">
-                {{reply.content}}
+              <div class="comment-actions">
+                <button class="action-button">
+                  <i class="material-icons">thumb_up</i>
+                  <span>{{comment.likes}}</span>
+                </button>
+                <button class="action-button">
+                  <i class="material-icons">reply</i>
+                </button>
               </div>
             </div>
+            <div class="comment-content">
+              {{comment.content}}
+            </div>
+            <div class="replies" *ngIf="comment.replies.length > 0">
+              @for (reply of comment.replies; track reply.id) {
+                <div class="reply-item">
+                  <div class="reply-header">
+                    <span class="author-name">{{reply.author}}</span>
+                    <span class="comment-timestamp">• {{reply.timestamp}}</span>
+                  </div>
+                  <div class="reply-content">
+                    {{reply.content}}
+                  </div>
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   </div>
+
   <div class="side-section-overlay">
     <div #sideSection id="side-section">
       <div class="carousel-overlay"></div>
       <div class="related-carousel">
         <div class="carousel-title">Related Videos</div>
         <div class="carousel-list">
-          <div *ngFor="let related of relatedVideos" class="related-card" (click)="navigateToVideo(related.uuid, related.id)" [ngClass]="{'loading': !related.thumbnailLoaded}">
-            <div class="image-container" [ngClass]="{'loading': !related.thumbnailLoaded}">
-              <div class="loading-placeholder"></div>
-              <img [src]="related.thumbnail" (load)="onImageLoad(related)"/>
-              <div class="duration">{{ related.duration }}</div>
-            </div>
-            <div class="related-info">
-              <div class="related-title">{{ related.title }}</div>
-              <div class="related-meta">
-                <span class="views">{{ related.views }} views</span>
-                <span class="added">• {{ related.added }}</span>
-              </div>
-              <div class="related-channel">{{ related.channel }}</div>
-            </div>
-          </div>
+          @for (related of relatedVideos; track related.id) {
+            <app-related-video [video]="related"></app-related-video>
+          }
         </div>
       </div>
     </div>
