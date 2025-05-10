@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { WatchComponent } from './pages/watch/watch.component';
+import { ChannelComponent } from './pages/channel/channel.component';
+import { AccountComponent } from './pages/account/account.component';
 
 export const routes: Routes = [
   {
@@ -8,8 +10,16 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'watch/:videoUuid',
+    path: 'watch',
     component: WatchComponent
+  },
+  {
+    path: 'channel',
+    component: ChannelComponent
+  },
+  {
+    path: 'account',
+    component: AccountComponent
   },
   {
     path: 'trending',
