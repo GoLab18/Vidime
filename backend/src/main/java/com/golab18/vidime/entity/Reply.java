@@ -7,8 +7,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "replies")
+public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +18,8 @@ public class Comment {
     private Channel channel;
 
     @ManyToOne
-    @JoinColumn(name = "video_id", referencedColumnName = "id")
-    private Video video;
+    @JoinColumn(name = "parent_comment_id", referencedColumnName = "id", nullable = false)
+    private Comment parentComment;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;

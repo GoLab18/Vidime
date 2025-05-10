@@ -8,6 +8,7 @@ public class ChannelDto {
     private String uuid;
     private String name;
     private String picture;
+    private String description;
     private UserDto user;
     private Integer videosAmount;
     private Integer subscribersCount;

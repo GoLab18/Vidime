@@ -23,6 +23,9 @@ public class Channel {
     @Column
     private String picture;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
