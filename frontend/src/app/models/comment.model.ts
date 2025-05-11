@@ -6,5 +6,17 @@ export interface Comment {
   channel: Channel;
   video: Video;
   content: string;
+  likes: number;
+  dislikes: number;
+  createdAt: string;
+}
+
+export interface Reply {
+  id: number;
+  channel: Channel;
+  parentComment: Comment;
+  likes: number;
+  dislikes: number;
+  content: string;
   createdAt: string;
 }
