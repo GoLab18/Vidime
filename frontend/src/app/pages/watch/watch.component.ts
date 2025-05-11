@@ -5,29 +5,28 @@ import { ActivatedRoute } from '@angular/router';
 import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 import { RelatedVideoComponent } from '../../components/related-video/related-video.component';
 import { VideoService } from '../../services/video.service';
+import { CommentService } from '../../services/comment.service';
 import { Video } from '../../models/video.model';
-
-interface Comment {
-  id: number;
-  content: string;
-  author: string;
-  timestamp: string;
-  likes: number;
-  replies: Comment[];
-}
+import { Channel } from '../../models/channel.model';
+import { Comment } from '../../models/comment.model';
+import { CommentRepliesComponent } from '../../components/comment-replies/comment-replies.component';
+import { FormatDatePipe } from '../../pipes/format-date.pipe';
 
 @Component({
   selector: 'app-watch',
-  imports: [CommonModule, FormsModule, VideoPlayerComponent, RelatedVideoComponent],
+  imports: [CommonModule, FormsModule, VideoPlayerComponent, RelatedVideoComponent, CommentRepliesComponent, FormatDatePipe],
   templateUrl: './watch.component.html',
   styleUrl: './watch.component.css'
 })
 export class WatchComponent implements OnInit {
-  commentSectionCollapsed: boolean = true;
   videoId!: number;
   relatedVideos: Video[] = [];
+  comments: Comment[] = [];
 
-  constructor(private route: ActivatedRoute, private videoService: VideoService) {}
+  commentSectionCollapsed: boolean = true;
+  videoCommentsLoaded: boolean = false;
+
+  constructor(private route: ActivatedRoute, private videoService: VideoService, private commentService: CommentService) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
@@ -38,6 +37,13 @@ export class WatchComponent implements OnInit {
 
   toggleCommentSectionPanel() {
     this.commentSectionCollapsed = !this.commentSectionCollapsed;
+
+    if (!this.commentSectionCollapsed && !this.videoCommentsLoaded) {
+      this.commentService.getVideoComments(this.videoId).subscribe((comments) => {
+        this.comments = comments;
+        this.videoCommentsLoaded = true;
+      });
+    }
   }
 
   fetchRelatedVideos() {
@@ -46,58 +52,27 @@ export class WatchComponent implements OnInit {
     });
   }
 
-  comments: Comment[] = [
-    {
-      id: 1,
-      content: 'Amazing video! The production quality is top-notch.',
-      author: 'TechFan',
-      timestamp: '2 hours ago',
-      likes: 123,
-      replies: []
-    },
-    {
-      id: 2,
-      content: 'I love the editing style. Very engaging!',
-      author: 'VideoEnthusiast',
-      timestamp: '3 hours ago',
-      likes: 85,
-      replies: [
-        {
-          id: 1,
-          content: 'Amazing video! The production quality is top-notch.',
-          author: 'TechFan',
-          timestamp: '2 hours ago',
-          likes: 123,
-          replies: []
-        }
-      ]
-    }
-  ];
-
-  newComment = {
-    content: '',
-    author: 'Anonymous'
+  mockChannel: Channel = {
+    id: 134,
+    uuid: '123e4567-e89b-12d3-a456-426614174999',
+    name: 'Hitachi',
+    picture: 'https://picsum.photos/1600/900',
+    description: 'Hi, welcome :)',
+    userId: 1,
+    videosAmount: 21,
+    subscribersCount: 1577,
+    verified: true,
+    createdAt: new Date().toISOString()
   };
 
+  newCommentContent = '';
+
   addComment() {
-    if (this.newComment.content.trim()) {
-      const newId = this.comments.length + 1;
-      const comment: Comment = {
-        id: newId,
-        content: this.newComment.content,
-        author: this.newComment.author,
-        timestamp: 'just now',
-        likes: 0,
-        replies: []
-      };
-      this.comments.unshift(comment);
-      this.newComment.content = '';
+    if (this.newCommentContent.trim()) {
+      this.commentService.addComment(this.videoId, this.newCommentContent).subscribe((comment) => {
+        this.comments.unshift(comment);
+        this.newCommentContent = '';
+      });
     }
   }
-
-  commentsList = [
-    { author: 'Alice', text: 'Love this unique layout!' },
-    { author: 'Bob', text: 'The reactions are so fun!' },
-    { author: 'Charlie', text: 'Chapters make navigation easy.' }
-  ];
 }

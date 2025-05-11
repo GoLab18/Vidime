@@ -9,36 +9,51 @@
       </button>
     </div>
     <div *ngIf="!commentSectionCollapsed" class="comments-section">
-      <div class="comments-header">
+      <div class="comment-form">
+        <div class="form-group new-comment-info">
+          <div class="channel-avatar">
+            <img [src]="mockChannel.picture" [alt]="mockChannel.name">
+          </div>
+          <div class="channel-name">
+            {{ mockChannel.name }}
+            <i class="material-icons verified" *ngIf="mockChannel.verified">verified</i>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea [(ngModel)]="newCommentContent" placeholder="Write a comment..." class="comment-input"></textarea>
+        </div>
+        <button (click)="addComment()" class="submit-button" [disabled]="!newCommentContent.trim() || !videoCommentsLoaded">Post Comment</button>
+      </div>
+
+      <div class="comments-header" *ngIf="videoCommentsLoaded">
         <h3>{{ comments.length }} Comments</h3>
         <div class="sort-options">
           <button class="sort-button active">Newest</button>
           <button class="sort-button">Top</button>
         </div>
       </div>
-      
-      <div class="comment-form">
-        <div class="form-group">
-          <input type="text" [(ngModel)]="newComment.author" placeholder="Your name" class="author-input">
-        </div>
-        <div class="form-group">
-          <textarea [(ngModel)]="newComment.content" placeholder="Write a comment..." class="comment-input"></textarea>
-        </div>
-        <button (click)="addComment()" class="submit-button" [disabled]="!newComment.content.trim()">Post Comment</button>
-      </div>
 
-      <div class="comments-list">
+      <div class="comments-list" *ngIf="videoCommentsLoaded">
         @for (comment of comments; track comment.id) {
           <div class="comment-item">
             <div class="comment-header">
               <div class="comment-author">
-                <span class="author-name">{{comment.author}}</span>
-                <span class="comment-timestamp">• {{comment.timestamp}}</span>
+                <div class="channel-avatar">
+                  <img [src]="comment.channel.picture" [alt]="comment.channel.name">
+                </div>
+                <span class="author-name">{{ comment.channel.name }}</span>
+                <i class="material-icons verified" *ngIf="comment.channel.verified">verified</i>
+                <span class="comment-timestamp">•</span>
+                <span class="comment-timestamp">{{ comment.createdAt | formatDate }}</span>
               </div>
               <div class="comment-actions">
                 <button class="action-button">
                   <i class="material-icons">thumb_up</i>
-                  <span>{{comment.likes}}</span>
+                  <span>{{ comment.likes }}</span>
+                </button>
+                <button class="action-button">
+                  <i class="material-icons">thumb_down</i>
+                  <span>{{ comment.dislikes }}</span>
                 </button>
                 <button class="action-button">
                   <i class="material-icons">reply</i>
@@ -46,21 +61,9 @@
               </div>
             </div>
             <div class="comment-content">
-              {{comment.content}}
+              {{ comment.content }}
             </div>
-            <div class="replies" *ngIf="comment.replies.length > 0">
-              @for (reply of comment.replies; track reply.id) {
-                <div class="reply-item">
-                  <div class="reply-header">
-                    <span class="author-name">{{reply.author}}</span>
-                    <span class="comment-timestamp">• {{reply.timestamp}}</span>
-                  </div>
-                  <div class="reply-content">
-                    {{reply.content}}
-                  </div>
-                </div>
-              }
-            </div>
+            <app-comment-replies [commentId]="comment.id" [repliesAmount]="comment.repliesAmount"></app-comment-replies>
           </div>
         }
       </div>
