@@ -21,6 +21,12 @@ public class Reply {
     @JoinColumn(name = "parent_comment_id", referencedColumnName = "id", nullable = false)
     private Comment parentComment;
 
+    @Column
+    private Integer likes = 0;
+
+    @Column
+    private Integer dislikes = 0;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 

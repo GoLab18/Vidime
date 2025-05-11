@@ -21,6 +21,12 @@ public class Comment {
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video video;
 
+    @Column
+    private Integer likes = 0;
+
+    @Column
+    private Integer dislikes = 0;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 

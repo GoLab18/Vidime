@@ -9,6 +9,8 @@ public class ReplyDto {
  private Long id;   
  private ChannelDto channel;
  private CommentDto parentComment;
+ private Integer likes;
+ private Integer dislikes;
  private String content;
  private String createdAt;
 }
