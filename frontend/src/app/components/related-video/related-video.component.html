@@ -1,7 +1,7 @@
 <div class="related-card" (click)="navigateToVideo(video.id, video.uuid)">
     <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}">
         <div class="loading-placeholder"></div>
-        <img [src]="video.thumbnailUrl" (load)="onImageLoad()"/>
+        <img [src]="video.thumbnailUrl" (load)="onImageLoad()">
         <div class="duration">{{ video.duration | formatDuration }}</div>
     </div>
     <div class="related-info">
