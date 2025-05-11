@@ -1,0 +1,37 @@
+<div class="replies-container">
+  <div class="replies-expander" (click)="toggleReplies()">
+    <div class="neon-line">
+      <span class="replies-count">{{ repliesAmount }} {{ repliesAmount === 1 ? 'reply' : 'replies' }}</span>
+    </div>
+  </div>
+  <div class="replies" *ngIf="isExpanded && repliesAmount > 0">
+    @for (reply of replies; track reply.id) {
+      <div class="reply-item">
+        <div class="comment-header">
+          <div class="comment-author">
+            <div class="channel-avatar">
+              <img [src]="reply.channel.picture" [alt]="reply.channel.name">
+            </div>
+            <span class="author-name">{{ reply.channel.name }}</span>
+            <i class="material-icons verified" *ngIf="reply.channel.verified">verified</i>
+            <span class="comment-timestamp">•</span>
+            <span class="comment-timestamp">{{ reply.createdAt }}</span>
+          </div>
+          <div class="comment-actions">
+            <button class="action-button">
+              <i class="material-icons">thumb_up</i>
+              <span>{{ reply.likes }}</span>
+            </button>
+            <button class="action-button">
+              <i class="material-icons">thumb_down</i>
+              <span>{{ reply.dislikes }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="comment-content">
+          {{ reply.content }}
+        </div>
+      </div>
+    }
+  </div>
+</div>
