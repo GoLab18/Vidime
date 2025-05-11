@@ -2,12 +2,13 @@ import { Component, HostListener, Input } from '@angular/core';
 import { Video } from '../../models/video.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormatViewsPipe } from '../../pipes/format-views.pipe';
+import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
+import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 
 @Component({
   selector: 'app-home-video',
-  imports: [CommonModule, FormatViewsPipe, FormatDatePipe],
+  imports: [CommonModule, FormatNumberPipe, FormatDatePipe, FormatDurationPipe],
   templateUrl: './home-video.component.html',
   styleUrl: './home-video.component.css'
 })

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, ViewChild, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Video } from '../../models/video.model';
-import { FormatViewsPipe } from '../../pipes/format-views.pipe';
+import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { VideoService } from '../../services/video.service';
 
@@ -15,7 +15,7 @@ enum VideoState {
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css',
-  imports: [CommonModule, FormatViewsPipe, FormatDatePipe]
+  imports: [CommonModule, FormatNumberPipe, FormatDatePipe]
 })
 export class VideoPlayerComponent implements OnInit, OnChanges {
   @Input({required: true}) videoId!: number;

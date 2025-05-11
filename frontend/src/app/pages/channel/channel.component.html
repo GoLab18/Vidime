@@ -20,8 +20,8 @@
         <button id="subscribe-button">Sub</button>
       </div>
       <div id="channel-stats">
-        <span>{{ channel.videosAmount }} videos</span>
-        <span>{{ channel.subscribersCount }} subs</span>
+        <span>{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
+        <span>{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
       </div>
     </div>
   </div>

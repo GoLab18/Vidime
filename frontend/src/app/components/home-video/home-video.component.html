@@ -2,10 +2,10 @@
   <div class="thumbnail-container" [class.loading]="!thumbnailLoaded">
     <div class="loading-placeholder"></div>
     <img [src]="video.thumbnailUrl" (load)="onImageLoad()"/>
-    <div class="duration">{{video.duration}}</div>
+    <div class="duration">{{ video.duration | formatDuration }}</div>
     <div class="video-tags">
       @for (tag of video.tags; track tag.id) {
-        <span class="tag">{{tag.name}}</span>
+        <span class="tag">{{ tag.name }}</span>
       }
     </div>
   </div>
@@ -16,17 +16,17 @@
       </div>
       <div class="channel-details">
         <div class="channel-name">
-          {{video.channel.name}}
+          {{ video.channel.name }}
           <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
         </div>
       </div>
     </div>
-    <h3 class="video-title">{{video.title}}</h3>
+    <h3 class="video-title">{{ video.title }}</h3>
     <div class="video-stats">
       <div class="stats-primary">
-        <span>{{video.views | formatViews}} views</span>
+        <span>{{ video.views | formatNumber:'view':'views' }}</span>
         <span class="dot">•</span>
-        <span>{{video.addedAt | formatDate}}</span>
+        <span>{{ video.addedAt | formatDate }}</span>
       </div>
     </div>
   </div>

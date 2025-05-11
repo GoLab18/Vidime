@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Video } from '../../models/video.model';
 import { Router } from '@angular/router';
-import { FormatViewsPipe } from '../../pipes/format-views.pipe';
+import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { CommonModule } from '@angular/common';
+import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 
 @Component({
   selector: 'app-related-video',
-  imports: [CommonModule, FormatViewsPipe, FormatDatePipe],
+  imports: [CommonModule, FormatNumberPipe, FormatDatePipe, FormatDurationPipe],
   templateUrl: './related-video.component.html',
   styleUrl: './related-video.component.css'
 })

@@ -266,7 +266,7 @@ export class VideoService {
       description: 'Explore the latest in solar energy technology.',
       cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=8',
-      duration: 650,
+      duration: 57,
       views: 485000,
       ratings: 2300,
       avgRating: 4.4,
