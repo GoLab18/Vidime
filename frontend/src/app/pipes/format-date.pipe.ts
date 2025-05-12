@@ -12,7 +12,7 @@ export class FormatDatePipe implements PipeTransform {
 
     switch (true) {
       case diff < 60:
-        return 'Just now';
+        return 'just now';
       case diff < 3600:
         let minutes = Math.floor(diff / 60);
         return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
