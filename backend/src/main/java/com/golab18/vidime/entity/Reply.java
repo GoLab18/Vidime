@@ -31,5 +31,5 @@ public class Reply {
     private String content;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

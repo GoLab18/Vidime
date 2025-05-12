@@ -21,5 +21,5 @@ public class Subscription {
     private Channel channel;
 
     @Column(nullable = false)
-    private Timestamp subscribedAt;
+    private Timestamp subscribedAt = new Timestamp(System.currentTimeMillis());
 }

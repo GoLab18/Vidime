@@ -24,5 +24,5 @@ public class Rating {
     private Integer level;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

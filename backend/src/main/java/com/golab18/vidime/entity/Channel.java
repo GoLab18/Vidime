@@ -40,5 +40,5 @@ public class Channel {
     private Boolean verified = false;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

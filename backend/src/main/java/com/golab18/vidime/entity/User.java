@@ -19,5 +19,5 @@ public class User {
     private String passwordHash;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

@@ -30,5 +30,5 @@ public class Playlist {
     private Boolean isPublic = true;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

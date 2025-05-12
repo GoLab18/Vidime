@@ -34,5 +34,5 @@ public class Comment {
     private Integer repliesAmount = 0;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

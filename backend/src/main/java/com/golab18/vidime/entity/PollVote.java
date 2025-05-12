@@ -25,5 +25,5 @@ public class PollVote {
     private PollOption option;
 
     @Column(nullable = false)
-    private Timestamp votedAt;
+    private Timestamp votedAt = new Timestamp(System.currentTimeMillis());
 }

@@ -28,5 +28,5 @@ public class Poll {
     private Boolean isAnonymous = false;
 
     @Column(nullable = false)
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

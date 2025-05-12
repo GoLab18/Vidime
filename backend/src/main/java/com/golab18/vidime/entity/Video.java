@@ -56,5 +56,5 @@ public class Video {
     private Float avgRating = 0f;
 
     @Column(nullable = false)
-    private Timestamp addedAt;
+    private Timestamp addedAt = new Timestamp(System.currentTimeMillis());
 }
