@@ -1,54 +1,116 @@
-#channel-header {
-  position: relative;
+#main-content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background: #121212;
+}
+
+#main-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#channel-side-section {
+  position: sticky;
+  right: 0;
+  overflow-y: scroll;
+  max-width: 400px;
+  min-width: 400px;
+  background: #121212;
   padding: 24px;
-  height: 200px;
+  overflow-x: hidden;
+  top: 56px;
+  height: calc(100vh - 56px);
+  scrollbar-width: none;
+  border-left: 1px solid #1db954;
 }
 
 #channel-content {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  height: 100%; 
-}
-
-#channel-content > * {
-  justify-self: stretch;
-  align-self: stretch;
-}
-
-#description-container {
-  justify-self: start;
-  display: flex;
-  flex-direction: column;
   gap: 8px;
 }
 
-#description-container > span {
+#description-container {
+  border-bottom: 1px solid #1db954;
+}
+
+#description-container, #links-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  gap: 8px;
+}
+
+#description-container > span, #links-container > span {
   font-weight: 600;
+  font-size: 20px;
   color: #1db954;
 }
 
-#channel-description {
-  flex: 1;
-  min-width: 0;
+#channel-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-link {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  padding: 8px 8px 8px 0;
+}
+
+.link-wrapper {
+  position: relative;
+}
+
+.link-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #1db954;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.1s ease-in-out;
+}
+
+.link-wrapper > a {
+  text-decoration: none;
+  color: #1db954;
+}
+
+.link-wrapper:hover::after, .link-wrapper:focus-within::after {
+  transform: scaleX(1);
+}
+
+
+.arrow-fwd {
+  margin-inline: 8px;
+  font-size: 12px;
+}
+
+.channel-description > p {
+  line-height: 1.2;
+}
+
+.divider {
+  min-height: 1px;
+  max-height: 1px;
+  width: 100%;
+  background-color: #1db954;
 }
 
 .channel-name {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   color: #1db954;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.channel-name p {
-  margin: 0;
-  color: #a0a0a0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 #channel-avatar-name {
@@ -57,6 +119,14 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+}
+
+#channel-utils {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 
 #channel-avatar {
@@ -75,7 +145,7 @@
 
 #channel-stats {
   display: flex;
-  gap: 16px;
+  gap: 8px;
   color: #a0a0a0;
   font-size: 14px;
 }
@@ -84,25 +154,43 @@
   white-space: nowrap;
 }
 
-#channel-actions {
-  margin-top: 8px;
-}
-
-#subscribe-button {
+#action-button {
   background-color: #1db954;
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
 }
 
-#subscribe-button:hover {
+#action-button:hover {
   background-color: #159d43;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#channel-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+#action-button > span {
+  color: white;
+  font-size: 14px;
+}
+
+#action-button > i {
+  font-size: 12px;
+  margin-left: 4px;
 }
 
 .verified {

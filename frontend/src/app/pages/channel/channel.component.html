@@ -1,28 +1,59 @@
-<div id="channel-header">
-  <div id="channel-content">
-    <div id="description-container">
-      <span>Description</span>
-      <div id="channel-description">
-        <p *ngIf="channel">{{ channel.description }}</p>
+<main id="main-content">
+  <div id="main-section">
+
+  </div>
+
+  <div id="channel-side-section">
+    <div id="channel-content">
+      <div id="channel-avatar-name">
+        <div id="channel-avatar">
+          <img *ngIf="channel" [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+        </div>
+        <div class="channel-name" *ngIf="channel">
+          {{ channel.name }}
+          <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+        </div>
       </div>
-    </div>
-    <div id="channel-avatar-name">
-      <div id="channel-avatar">
-        <img *ngIf="channel" [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+      <div id="channel-utils">
+        <div id="channel-stats">
+          <span *ngIf="channel">Joined {{ channel.createdAt | formatDate }}</span>
+          <span>•</span>
+          <span *ngIf="channel">{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
+          <span>•</span>
+          <span *ngIf="channel">{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
+        </div>
+        <div id="channel-actions">
+          <button id="action-button">
+            <span>Sub</span>
+          </button>
+          <button id="action-button">
+            <span>Share</span>
+            <i class="material-icons">share</i>
+          </button>
+        </div>
       </div>
-      <div class="channel-name" *ngIf="channel">
-        {{ channel.name }}
-        <i class="material-icons verified" *ngIf="channel.verified">verified</i>
+      <div id="description-container">
+        <div class="divider"></div>
+        <span>Description</span>
+        <div id="channel-description">
+          <p *ngIf="channel">{{ channel.description }}</p>
+        </div>
+        <div class="divider"></div>
       </div>
-    </div>
-    <div id="channel-utils">
-      <div id="channel-actions">
-        <button id="subscribe-button">Sub</button>
-      </div>
-      <div id="channel-stats">
-        <span *ngIf="channel">{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
-        <span *ngIf="channel">{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
+      <div id="links-container">
+        <span>Links</span>
+        <div id="channel-links">
+          @for (link of links; track link.id) {
+            <div class="channel-link">
+              <span>{{ link.title }}</span>
+              <i class="material-icons arrow-fwd">arrow_forward</i>
+              <div class="link-wrapper">
+                <a [href]="link.url" target="_blank">{{ link.url }}</a>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </div>
   </div>
-</div>
+</main>
