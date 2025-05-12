@@ -24,6 +24,6 @@ public class PollVote {
     @JoinColumn(name = "option_id", referencedColumnName = "id")
     private PollOption option;
 
-    @Column(name = "voted_at")
+    @Column(nullable = false)
     private Timestamp votedAt;
 }

@@ -8,5 +8,4 @@ public class PollOptionDto {
     private Long pollId;
     private String optionText;
     private Integer votes;
-    // private Float votesPercentage; TODO (?)
 }

@@ -23,6 +23,6 @@ public class Rating {
     @Column(nullable = false)
     private Integer level;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Timestamp createdAt;
 }

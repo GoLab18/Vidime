@@ -34,27 +34,27 @@ public class Video {
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "cdn_url", nullable = false)
+    @Column(nullable = false)
     private String cdnUrl;
 
-    @Column(name = "thumbnail_url", nullable = false)
+    @Column(nullable = false)
     private String thumbnailUrl;
 
     @Column(nullable = false)
     private Integer duration;
 
-    @Column
+    @Column(nullable = false)
     private Integer views = 0;
 
-    @Column
+    @Column(nullable = false)
     private Integer ratings = 0;
 
-    @Column(name = "avg_rating")
+    @Column(nullable = false)
     private Float avgRating = 0f;
 
-    @Column(name = "added_at")
+    @Column(nullable = false)
     private Timestamp addedAt;
 }

@@ -23,12 +23,12 @@ public class Playlist {
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "is_public")
+    @Column(nullable = false)
     private Boolean isPublic = true;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Timestamp createdAt;
 }

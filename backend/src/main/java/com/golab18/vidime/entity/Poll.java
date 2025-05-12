@@ -21,12 +21,12 @@ public class Poll {
     @OneToMany(mappedBy = "poll", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<PollOption> options;
 
-    @Column(name = "text_header", nullable = false)
+    @Column(nullable = false)
     private String textHeader;
 
-    @Column(name = "is_anonymous", nullable = false)
+    @Column(nullable = false)
     private Boolean isAnonymous = false;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Timestamp createdAt;
 }

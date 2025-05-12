@@ -21,15 +21,15 @@ public class Reply {
     @JoinColumn(name = "parent_comment_id", referencedColumnName = "id", nullable = false)
     private Comment parentComment;
 
-    @Column
+    @Column(nullable = false)
     private Integer likes = 0;
 
-    @Column
+    @Column(nullable = false)
     private Integer dislikes = 0;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Timestamp createdAt;
 }

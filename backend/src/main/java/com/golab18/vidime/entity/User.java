@@ -15,9 +15,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password_hash", nullable = false, length = 60)
+    @Column(nullable = false, length = 60)
     private String passwordHash;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt;    // TODO set defaults for Timestamp objects
+    @Column(nullable = false)
+    private Timestamp createdAt;
 }

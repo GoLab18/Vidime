@@ -30,15 +30,15 @@ public class Channel {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "videos_amount", nullable = false)
+    @Column(nullable = false)
     private Integer videosAmount = 0;
 
-    @Column(name = "subscribers_count", nullable = false)
+    @Column(nullable = false)
     private Integer subscribersCount = 0;
 
-    @Column(name = "verified")
+    @Column(nullable = false)
     private Boolean verified = false;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Timestamp createdAt;
 }

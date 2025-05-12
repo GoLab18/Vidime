@@ -20,6 +20,6 @@ public class Subscription {
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
 
-    @Column(name = "subscribed_at")
+    @Column(nullable = false)
     private Timestamp subscribedAt;
 }

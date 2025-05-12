@@ -5,19 +5,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "poll_options")
-public class PollOption {
+@Table(name = "channel_links")
+public class ChannelLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "poll_id", referencedColumnName = "id")
-    private Poll poll;
+    @Column(nullable = false)
+    private Long channelId;
 
     @Column(nullable = false)
-    private String optionText;
+    private String title;
 
     @Column(nullable = false)
-    private Integer votes = 0;
+    private String url;
+
+    @Column(nullable = false, unique = true)
+    private Integer position;
 }
