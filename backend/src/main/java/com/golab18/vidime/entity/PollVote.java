@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "poll_votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "poll_id"})})
+@Table(name = "poll_votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"voter_id", "poll_id"})})
 public class PollVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

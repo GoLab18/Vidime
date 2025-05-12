@@ -7,9 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "saved_playlists", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"channel_id", "playlist_id"})
-})
+@Table(name = "saved_playlists", uniqueConstraints = {@UniqueConstraint(columnNames = {"saver_id", "playlist_id"})})
 public class SavedPlaylist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +17,7 @@ public class SavedPlaylist {
     private Long saverId; // Has a foreign key to the channel in the db for integrity
 
     @ManyToOne
-    @JoinColumn(name = "playlist_id")
+    @JoinColumn(name = "playlist_id", referencedColumnName = "id")
     private Playlist playlist;
 
     @Column(nullable = false)
