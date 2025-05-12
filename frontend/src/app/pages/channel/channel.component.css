@@ -83,7 +83,7 @@
   color: #1db954;
 }
 
-.link-wrapper:hover::after, .link-wrapper:focus-within::after {
+.link-wrapper:hover::after {
   transform: scaleX(1);
 }
 
