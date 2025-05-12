@@ -17,3 +17,10 @@ export interface PlaylistVideo {
   playlist: Playlist;
   position: number;
 }
+
+export interface SavedPlaylist {
+  id: number;
+  saverId: number;
+  playlist: Playlist;
+  savedAt: string;
+}
