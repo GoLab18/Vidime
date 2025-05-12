@@ -8,6 +8,18 @@
   scrollbar-color: #1db954 #121212;
 }
 
+.material-icons {
+  user-select: none;
+}
+
+img {
+  user-select: none;
+}
+
+.dot {
+  user-select: none;
+}
+
 body {
   height: 100%;
   background-color: #121212;
