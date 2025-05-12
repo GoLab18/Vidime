@@ -112,7 +112,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   }
 
   toggleMiniPlayer() {
-    if (this.isMiniPlayer) this.videoPlayer.nativeElement.requestPictureInPicture();
+    if (!this.isMiniPlayer) this.videoPlayer.nativeElement.requestPictureInPicture();
     else document.exitPictureInPicture();
 
     this.isMiniPlayer = !this.isMiniPlayer;
