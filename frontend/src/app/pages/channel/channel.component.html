@@ -17,9 +17,9 @@
       <div id="channel-utils">
         <div id="channel-stats">
           <span *ngIf="channel">Joined {{ channel.createdAt | formatDate }}</span>
-          <span>•</span>
+          <span class="dot">•</span>
           <span *ngIf="channel">{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
-          <span>•</span>
+          <span class="dot">•</span>
           <span *ngIf="channel">{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
         </div>
         <div id="channel-actions">
@@ -36,7 +36,7 @@
         <div class="divider"></div>
         <span>Description</span>
         <div id="channel-description">
-          <p *ngIf="channel">{{ channel.description }}</p>
+          <p class="description-text" *ngIf="channel">{{ channel.description }}</p>
         </div>
         <div class="divider"></div>
       </div>

@@ -47,7 +47,7 @@
       <div class="video-info-base-background"></div>
       <div class="video-title">{{ video.title }}</div>
       <div class="video-stats-container">
-        <div class="video-stats">{{ video.views | formatNumber:'view':'views' }} • {{ video.addedAt | formatDate }}</div>
+        <div class="video-stats">{{ video.views | formatNumber:'view':'views' }} <span class="dot">•</span> {{ video.addedAt | formatDate }}</div>
         <div class="rating-bar" [style.--rating-value]="video.avgRating / 5">
           <span class="rating-value">{{ (video.avgRating / 5 * 100) | number:'1.0-0' }}%</span>
         </div>
@@ -63,7 +63,7 @@
           <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
         </div>
         <div class="channel-stats">
-          {{ video.channel.subscribersCount | formatNumber:'sub':'subs' }} • {{ video.channel.videosAmount | formatNumber:'video':'videos' }}
+          {{ video.channel.subscribersCount | formatNumber:'sub':'subs' }} <span class="dot">•</span> {{ video.channel.videosAmount | formatNumber:'video':'videos' }}
         </div>
       </div>
     </div>

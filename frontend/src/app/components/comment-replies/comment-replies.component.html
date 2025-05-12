@@ -14,7 +14,7 @@
             </div>
             <span class="author-name channel-redirect" (click)="navigateToChannel(reply.channel.id, reply.channel.uuid)">{{ reply.channel.name }}</span>
             <i class="material-icons verified" *ngIf="reply.channel.verified">verified</i>
-            <span class="comment-timestamp">•</span>
+            <span class="comment-timestamp dot">•</span>
             <span class="comment-timestamp">{{ reply.createdAt | formatDate }}</span>
           </div>
           <div class="comment-actions">
