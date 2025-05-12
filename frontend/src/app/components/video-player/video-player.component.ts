@@ -4,6 +4,7 @@ import { Video } from '../../models/video.model';
 import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { VideoService } from '../../services/video.service';
+import { Router } from '@angular/router';
 
 enum VideoState {
   PLAYING,
@@ -34,7 +35,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   isMuted = false;
   volume = 1;
 
-  constructor(private videoService: VideoService) {}
+  constructor(private videoService: VideoService, private router: Router) {}
 
   ngOnInit() {
     this.loadVideo();
@@ -60,6 +61,10 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     if (changes['videoId']) {
       this.loadVideo();
     }
+  }
+
+  navigateToChannel(channelId: number, channelUuid: string) {
+    this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
   }
 
   handleVideoStateButton() {

@@ -297,3 +297,7 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
+.channel-redirect {
+  cursor: pointer;
+}

@@ -3,14 +3,14 @@
     <div id="description-container">
       <span>Description</span>
       <div id="channel-description">
-        <p>{{ channel.description }}</p>
+        <p *ngIf="channel">{{ channel.description }}</p>
       </div>
     </div>
     <div id="channel-avatar-name">
       <div id="channel-avatar">
-        <img [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+        <img *ngIf="channel" [src]="channel.picture" [alt]="channel.name" id="avatar-image">
       </div>
-      <div class="channel-name">
+      <div class="channel-name" *ngIf="channel">
         {{ channel.name }}
         <i class="material-icons verified" *ngIf="channel.verified">verified</i>
       </div>
@@ -20,8 +20,8 @@
         <button id="subscribe-button">Sub</button>
       </div>
       <div id="channel-stats">
-        <span>{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
-        <span>{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
+        <span *ngIf="channel">{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
+        <span *ngIf="channel">{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
       </div>
     </div>
   </div>

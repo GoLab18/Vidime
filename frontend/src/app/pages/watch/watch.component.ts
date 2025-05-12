@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 import { RelatedVideoComponent } from '../../components/related-video/related-video.component';
 import { VideoService } from '../../services/video.service';
@@ -26,7 +26,7 @@ export class WatchComponent implements OnInit {
   commentSectionCollapsed: boolean = true;
   videoCommentsLoaded: boolean = false;
 
-  constructor(private route: ActivatedRoute, private videoService: VideoService, private commentService: CommentService) {}
+  constructor(private route: ActivatedRoute, private videoService: VideoService, private commentService: CommentService, private router: Router) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
@@ -50,6 +50,10 @@ export class WatchComponent implements OnInit {
     this.videoService.getRelatedVideos(this.videoId).subscribe((videos) => {
       this.relatedVideos = videos;
     });
+  }
+
+  navigateToChannel(channelId: number, channelUuid: string) {
+    this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
   }
 
   mockChannel: Channel = {

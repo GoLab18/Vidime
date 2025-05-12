@@ -142,3 +142,7 @@
 .replies-count:hover {
   background: rgba(20, 20, 20, 1);
 }
+
+.channel-redirect {
+  cursor: pointer;
+}

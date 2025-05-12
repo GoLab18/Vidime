@@ -176,6 +176,7 @@
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #1db954;
+  cursor: pointer;
 }
 
 .channel-avatar img {
@@ -308,4 +309,8 @@
 
 .action-button > .material-icons {
   font-size: 20px;
+}
+
+.channel-redirect {
+  cursor: pointer;
 }

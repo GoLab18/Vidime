@@ -11,11 +11,11 @@
     <div *ngIf="!commentSectionCollapsed" class="comments-section">
       <div class="comment-form">
         <div class="form-group new-comment-info">
-          <div class="channel-avatar">
+          <div class="channel-avatar channel-redirect" (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">
             <img [src]="mockChannel.picture" [alt]="mockChannel.name">
           </div>
-          <div class="channel-name">
-            {{ mockChannel.name }}
+          <div class="channel-name channel-redirect">
+            <span (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">{{ mockChannel.name }}</span>
             <i class="material-icons verified" *ngIf="mockChannel.verified">verified</i>
           </div>
         </div>
@@ -38,10 +38,10 @@
           <div class="comment-item">
             <div class="comment-header">
               <div class="comment-author">
-                <div class="channel-avatar">
+                <div class="channel-avatar channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">
                   <img [src]="comment.channel.picture" [alt]="comment.channel.name">
                 </div>
-                <span class="author-name">{{ comment.channel.name }}</span>
+                <span class="author-name channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">{{ comment.channel.name }}</span>
                 <i class="material-icons verified" *ngIf="comment.channel.verified">verified</i>
                 <span class="comment-timestamp">•</span>
                 <span class="comment-timestamp">{{ comment.createdAt | formatDate }}</span>

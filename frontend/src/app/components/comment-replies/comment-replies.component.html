@@ -9,13 +9,13 @@
       <div class="reply-item">
         <div class="comment-header">
           <div class="comment-author">
-            <div class="channel-avatar">
+            <div class="channel-avatar channel-redirect" (click)="navigateToChannel(reply.channel.id, reply.channel.uuid)">
               <img [src]="reply.channel.picture" [alt]="reply.channel.name">
             </div>
-            <span class="author-name">{{ reply.channel.name }}</span>
+            <span class="author-name channel-redirect" (click)="navigateToChannel(reply.channel.id, reply.channel.uuid)">{{ reply.channel.name }}</span>
             <i class="material-icons verified" *ngIf="reply.channel.verified">verified</i>
             <span class="comment-timestamp">•</span>
-            <span class="comment-timestamp">{{ reply.createdAt }}</span>
+            <span class="comment-timestamp">{{ reply.createdAt | formatDate }}</span>
           </div>
           <div class="comment-actions">
             <button class="action-button">
