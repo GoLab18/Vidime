@@ -11,6 +11,7 @@ public class PlaylistDto {
     private ChannelDto channel;
     private String title;
     private String description;
+    private String thumbnailUrl;
     private Boolean isPublic;
     private Integer videoCount;
     private String createdAt;

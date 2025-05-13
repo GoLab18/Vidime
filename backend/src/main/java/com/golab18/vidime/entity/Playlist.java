@@ -27,6 +27,9 @@ public class Playlist {
     private String description;
 
     @Column(nullable = false)
+    private String thumbnailUrl;
+
+    @Column(nullable = false)
     private Boolean isPublic = true;
 
     @Column(nullable = false)
