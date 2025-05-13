@@ -30,5 +30,8 @@ public class Playlist {
     private Boolean isPublic = true;
 
     @Column(nullable = false)
+    private Integer videoCount = 0;
+
+    @Column(nullable = false)
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 }

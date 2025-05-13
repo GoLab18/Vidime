@@ -12,5 +12,6 @@ public class PlaylistDto {
     private String title;
     private String description;
     private Boolean isPublic;
+    private Integer videoCount;
     private String createdAt;
 }
