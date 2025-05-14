@@ -8,7 +8,78 @@
 #main-section {
   display: flex;
   flex-direction: column;
+  width: calc(100% - 400px);
+  height: 100%;
+  padding: 24px;
+  gap: 24px;
+  overflow-x: hidden;
+}
+
+.channel-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.channel-tabs button {
+  background: none;
+  border: none;
+  color: #a0a0a0;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.channel-tabs button:hover {
+  color: #1db954;
+}
+
+.channel-tabs button.active {
+  color: #1db954;
+  background: rgba(29, 185, 84, 0.1);
+}
+
+.channel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.list-header h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.list-count {
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+.list-container {
+  gap: 24px;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
   width: 100%;
+  overflow-x: scroll;
+  padding: 8px 8px 16px 8px;
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: 8px;
+}
+
+.list-container > * {
+  scroll-snap-align: start;
 }
 
 #channel-side-section {
@@ -17,7 +88,7 @@
   overflow-y: scroll;
   max-width: 400px;
   min-width: 400px;
-  background: #121212;
+  background: #1e1e1e;
   padding: 24px;
   overflow-x: hidden;
   top: 56px;

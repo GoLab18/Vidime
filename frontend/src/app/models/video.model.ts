@@ -4,7 +4,7 @@ import { Tag } from "./tag.model";
 export interface Video {
     id: number;
     uuid: string;
-    channel: Channel;
+    channel?: Channel;
     tags: Tag[];
     title: string;
     description: string;

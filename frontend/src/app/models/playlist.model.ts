@@ -4,10 +4,12 @@ import { Video } from './video.model';
 export interface Playlist {
   id: number;
   uuid: string;
-  channel: Channel;
+  channel?: Channel;
   title: string;
   description: string;
+  thumbnailUrl: string;
   isPublic: boolean;
+  videoCount: number;
   createdAt: string;
 }
 

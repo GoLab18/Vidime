@@ -1,11 +1,8 @@
-:host {
-  display: contents;
-}
-
 .video-card {
   background-color: #242424;
   border-radius: 16px;
   overflow: hidden;
+  height: 100%;
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -40,7 +37,6 @@
   );
   background-size: 400px 100%;
   animation: loading 1.5s infinite;
-  z-index: 1;
 }
 
 .thumbnail-container img {

@@ -15,16 +15,16 @@ export class VideoService {
       id: 1,
       uuid: '123e4567-e89b-12d3-a456-426614174000',
       channel: {
-        id: 1,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174000',
-        name: 'NatureExplorer',
-        picture: 'https://picsum.photos/50/50',
-        description: 'Explore the wonders of nature and wildlife.',
+        name: 'NewYorkBros',
+        picture: 'https://picsum.photos/1600/900',
+        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
         userId: 1,
-        videosAmount: 3,
-        subscribersCount: 7,
+        videosAmount: 42,
+        subscribersCount: 1500,
         verified: true,
-        createdAt: new Date('2023-06-15T10:00:00Z').toISOString(),
+        createdAt: new Date().toISOString()
       },
       tags: [
         { id: 1, name: 'Nature' },
@@ -44,16 +44,16 @@ export class VideoService {
       id: 2,
       uuid: '123e4567-e89b-12d3-a456-426614174001',
       channel: {
-        id: 2,
-        uuid: '123e4567-e89b-12d3-a456-426614174001',
-        name: 'TechInsider',
-        picture: 'https://picsum.photos/50/50?random=1',
-        description: 'Latest reviews and news in tech.',
-        userId: 2,
-        videosAmount: 1,
-        subscribersCount: 1000,
+        id: 101,
+        uuid: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'NewYorkBros',
+        picture: 'https://picsum.photos/1600/900',
+        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
+        userId: 1,
+        videosAmount: 42,
+        subscribersCount: 1500,
         verified: true,
-        createdAt: new Date('2022-11-03T09:15:00Z').toISOString(),
+        createdAt: new Date().toISOString()
       },
       tags: [
         { id: 3, name: 'Tech' },
@@ -73,22 +73,22 @@ export class VideoService {
       id: 3,
       uuid: '123e4567-e89b-12d3-a456-426614174002',
       channel: {
-        id: 3,
-        uuid: '123e4567-e89b-12d3-a456-426614174002',
-        name: 'ChefLife',
-        picture: 'https://picsum.photos/50/50?random=2',
-        description: 'Delicious recipes and cooking tips from chefs.',
-        userId: 3,
-        videosAmount: 1,
-        subscribersCount: 500,
-        verified: false,
-        createdAt: new Date('2023-03-10T12:30:00Z').toISOString(),
+        id: 101,
+        uuid: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'NewYorkBros',
+        picture: 'https://picsum.photos/1600/900',
+        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
+        userId: 1,
+        videosAmount: 42,
+        subscribersCount: 1500,
+        verified: true,
+        createdAt: new Date().toISOString()
       },
       tags: [
         { id: 5, name: 'Cooking' },
         { id: 6, name: 'Food' }
       ],
-      title: 'Cooking Masterclass: Italian Cuisine',
+      title: 'Cooking Masterclass: Italian Cuisine for Beginners',
       description: 'Learn how to prepare authentic Italian dishes.',
       cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=2',
@@ -102,7 +102,7 @@ export class VideoService {
       id: 4,
       uuid: '123e4567-e89b-12d3-a456-426614174003',
       channel: {
-        id: 4,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174003',
         name: 'AdventureVibes',
         picture: 'https://picsum.photos/50/50?random=3',
@@ -131,7 +131,7 @@ export class VideoService {
       id: 5,
       uuid: '123e4567-e89b-12d3-a456-426614174004',
       channel: {
-        id: 5,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174004',
         name: 'WorldCuisine',
         picture: 'https://picsum.photos/50/50?random=4',
@@ -160,7 +160,7 @@ export class VideoService {
       id: 6,
       uuid: '123e4567-e89b-12d3-a456-426614174005',
       channel: {
-        id: 6,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174005',
         name: 'SpaceScience',
         picture: 'https://picsum.photos/50/50?random=5',
@@ -189,7 +189,7 @@ export class VideoService {
       id: 7,
       uuid: '123e4567-e89b-12d3-a456-426614174006',
       channel: {
-        id: 7,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174006',
         name: 'MusicMasters',
         picture: 'https://picsum.photos/50/50?random=6',
@@ -218,7 +218,7 @@ export class VideoService {
       id: 8,
       uuid: '123e4567-e89b-12d3-a456-426614174007',
       channel: {
-        id: 8,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174007',
         name: 'FitnessFreaks',
         picture: 'https://picsum.photos/50/50?random=7',
@@ -247,7 +247,7 @@ export class VideoService {
       id: 9,
       uuid: '123e4567-e89b-12d3-a456-426614174008',
       channel: {
-        id: 9,
+        id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174008',
         name: 'EcoTech',
         picture: 'https://picsum.photos/50/50?random=8',
@@ -284,5 +284,13 @@ export class VideoService {
 
   getRelatedVideos(id: number): Observable<Video[]> {
     return of(this.mockVideos.filter(v => v.id !== id)).pipe(delay(500));
+  }
+
+  getChannelVideos(channelId: number): Observable<Video[]> {
+    return of(this.mockVideos.filter(v => {
+      let isTaken = v.channel?.id === 101;
+      v.channel = undefined;
+      return isTaken;
+    })).pipe(delay(500));
   }
 }

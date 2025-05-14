@@ -1,6 +1,51 @@
 <main id="main-content">
   <div id="main-section">
+    <div class="channel-tabs">
+      <button 
+        [class.active]="activeTab === ChannelTab.VIDEOS"
+        (click)="switchTab(ChannelTab.VIDEOS)"
+      >Videos</button>
+      <button 
+        [class.active]="activeTab === ChannelTab.PLAYLISTS"
+        (click)="switchTab(ChannelTab.PLAYLISTS)"
+      >Playlists</button>
+    </div>
 
+    <div class="channel-content">
+      <div class="horizontal-list" *ngIf="activeTab === ChannelTab.VIDEOS">
+        <div class="list-header">
+          <h3>Added Videos</h3>
+          <span class="list-count">{{ videos.length }} videos</span>
+        </div>
+        <div class="list-container">
+          @for (video of videos; track video.id) {
+            <app-home-video [video]="video" [maxWidth]="'300px'"></app-home-video>
+          }
+        </div>
+      </div>
+      
+      <div class="horizontal-list" *ngIf="activeTab === ChannelTab.PLAYLISTS">
+        <div class="list-header">
+          <h3>Playlists</h3>
+          <span class="list-count">{{ playlists.length }} playlists</span>
+        </div>
+        <div class="list-container">
+          @for (playlist of playlists; track playlist.id) {
+            <div class="playlist-item">
+              <img [src]="playlist.thumbnailUrl" [alt]="playlist.title" class="thumbnail">
+              <div class="playlist-info">
+                <h4>{{ playlist.title }}</h4>
+                <div class="playlist-meta">
+                  <span>{{ playlist.videoCount }} videos</span>
+                  <span class="dot">•</span>
+                  <span>{{ playlist.createdAt | formatDate }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="channel-side-section">
