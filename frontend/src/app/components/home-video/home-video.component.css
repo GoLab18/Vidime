@@ -152,6 +152,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+  word-break: break-word;
 }
 
 .video-stats {
