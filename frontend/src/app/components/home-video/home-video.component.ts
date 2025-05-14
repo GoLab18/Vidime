@@ -14,6 +14,9 @@ import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 })
 export class HomeVideoComponent {
   @Input({required: true}) video!: Video;
+  @Input() minWidth: string = '300px';
+  @Input() maxWidth: string = '460px';
+
   thumbnailLoaded = false;
 
   constructor(private router: Router) {}

@@ -1,4 +1,4 @@
-<div class="video-card" tabindex="0" (click)="navigateToVideo(video.id, video.uuid)">
+<div class="video-card" [style.min-width]="minWidth" [style.max-width]="maxWidth" tabindex="0" (click)="navigateToVideo(video.id, video.uuid)">
   <div class="thumbnail-container" [class.loading]="!thumbnailLoaded">
     <div class="loading-placeholder"></div>
     <img [src]="video.thumbnailUrl" (load)="onImageLoad()"/>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="video-info">
-    <div class="channel-info">
+    <div *ngIf="video.channel !== undefined" class="channel-info">
       <div class="channel-avatar">
         <img [src]="video.channel.picture" [alt]="video.channel.name">
       </div>
