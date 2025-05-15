@@ -12,7 +12,7 @@
     </div>
 
     <div class="channel-content">
-      <div class="horizontal-list" *ngIf="activeTab === ChannelTab.VIDEOS">
+      <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
         <div class="list-header">
           <h3>Added Videos</h3>
           <span class="list-count">{{ videos.length }} videos</span>
@@ -20,7 +20,7 @@
         <app-horizontal-group-scroll [items]="videos" type="video"></app-horizontal-group-scroll>
       </div>
       
-      <div class="horizontal-list" *ngIf="activeTab === ChannelTab.PLAYLISTS">
+      <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.PLAYLISTS">
         <div class="list-header">
           <h3>Playlists</h3>
           <span class="list-count">{{ playlists.length }} playlists</span>
