@@ -54,16 +54,16 @@
       </div>
     </div>
     <div class="channel-info">
-      <div class="channel-avatar channel-redirect" (click)="navigateToChannel(video.channel.id, video.channel.uuid)">
-        <img [src]="video.channel.picture" [alt]="video.channel.name">
+      <div class="channel-avatar channel-redirect" (click)="navigateToChannel(video.channel!.id, video.channel!.uuid)">
+        <img [src]="video.channel!.picture" [alt]="video.channel!.name">
       </div>
       <div class="channel-details">
         <div class="channel-name">
-          <span class="channel-redirect" (click)="navigateToChannel(video.channel.id, video.channel.uuid)">{{ video.channel.name }}</span>
-          <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
+          <span class="channel-redirect" (click)="navigateToChannel(video.channel!.id, video.channel!.uuid)">{{ video.channel!.name }}</span>
+          <i class="material-icons verified" *ngIf="video.channel!.verified">verified</i>
         </div>
         <div class="channel-stats">
-          {{ video.channel.subscribersCount | formatNumber:'sub':'subs' }} <span class="dot">•</span> {{ video.channel.videosAmount | formatNumber:'video':'videos' }}
+          {{ video.channel!.subscribersCount | formatNumber:'sub':'subs' }} <span class="dot">•</span> {{ video.channel!.videosAmount | formatNumber:'video':'videos' }}
         </div>
       </div>
     </div>
