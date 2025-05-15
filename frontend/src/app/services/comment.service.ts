@@ -258,8 +258,6 @@ export class CommentService {
   ];
 
   getVideoComments(videoId: number): Observable<Comment[]> {
-    console.log(videoId);
-    
     return of(this.mockComments.filter(c => c.video!.id === videoId)).pipe(delay(500));
   }
   

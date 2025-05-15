@@ -274,6 +274,171 @@ export class VideoService {
     }
   ];
 
+  private mockVideosNoChannels: Video[] = [
+    {
+      id: 1,
+      uuid: '123e4567-e89b-12d3-a456-426614174000',
+      channel: undefined,
+      tags: [
+        { id: 1, name: 'Nature' },
+        { id: 2, name: 'Documentary' }
+      ],
+      title: 'Amazing Nature Documentary',
+      description: 'An immersive journey through Earth’s most beautiful landscapes.',
+      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200',
+      duration: 750,
+      views: 125000,
+      ratings: 1500,
+      avgRating: 4.7,
+      addedAt: new Date('2024-04-12T14:20:00Z').toISOString()
+    },
+    {
+      id: 2,
+      uuid: '123e4567-e89b-12d3-a456-426614174001',
+      channel: undefined,
+      tags: [
+        { id: 3, name: 'Tech' },
+        { id: 4, name: 'Review' }
+      ],
+      title: 'Tech Review: Latest Gadgets 2025',
+      description: 'Hands-on review of this year’s hottest gadgets.',
+      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=1',
+      duration: 525,
+      views: 89120,
+      ratings: 800,
+      avgRating: 4.2,
+      addedAt: new Date().toISOString()
+    },
+    {
+      id: 3,
+      uuid: '123e4567-e89b-12d3-a456-426614174002',
+      channel: undefined,
+      tags: [
+        { id: 5, name: 'Cooking' },
+        { id: 6, name: 'Food' }
+      ],
+      title: 'Cooking Masterclass: Italian Cuisine for Beginners',
+      description: 'Learn how to prepare authentic Italian dishes.',
+      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=2',
+      duration: 920,
+      views: 311760,
+      ratings: 250,
+      avgRating: 4.8,
+      addedAt: new Date('2024-07-22T17:45:00Z').toISOString()
+    },
+    {
+      id: 4,
+      uuid: '123e4567-e89b-12d3-a456-426614174003',
+      channel: undefined,
+      tags: [
+        { id: 7, name: 'Adventure' },
+        { id: 8, name: 'Sports' }
+      ],
+      title: 'Skydiving from 15,000ft!',
+      description: 'An adrenaline-packed skydiving experience.',
+      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=3',
+      duration: 500,
+      views: 70210,
+      ratings: 150,
+      avgRating: 4.9,
+      addedAt: new Date('2024-03-02T19:00:00Z').toISOString()
+    },
+    {
+      id: 5,
+      uuid: '123e4567-e89b-12d3-a456-426614174004',
+      channel: undefined,
+      tags: [
+        { id: 9, name: 'Food' },
+        { id: 10, name: 'Cuisine' }
+      ],
+      title: 'Sushi Making Tutorial: Authentic Japanese Recipes',
+      description: 'Learn how to make delicious sushi at home!',
+      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=4',
+      duration: 600,
+      views: 451000,
+      ratings: 1200,
+      avgRating: 4.5,
+      addedAt: new Date('2024-05-10T11:00:00Z').toISOString()
+    },
+    {
+      id: 6,
+      uuid: '123e4567-e89b-12d3-a456-426614174005',
+      channel: undefined,
+      tags: [
+        { id: 11, name: 'Science' },
+        { id: 12, name: 'Space' }
+      ],
+      title: 'Mars Mission: Journey to the Red Planet',
+      description: 'Follow the latest mission to Mars.',
+      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=5',
+      duration: 1150,
+      views: 205000,
+      ratings: 3000,
+      avgRating: 4.9,
+      addedAt: new Date('2024-02-15T10:30:00Z').toISOString()
+    },
+    {
+      id: 7,
+      uuid: '123e4567-e89b-12d3-a456-426614174006',
+      channel: undefined,
+      tags: [
+        { id: 13, name: 'Music' },
+        { id: 14, name: 'Performance' }
+      ],
+      title: 'Live Concert: The Ultimate Rock Show',
+      description: 'A live performance from the best rock band of the year!',
+      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=6',
+      duration: 1300,
+      views: 730000,
+      ratings: 5000,
+      avgRating: 4.8,
+      addedAt: new Date('2024-03-25T12:00:00Z').toISOString()
+    },
+    {
+      id: 8,
+      uuid: '123e4567-e89b-12d3-a456-426614174007',
+      channel: undefined,
+      tags: [
+        { id: 15, name: 'Fitness' },
+        { id: 16, name: 'Health' }
+      ],
+      title: 'HIIT Workout: Burn Fat Fast!',
+      description: 'A quick, high-intensity workout to get you in shape.',
+      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=7',
+      duration: 600,
+      views: 120000,
+      ratings: 700,
+      avgRating: 4.6,
+      addedAt: new Date('2024-04-01T09:00:00Z').toISOString()
+    },
+    {
+      id: 9,
+      uuid: '123e4567-e89b-12d3-a456-426614174008',
+      channel: undefined,
+      tags: [
+        { id: 17, name: 'Tech' },
+        { id: 18, name: 'Sustainability' }
+      ],
+      title: 'Green Tech: Solar Energy Innovations',
+      description: 'Explore the latest in solar energy technology.',
+      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=8',
+      duration: 57,
+      views: 485000,
+      ratings: 2300,
+      avgRating: 4.4,
+      addedAt: new Date('2024-05-08T13:00:00Z').toISOString()
+    }
+  ];
+
   getVideos(): Observable<Video[]> {
     return of(this.mockVideos).pipe(delay(500));
   }
@@ -287,10 +452,6 @@ export class VideoService {
   }
 
   getChannelVideos(channelId: number): Observable<Video[]> {
-    return of(this.mockVideos.filter(v => {
-      let isTaken = v.channel?.id === 101;
-      v.channel = undefined;
-      return isTaken;
-    })).pipe(delay(500));
+    return of(this.mockVideosNoChannels).pipe(delay(500));
   }
 }
