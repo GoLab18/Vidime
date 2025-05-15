@@ -1,0 +1,70 @@
+.list-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 24px;
+  overflow-x: scroll;
+  padding: 8px 16px 16px 16px;
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.list-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: center;
+  background-color: rgba(29, 185, 84, 0.5);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.scroll-button.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scroll-button:hover {
+  background-color: rgba(29, 185, 84, 1);
+}
+
+.scroll-button > i {
+  color: #fff;
+}
+
+.scroll-left {
+  left: -8px;
+}
+
+.scroll-right {
+  right: -8px;
+}
+
+.list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.list-group {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 24px;
+  scroll-snap-align: start;
+}

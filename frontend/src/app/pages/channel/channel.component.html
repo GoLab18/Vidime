@@ -17,11 +17,7 @@
           <h3>Added Videos</h3>
           <span class="list-count">{{ videos.length }} videos</span>
         </div>
-        <div class="list-container">
-          @for (video of videos; track video.id) {
-            <app-home-video [video]="video" [maxWidth]="'300px'"></app-home-video>
-          }
-        </div>
+        <app-horizontal-group-scroll [items]="videos" type="video"></app-horizontal-group-scroll>
       </div>
       
       <div class="horizontal-list" *ngIf="activeTab === ChannelTab.PLAYLISTS">

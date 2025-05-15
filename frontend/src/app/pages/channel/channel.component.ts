@@ -7,10 +7,10 @@ import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelLink } from '../../models/channel-link.model';
 import { Video } from '../../models/video.model';
-import { HomeVideoComponent } from '../../components/home-video/home-video.component';
 import { VideoService } from '../../services/video.service';
 import { Playlist } from '../../models/playlist.model';
 import { PlaylistService } from '../../services/playlist.service';
+import { HorizontalGroupScrollComponent } from '../../components/horizontal-group-scroll/horizontal-group-scroll.component';
 
 export enum ChannelTab {
   VIDEOS,
@@ -19,7 +19,7 @@ export enum ChannelTab {
 
 @Component({
   selector: 'app-channel',
-  imports: [CommonModule, HomeVideoComponent, FormatNumberPipe, FormatDatePipe],
+  imports: [CommonModule, HorizontalGroupScrollComponent, FormatNumberPipe, FormatDatePipe],
   templateUrl: './channel.component.html',
   styleUrl: './channel.component.css'
 })
@@ -34,7 +34,6 @@ export class ChannelComponent implements OnInit {
   videos: Video[] = [];
   playlists: Playlist[] = [];
   playlistsLoaded: boolean = false;
-
 
   constructor(
     private channelService: ChannelService,

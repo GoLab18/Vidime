@@ -1,0 +1,23 @@
+<div class="list-wrapper">
+  <div class="scroll-left scroll-button" #scrollLeft [class.hidden]="!scrollLeftVisible" (click)="handleScrollLeft()">
+    <i class="material-icons">chevron_left</i>
+  </div>
+  <div class="list-container" #listContainer>
+    @for (group of itemGroups; track $index) {
+      <div class="list-group">
+        @for (item of group; track item.id) {
+          @if (type === 'video') {
+            <app-home-video [video]="item" [maxWidth]="'300px'"></app-home-video>
+          }
+
+          <!-- @if (type === 'playlist') {
+            <app-home-playlist [playlist]="item" [maxWidth]="'300px'"></app-home-playlist>
+          } -->
+        }
+      </div>
+    }
+  </div>
+  <div class="scroll-right scroll-button" #scrollRight [class.hidden]="!scrollRightVisible" (click)="handleScrollRight()">
+    <i class="material-icons">chevron_right</i>
+  </div>
+</div>

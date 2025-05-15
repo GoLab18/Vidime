@@ -26,7 +26,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('volumeSliderContainer') volumeSliderContainer!: ElementRef;
 
-  video: Video | undefined;
+  video?: Video;
   isLoading = true;
 
   videoState: VideoState = VideoState.PAUSED;
