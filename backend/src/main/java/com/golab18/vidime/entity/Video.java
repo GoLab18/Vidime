@@ -19,17 +19,12 @@ public class Video {
     @Column(length = 36, nullable = false, unique = true)
     private UUID uuid;
 
-    @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
     private Channel channel;
 
-    @ManyToMany
-    @JoinTable(
-        name = "videos_tags",
-        joinColumns = @JoinColumn(name = "video_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
-    )
-    private List<Tag> tags;
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<VideoTag> tags;
 
     @Column(nullable = false)
     private String title;

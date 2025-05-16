@@ -13,10 +13,10 @@ public class SavedPlaylist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // TODO add foreing key with ON DELETE CASCADE on the DB side
     private Long saverId; // Has a foreign key to the channel in the db for integrity
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "playlist_id", referencedColumnName = "id")
     private Playlist playlist;
 

@@ -16,7 +16,7 @@ public class Playlist {
     @Column(length = 36, nullable = false, unique = true)
     private UUID uuid;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
 

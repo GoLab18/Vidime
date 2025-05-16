@@ -11,7 +11,7 @@ public class PollOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "poll_id", referencedColumnName = "id")
     private Poll poll;
 
