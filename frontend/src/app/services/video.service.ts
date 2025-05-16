@@ -4,6 +4,17 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
+export enum SortStrategy {
+  NEWEST,
+  OLDEST,
+  MOST_VIEWED,
+  LEAST_VIEWED,
+  MOST_LIKED,
+  LEAST_LIKED,
+  MOST_DISLIKED,
+  LEAST_DISLIKED
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -451,7 +462,24 @@ export class VideoService {
     return of(this.mockVideos.filter(v => v.id !== id)).pipe(delay(500));
   }
 
-  getChannelVideos(channelId: number): Observable<Video[]> {
-    return of(this.mockVideosNoChannels).pipe(delay(500));
+  getChannelVideos(channelId: number, sortStrategy: SortStrategy): Observable<Video[]> {
+    switch (sortStrategy) {
+      case SortStrategy.NEWEST:
+        return of(this.mockVideosNoChannels.sort((a, b) => b.addedAt.localeCompare(a.addedAt))).pipe(delay(500));
+      case SortStrategy.OLDEST:
+        return of(this.mockVideosNoChannels.sort((a, b) => a.addedAt.localeCompare(b.addedAt))).pipe(delay(500));
+      case SortStrategy.MOST_VIEWED:
+        return of(this.mockVideosNoChannels.sort((a, b) => b.views - a.views)).pipe(delay(500));
+      case SortStrategy.LEAST_VIEWED:
+        return of(this.mockVideosNoChannels.sort((a, b) => a.views - b.views)).pipe(delay(500));
+      case SortStrategy.MOST_LIKED:
+        return of(this.mockVideosNoChannels.sort((a, b) => b.ratings - a.ratings)).pipe(delay(500));
+      case SortStrategy.LEAST_LIKED:
+        return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
+      case SortStrategy.MOST_DISLIKED:
+        return of(this.mockVideosNoChannels.sort((a, b) => b.ratings - a.ratings)).pipe(delay(500));
+      case SortStrategy.LEAST_DISLIKED:
+        return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
+    }
   }
 }

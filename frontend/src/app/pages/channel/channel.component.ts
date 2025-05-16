@@ -11,6 +11,7 @@ import { VideoService } from '../../services/video.service';
 import { Playlist } from '../../models/playlist.model';
 import { PlaylistService } from '../../services/playlist.service';
 import { HorizontalGroupScrollComponent } from '../../components/horizontal-group-scroll/horizontal-group-scroll.component';
+import { SortStrategy } from '../../services/video.service';
 
 export enum ChannelTab {
   VIDEOS,
@@ -31,7 +32,8 @@ export class ChannelComponent implements OnInit {
 
   channel!: Channel;
   links: ChannelLink[] = [];
-  videos: Video[] = [];
+  newestVideos: Video[] = [];
+  mostViewedVideos: Video[] = [];
   playlists: Playlist[] = [];
   playlistsLoaded: boolean = false;
 
@@ -52,8 +54,12 @@ export class ChannelComponent implements OnInit {
         this.channelService.getLinks(this.channel.id).subscribe(links => this.links = links);
       });
 
-      this.videoService.getChannelVideos(this.videoId).subscribe(videos => {
-        this.videos = videos;
+      this.videoService.getChannelVideos(this.videoId, SortStrategy.NEWEST).subscribe(videos => {
+        this.newestVideos = videos;
+      });
+
+      this.videoService.getChannelVideos(this.videoId, SortStrategy.MOST_VIEWED).subscribe(videos => {
+        this.mostViewedVideos = videos;
       });
     });
   }

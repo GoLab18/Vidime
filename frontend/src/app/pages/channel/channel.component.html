@@ -1,6 +1,6 @@
 <main id="main-content">
   <div id="main-section">
-    <div class="channel-tabs">
+    <div class="channel-tabs border-bottom-wrapper">
       <button 
         [class.active]="activeTab === ChannelTab.VIDEOS"
         (click)="switchTab(ChannelTab.VIDEOS)"
@@ -14,15 +14,23 @@
     <div class="channel-content">
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
         <div class="list-header">
-          <h3>Added Videos</h3>
-          <span class="list-count">{{ videos.length }} videos</span>
+          <h3>Newest Videos</h3>
+          <span class="list-count">{{ newestVideos.length }} videos</span>
         </div>
-        <app-horizontal-group-scroll [items]="videos" type="video"></app-horizontal-group-scroll>
+        <app-horizontal-group-scroll [items]="newestVideos" type="video"></app-horizontal-group-scroll>
+      </div>
+
+      <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
+        <div class="list-header">
+          <h3>Most Viewed Videos</h3>
+          <span class="list-count">{{ mostViewedVideos.length }} videos</span>
+        </div>
+        <app-horizontal-group-scroll [items]="mostViewedVideos" type="video"></app-horizontal-group-scroll>
       </div>
       
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.PLAYLISTS">
         <div class="list-header">
-          <h3>Playlists</h3>
+          <h3>Newest Playlists</h3>
           <span class="list-count">{{ playlists.length }} playlists</span>
         </div>
         <div class="list-container">

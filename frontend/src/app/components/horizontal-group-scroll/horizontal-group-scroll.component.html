@@ -1,4 +1,4 @@
-<div class="list-wrapper">
+<div class="list-wrapper" [class.shadow-left]="scrollLeftVisible" [class.shadow-right]="scrollRightVisible">
   <div class="scroll-left scroll-button" #scrollLeft [class.hidden]="!scrollLeftVisible" (click)="handleScrollLeft()">
     <i class="material-icons">chevron_left</i>
   </div>

@@ -10,15 +10,20 @@
   flex-direction: column;
   width: calc(100% - 400px);
   height: 100%;
-  padding: 24px;
+  padding: 24px 16px;
   gap: 24px;
   overflow-x: hidden;
+}
+
+.border-bottom-wrapper {
+  border-bottom: 1px solid #1db954;
 }
 
 .channel-tabs {
   display: flex;
   gap: 16px;
-  margin-bottom: 24px;
+  padding-bottom: 24px;
+  padding-left: 16px;
 }
 
 .channel-tabs button {
@@ -61,6 +66,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  margin-left: 16px;
 }
 
 .list-header h3 {
