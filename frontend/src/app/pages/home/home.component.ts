@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Video } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
-import { HomeVideoComponent } from '../../components/home-video/home-video.component';
+import { DynamicSizeTileGridComponent } from '../../components/dynamic-size-tile-grid/dynamic-size-tile-grid.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HomeVideoComponent],
+  imports: [CommonModule, DynamicSizeTileGridComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

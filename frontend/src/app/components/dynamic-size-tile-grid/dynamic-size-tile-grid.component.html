@@ -1,0 +1,13 @@
+<section class="tile-grid">
+  @if (videos) {
+    @for (video of videos; track video.id) {
+      <app-home-video [video]="video"></app-home-video>
+    }
+  }
+
+  @if (playlists) {
+    @for (playlist of playlists; track playlist.id) {
+      <app-home-playlist [playlist]="playlist"></app-home-playlist>
+    }
+  }
+</section>

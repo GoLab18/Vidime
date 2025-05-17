@@ -61,12 +61,6 @@
   background-color: #1ed760;
 }
 
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-
 .trending-tags {
   display: flex;
   gap: 12px;

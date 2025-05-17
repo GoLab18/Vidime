@@ -9,10 +9,10 @@ export enum SortStrategy {
   OLDEST,
   MOST_VIEWED,
   LEAST_VIEWED,
-  MOST_LIKED,
-  LEAST_LIKED,
-  MOST_DISLIKED,
-  LEAST_DISLIKED
+  BEST_RATED,
+  WORST_RATED,
+  MOST_RATED,
+  LEAST_RATED
 }
 
 @Injectable({
@@ -472,13 +472,13 @@ export class VideoService {
         return of(this.mockVideosNoChannels.sort((a, b) => b.views - a.views)).pipe(delay(500));
       case SortStrategy.LEAST_VIEWED:
         return of(this.mockVideosNoChannels.sort((a, b) => a.views - b.views)).pipe(delay(500));
-      case SortStrategy.MOST_LIKED:
+      case SortStrategy.BEST_RATED:
+        return of(this.mockVideosNoChannels.sort((a, b) => b.avgRating - a.avgRating)).pipe(delay(500));
+      case SortStrategy.WORST_RATED:
+        return of(this.mockVideosNoChannels.sort((a, b) => a.avgRating - b.avgRating)).pipe(delay(500));
+      case SortStrategy.MOST_RATED:
         return of(this.mockVideosNoChannels.sort((a, b) => b.ratings - a.ratings)).pipe(delay(500));
-      case SortStrategy.LEAST_LIKED:
-        return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
-      case SortStrategy.MOST_DISLIKED:
-        return of(this.mockVideosNoChannels.sort((a, b) => b.ratings - a.ratings)).pipe(delay(500));
-      case SortStrategy.LEAST_DISLIKED:
+      case SortStrategy.LEAST_RATED:
         return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
     }
   }

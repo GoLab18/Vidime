@@ -23,9 +23,5 @@
     <button class="tag-button">Entertainment</button>
   </div>
 
-  <section class="video-grid">
-    @for (video of videos; track video.id) {
-      <app-home-video [video]="video"></app-home-video>
-    }
-  </section>
+  <app-dynamic-size-tile-grid [videos]="videos"></app-dynamic-size-tile-grid>
 </main>

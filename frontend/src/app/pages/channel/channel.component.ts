@@ -12,6 +12,7 @@ import { Playlist } from '../../models/playlist.model';
 import { PlaylistService } from '../../services/playlist.service';
 import { HorizontalGroupScrollComponent } from '../../components/horizontal-group-scroll/horizontal-group-scroll.component';
 import { SortStrategy } from '../../services/video.service';
+import { DynamicSizeTileGridComponent } from '../../components/dynamic-size-tile-grid/dynamic-size-tile-grid.component';
 
 export enum ChannelTab {
   VIDEOS,
@@ -20,7 +21,7 @@ export enum ChannelTab {
 
 @Component({
   selector: 'app-channel',
-  imports: [CommonModule, HorizontalGroupScrollComponent, FormatNumberPipe, FormatDatePipe],
+  imports: [CommonModule, HorizontalGroupScrollComponent, DynamicSizeTileGridComponent, FormatNumberPipe, FormatDatePipe],
   templateUrl: './channel.component.html',
   styleUrl: './channel.component.css'
 })
@@ -34,6 +35,7 @@ export class ChannelComponent implements OnInit {
   links: ChannelLink[] = [];
   newestVideos: Video[] = [];
   mostViewedVideos: Video[] = [];
+  bestRatedVideos: Video[] = [];
   playlists: Playlist[] = [];
   playlistsLoaded: boolean = false;
 
@@ -60,6 +62,10 @@ export class ChannelComponent implements OnInit {
 
       this.videoService.getChannelVideos(this.videoId, SortStrategy.MOST_VIEWED).subscribe(videos => {
         this.mostViewedVideos = videos;
+      });
+
+      this.videoService.getChannelVideos(this.videoId, SortStrategy.MOST_RATED).subscribe(videos => {
+        this.bestRatedVideos = videos;
       });
     });
   }

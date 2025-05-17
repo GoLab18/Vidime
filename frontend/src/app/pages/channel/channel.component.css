@@ -75,6 +75,10 @@
   font-weight: 600;
 }
 
+.list-header-space {
+  margin-bottom: 16px;
+}
+
 .list-count {
   color: #a0a0a0;
   font-size: 14px;

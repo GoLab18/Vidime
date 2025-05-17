@@ -1,0 +1,38 @@
+<div class="playlist-card" [style.min-width]="minWidth" [style.max-width]="maxWidth" tabindex="0" (click)="navigateToPlaylist(playlist.id, playlist.uuid)">
+  <div class="thumbnail-container" [class.loading]="!thumbnailLoaded">
+    <div class="loading-placeholder"></div>
+    <img [src]="playlist.thumbnailUrl" (load)="onImageLoad()"/>
+    <div class="videoCount">
+      <span>{{ playlist.videoCount | formatNumber }}</span>
+      <i class="material-icons">theaters</i>
+    </div>
+  </div>
+  <div class="playlist-info">
+    <div *ngIf="playlist.channel !== undefined" class="channel-info">
+      <div class="channel-avatar">
+        <img [src]="playlist.channel.picture" [alt]="playlist.channel.name">
+      </div>
+      <div class="channel-details">
+        <div class="channel-name">
+          {{ playlist.channel.name }}
+          <i class="material-icons verified" *ngIf="playlist.channel.verified">verified</i>
+        </div>
+      </div>
+    </div>
+    <h3 class="playlist-title">{{ playlist.title }}</h3>
+    <div class="playlist-stats">
+      <div class="stats-primary">
+        <span>{{ playlist.createdAt | formatDate }}</span>
+        <span class="dot">•</span>
+        <div class="privacy-status" *ngIf="!playlist.isPublic">
+          <i class="material-icons">lock</i>
+          <span>Private</span>
+        </div>
+        <div class="privacy-status" *ngIf="playlist.isPublic">
+          <i class="material-icons">lock_open</i>
+          <span>Public</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
