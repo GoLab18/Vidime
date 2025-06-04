@@ -13,11 +13,11 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "parent_comment_id", referencedColumnName = "id", nullable = false)
     private Comment parentComment;
 

@@ -14,5 +14,6 @@ public interface UserMapper {
     UserDto toDto(User user);
 
     @Mapping(target = "createdAt", expression = "java(userDto.getCreatedAt() != null ? Timestamp.from(Instant.parse(userDto.getCreatedAt())) : null)")
+    @Mapping(target = "channels", ignore = true)
     User toEntity(UserDto userDto);
 }

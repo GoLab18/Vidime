@@ -12,11 +12,11 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
-    private User subscriber;
+    private Channel subscriber;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
 

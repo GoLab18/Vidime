@@ -11,8 +11,9 @@ public class ChannelLink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long channelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
+    private Channel channel;
 
     @Column(nullable = false)
     private String title;

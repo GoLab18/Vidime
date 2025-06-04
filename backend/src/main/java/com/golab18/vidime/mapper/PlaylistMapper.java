@@ -18,5 +18,8 @@ public interface PlaylistMapper {
     
     @Mapping(target = "uuid", expression = "java(playlistDto.getUuid() != null ? UUID.fromString(playlistDto.getUuid()) : null)")
     @Mapping(target = "createdAt", expression = "java(playlistDto.getCreatedAt() != null ? Timestamp.from(Instant.parse(playlistDto.getCreatedAt())) : null)")
+    @Mapping(target = "channel", ignore = true)
+    @Mapping(target = "videoEntries", ignore = true)
+    @Mapping(target = "savedByEntries", ignore = true)
     Playlist toEntity(PlaylistDto playlistDto);
 }

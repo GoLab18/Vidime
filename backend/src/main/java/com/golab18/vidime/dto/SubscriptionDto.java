@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SubscriptionDto {
     private Long id;
-    private UserDto subscriber;
+    private ChannelDto subscriber;
     private ChannelDto channel;
     private String subscribedAt;
 }

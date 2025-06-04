@@ -3,6 +3,11 @@ package com.golab18.vidime.entity;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
+import java.util.List;
+import com.golab18.vidime.entity.PlaylistVideo;
+import com.golab18.vidime.entity.SavedPlaylist;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import lombok.Data;
 
 @Data
@@ -16,7 +21,7 @@ public class Playlist {
     @Column(length = 36, nullable = false, unique = true)
     private UUID uuid;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private Channel channel;
 
@@ -26,7 +31,7 @@ public class Playlist {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
+    @Column
     private String thumbnailUrl;
 
     @Column(nullable = false)
@@ -37,4 +42,10 @@ public class Playlist {
 
     @Column(nullable = false)
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<PlaylistVideo> videoEntries;
+
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<SavedPlaylist> savedByEntries;
 }

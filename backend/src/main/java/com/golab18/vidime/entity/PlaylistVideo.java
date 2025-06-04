@@ -11,11 +11,11 @@ public class PlaylistVideo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "playlist_id", referencedColumnName = "id")
     private Playlist playlist;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video video;
 

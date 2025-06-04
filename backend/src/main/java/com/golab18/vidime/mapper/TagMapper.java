@@ -10,6 +10,6 @@ import com.golab18.vidime.entity.Tag;
 public interface TagMapper {
     TagDto toDto(Tag tag);
     
-    @Mapping(target = "videos", ignore = true)
+    @Mapping(target = "videoTags", ignore = true)
     Tag toEntity(TagDto tagDto);
 }

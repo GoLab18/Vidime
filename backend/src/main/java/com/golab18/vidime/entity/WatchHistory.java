@@ -14,10 +14,11 @@ public class WatchHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) // TODO add foreing key with ON DELETE CASCADE on the DB side
-    private Long channelId;
+    @ManyToOne
+    @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
+    private Channel channel;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video video;
 

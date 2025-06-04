@@ -6,6 +6,5 @@ import lombok.Data;
 public class PlaylistVideoDto {
     private Long id;
     private VideoDto video;
-    private PlaylistDto playlist;
     private Integer position;
 }

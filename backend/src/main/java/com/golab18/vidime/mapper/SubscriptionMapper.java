@@ -8,7 +8,7 @@ import com.golab18.vidime.entity.Subscription;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class, ChannelMapper.class}, imports = {Timestamp.class, Instant.class})
+@Mapper(componentModel = "spring", uses = {ChannelMapper.class}, imports = {Timestamp.class, Instant.class})
 public interface SubscriptionMapper {
     @Mapping(target = "subscribedAt", expression = "java(subscription.getSubscribedAt() != null ? subscription.getSubscribedAt().toString() : null)")
     SubscriptionDto toDto(Subscription subscription);

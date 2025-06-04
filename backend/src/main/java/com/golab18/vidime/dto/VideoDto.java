@@ -16,7 +16,7 @@ public class VideoDto {
     private String thumbnailUrl;
     private Integer duration;
     private Integer views;
-    private Integer ratings;
+    private Integer ratingsAmount;
     private Float avgRating;
     private String addedAt;
 }

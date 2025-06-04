@@ -12,15 +12,15 @@ public class PollVote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "poll_id", referencedColumnName = "id")
     private Poll poll;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "voter_id", referencedColumnName = "id")
     private Channel voter;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "option_id", referencedColumnName = "id")
     private PollOption option;
 

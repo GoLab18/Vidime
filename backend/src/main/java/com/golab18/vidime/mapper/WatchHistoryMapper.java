@@ -10,13 +10,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-@Mapper(componentModel = "spring", uses = {VideoMapper.class}, imports = {Timestamp.class, Instant.class, Date.class})
+@Mapper(componentModel = "spring", uses = {VideoMapper.class, ChannelMapper.class}, imports = {Timestamp.class, Instant.class, Date.class})
 public interface WatchHistoryMapper {
+    @Mapping(target = "channelId", source = "channel.id")
     @Mapping(target = "watchedDate", expression = "java(watchHistory.getWatchedDate() != null ? watchHistory.getWatchedDate().toString() : null)")
     @Mapping(target = "lastWatchedAt", expression = "java(watchHistory.getLastWatchedAt() != null ? watchHistory.getLastWatchedAt().toString() : null)")
     WatchHistoryDto toDto(WatchHistory watchHistory);
 
-    // TODO might need adjusting the conversion from string to Date because of timezones
+    @Mapping(target = "channel", expression = "java(watchHistoryDto.getChannelId() != null ? new Channel(watchHistoryDto.getChannelId()) : null)")
     @Mapping(target = "watchedDate", expression = "java(watchHistoryDto.getWatchedDate() != null ? Date.valueOf(watchHistoryDto.getWatchedDate()) : null)")
     @Mapping(target = "lastWatchedAt", expression = "java(watchHistoryDto.getLastWatchedAt() != null ? Timestamp.from(Instant.parse(watchHistoryDto.getLastWatchedAt())) : null)")
     WatchHistory toEntity(WatchHistoryDto watchHistoryDto);

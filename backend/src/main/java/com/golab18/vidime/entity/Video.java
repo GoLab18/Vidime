@@ -19,12 +19,9 @@ public class Video {
     @Column(length = 36, nullable = false, unique = true)
     private UUID uuid;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
     private Channel channel;
-
-    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<VideoTag> tags;
 
     @Column(nullable = false)
     private String title;
@@ -35,7 +32,7 @@ public class Video {
     @Column(nullable = false)
     private String cdnUrl;
 
-    @Column(nullable = false)
+    @Column
     private String thumbnailUrl;
 
     @Column(nullable = false)
@@ -45,11 +42,29 @@ public class Video {
     private Integer views = 0;
 
     @Column(nullable = false)
-    private Integer ratings = 0;
+    private Integer ratingsAmount = 0;
 
     @Column(nullable = false)
     private Float avgRating = 0f;
 
     @Column(nullable = false)
     private Timestamp addedAt = new Timestamp(System.currentTimeMillis());
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<VideoTag> tags;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<PlaylistVideo> playlistEntries;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Poll> polls;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<WatchHistory> watchHistories;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Rating> ratings;
 }

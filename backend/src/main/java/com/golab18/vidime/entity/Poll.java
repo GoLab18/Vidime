@@ -14,12 +14,9 @@ public class Poll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video video;
-
-    @OneToMany(mappedBy = "poll", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<PollOption> options;
 
     @Column(nullable = false)
     private String textHeader;
@@ -29,4 +26,7 @@ public class Poll {
 
     @Column(nullable = false)
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+
+    @OneToMany(mappedBy = "poll", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<PollOption> options;
 }

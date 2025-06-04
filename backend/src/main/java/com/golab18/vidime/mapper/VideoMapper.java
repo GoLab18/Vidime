@@ -8,14 +8,26 @@ import java.util.UUID;
 
 import com.golab18.vidime.dto.VideoDto;
 import com.golab18.vidime.entity.Video;
+import com.golab18.vidime.dto.TagDto;
+import com.golab18.vidime.entity.VideoTag;
 
 @Mapper(componentModel = "spring", uses = {ChannelMapper.class, TagMapper.class}, imports = {Timestamp.class, Instant.class, UUID.class})
 public interface VideoMapper {
     @Mapping(target = "uuid", expression = "java(video.getUuid().toString())")
     @Mapping(target = "addedAt", expression = "java(video.getAddedAt() != null ? video.getAddedAt().toString() : null)")
     VideoDto toDto(Video video);
+
+    @Mapping(source = "tag.id", target = "id")
+    @Mapping(source = "tag.name", target = "name")
+    TagDto mapVideoTagToTagDto(VideoTag videoTag);
     
     @Mapping(target = "uuid", expression = "java(videoDto.getUuid() != null ? UUID.fromString(videoDto.getUuid()) : null)")
     @Mapping(target = "addedAt", expression = "java(videoDto.getAddedAt() != null ? Timestamp.from(Instant.parse(videoDto.getAddedAt())) : null)")
+    @Mapping(target = "tags", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    @Mapping(target = "polls", ignore = true)
+    @Mapping(target = "watchHistories", ignore = true)
+    @Mapping(target = "playlistEntries", ignore = true)
+    @Mapping(target = "ratings", ignore = true)
     Video toEntity(VideoDto videoDto);
 }
