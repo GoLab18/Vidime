@@ -1,0 +1,11 @@
+<div class="trending-page">
+  <h1>Trending Videos</h1>
+  <div class="video-grid" *ngIf="videos.length > 0; else noVideos">
+    @for(video of videos; track video.id) {
+      <app-home-video [video]="video"></app-home-video>
+    }
+  </div>
+  <ng-template #noVideos>
+    <p>No trending videos available at the moment</p>
+  </ng-template>
+</div>
