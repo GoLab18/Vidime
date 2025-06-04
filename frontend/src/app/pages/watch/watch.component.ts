@@ -40,9 +40,7 @@ export class WatchComponent implements OnInit {
 
         this.fetchRelatedVideos();
 
-        if (!this.commentSectionCollapsed) {
-          this.loadComments();
-        }
+        if (!this.commentSectionCollapsed) this.loadComments();
       }
     });
   }

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { TrendingComponent } from './pages/trending/trending.component';
 import { WatchComponent } from './pages/watch/watch.component';
 import { ChannelComponent } from './pages/channel/channel.component';
 import { AccountComponent } from './pages/account/account.component';
@@ -23,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'trending',
-    component: HomeComponent
+    component: TrendingComponent
   },
   {
     path: 'subscriptions',

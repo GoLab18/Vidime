@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Playlist } from '../models/playlist.model';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class PlaylistService {
         id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
-        picture: 'https://picsum.photos/1600/900',
+        picture: 'https://picsum.photos/1600/900?random=1',
         description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
         userId: 1,
         videosAmount: 42,
@@ -28,7 +28,7 @@ export class PlaylistService {
       },
       title: 'Funny',
       description: 'Funny videos, i am super funny so',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=1',
       isPublic: false,
       videoCount: 2,
       createdAt: new Date(2022, 5, 8).toISOString()
@@ -40,7 +40,7 @@ export class PlaylistService {
         id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
-        picture: 'https://picsum.photos/1600/900',
+        picture: 'https://picsum.photos/1600/900?random=2',
         description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
         userId: 1,
         videosAmount: 42,
@@ -50,7 +50,7 @@ export class PlaylistService {
       },
       title: 'Automation',
       description: 'Automation theory',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=2',
       isPublic: false,
       videoCount: 1,
       createdAt: new Date(2023, 1, 12).toISOString()
@@ -62,7 +62,7 @@ export class PlaylistService {
         id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
-        picture: 'https://picsum.photos/1600/900',
+        picture: 'https://picsum.photos/1600/900?random=3',
         description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
         userId: 1,
         videosAmount: 42,
@@ -72,7 +72,7 @@ export class PlaylistService {
       },
       title: 'RandomMusic',
       description: 'DUBSTEP',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=3',
       isPublic: true,
       videoCount: 1,
       createdAt: new Date(2022, 3, 15).toISOString()
@@ -84,7 +84,7 @@ export class PlaylistService {
         id: 101,
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
-        picture: 'https://picsum.photos/1600/900',
+        picture: 'https://picsum.photos/1600/900?random=4',
         description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
         userId: 1,
         videosAmount: 42,
@@ -94,7 +94,7 @@ export class PlaylistService {
       },
       title: 'LongVids',
       description: 'Longest videos you will ever see',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=4',
       isPublic: true,
       videoCount: 14,
       createdAt: new Date(2022, 5, 21).toISOString()
@@ -108,7 +108,7 @@ export class PlaylistService {
       channel: undefined,
       title: 'Funny',
       description: 'Funny videos, i am super funny so',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=1',
       isPublic: false,
       videoCount: 2,
       createdAt: new Date(2022, 5, 8).toISOString()
@@ -119,7 +119,7 @@ export class PlaylistService {
       channel: undefined,
       title: 'Automation',
       description: 'Automation theory',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=2',
       isPublic: false,
       videoCount: 1,
       createdAt: new Date(2023, 1, 12).toISOString()
@@ -130,7 +130,7 @@ export class PlaylistService {
       channel: undefined,
       title: 'RandomMusic',
       description: 'DUBSTEP',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=3',
       isPublic: true,
       videoCount: 1,
       createdAt: new Date(2022, 3, 15).toISOString()
@@ -141,7 +141,7 @@ export class PlaylistService {
       channel: undefined,
       title: 'LongVids',
       description: 'Longest videos you will ever see',
-      thumbnailUrl: 'https://picsum.photos/100/100?1',
+      thumbnailUrl: 'https://picsum.photos/300/200?random=4',
       isPublic: true,
       videoCount: 14,
       createdAt: new Date(2022, 5, 21).toISOString()
