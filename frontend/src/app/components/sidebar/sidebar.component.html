@@ -1,22 +1,22 @@
 <aside class="sidebar" [class.collapsed]="collapsed">
     <nav class="nav-menu">
-      <a routerLink="" class="nav-item active">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
         <i class="material-icons">home</i>
         <span [class.collapsed]="collapsed">Home</span>
       </a>
-      <a routerLink="trending" class="nav-item">
+      <a routerLink="/trending" routerLinkActive="active" class="nav-item">
         <i class="material-icons">whatshot</i>
         <span [class.collapsed]="collapsed">Trending</span>
       </a>
-      <a routerLink="subscriptions" class="nav-item">
+      <a routerLink="/subscriptions" routerLinkActive="active" class="nav-item">
         <i class="material-icons">subscriptions</i>
         <span [class.collapsed]="collapsed">Subscriptions</span>
       </a>
-      <a routerLink="library" class="nav-item">
+      <a routerLink="/library" routerLinkActive="active" class="nav-item">
         <i class="material-icons">video_library</i>
         <span [class.collapsed]="collapsed">Library</span>
       </a>
-      <a routerLink="history" class="nav-item">
+      <a routerLink="/history" routerLinkActive="active" class="nav-item">
         <i class="material-icons">history</i>
         <span [class.collapsed]="collapsed">History</span>
       </a>
