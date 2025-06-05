@@ -8,4 +8,5 @@ public class ChannelSlimDto {
     private String uuid;
     private String name;
     private String picture;
+    private boolean verified;
 }

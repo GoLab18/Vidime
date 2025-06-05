@@ -16,6 +16,8 @@ public interface ChannelMapper {
     @Mapping(target = "uuid", expression = "java(channel.getUuid().toString())")
     @Mapping(target = "createdAt", expression = "java(channel.getCreatedAt() != null ? channel.getCreatedAt().toString() : null)")
     ChannelDto toDto(Channel channel);
+
+    ChannelSlimDto toSlimDto(Channel channel);
     
     @Mapping(target = "uuid", expression = "java(channelDto.getUuid() != null ? UUID.fromString(channelDto.getUuid()) : null)")
     @Mapping(target = "createdAt", expression = "java(channelDto.getCreatedAt() != null ? Timestamp.from(Instant.parse(channelDto.getCreatedAt())) : null)")
@@ -28,6 +30,4 @@ public interface ChannelMapper {
     @Mapping(target = "ratings", ignore = true)
     @Mapping(target = "playlists", ignore = true)
     Channel toEntity(ChannelDto channelDto);
-
-    ChannelSlimDto toSlimDto(Channel channel);
 }
