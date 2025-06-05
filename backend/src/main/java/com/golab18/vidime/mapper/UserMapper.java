@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+import com.golab18.vidime.auth.AuthRequest;
 import com.golab18.vidime.dto.UserDto;
 import com.golab18.vidime.entity.User;
 
@@ -15,5 +16,13 @@ public interface UserMapper {
 
     @Mapping(target = "createdAt", expression = "java(userDto.getCreatedAt() != null ? Timestamp.from(Instant.parse(userDto.getCreatedAt())) : null)")
     @Mapping(target = "channels", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
     User toEntity(UserDto userDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "passwordHash", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "channels", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
+    User toEntity(AuthRequest authRequest);
 }
