@@ -1,6 +1,10 @@
-<app-header (sidebarToggle)="toggleSidebar()"></app-header>
+@if (showHeaderAndSidebar()) {
+    <app-header (sidebarToggle)="toggleSidebar()"></app-header>
+}
 <div id="app-main-content">
-    <app-sidebar [collapsed]="isSidebarExpanded"></app-sidebar>
+    @if (showHeaderAndSidebar()) {
+        <app-sidebar [collapsed]="isSidebarExpanded"></app-sidebar>
+    }
     <div class="main-content">
         <router-outlet></router-outlet>
     </div>

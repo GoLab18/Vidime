@@ -4,11 +4,16 @@ import { TrendingComponent } from './pages/trending/trending.component';
 import { WatchComponent } from './pages/watch/watch.component';
 import { ChannelComponent } from './pages/channel/channel.component';
 import { AccountComponent } from './pages/account/account.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   },
   {
     path: 'watch',
