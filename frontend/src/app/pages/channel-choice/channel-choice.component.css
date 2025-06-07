@@ -1,0 +1,140 @@
+.channel-choice-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.channel-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.channel-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.channel-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: #2c2c2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.channel-card:hover .channel-avatar {
+  border-color: var(--primary-color, #ff4d4d);
+  transform: scale(1.05);
+}
+
+.channel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.channel-name {
+  margin: 0.75rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+/* Add Channel Card Styles */
+.add-channel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.add-channel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary-color, #ff4d4d);
+}
+
+.add-avatar {
+  background: rgba(255, 255, 255, 0.05);
+  border-style: dashed;
+}
+
+.plus-icon {
+  font-size: 3rem;
+  color: var(--primary-color, #ff4d4d);
+  line-height: 1;
+  margin-top: -0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.add-channel:hover .plus-icon {
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .channels-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .channel-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .channels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .channel-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .channel-name {
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,22 @@
+<div class="channel-choice-container">
+  <h1>Choose a channel</h1>
+  <p class="subtitle">Select a channel to continue or create a new one</p>
+  
+  <div class="channels-grid">
+    @for (channel of channels; track channel.id) {
+      <div class="channel-card" (click)="selectChannel(channel)">
+        <div class="channel-avatar">
+          <img [src]="channel.picture" [alt]="channel.name + ' avatar'" class="channel-image">
+        </div>
+        <h3 class="channel-name">{{ channel.name }}</h3>
+      </div>
+    }
+    
+    <div class="channel-card add-channel" (click)="navigateToCreate()" aria-label="Create new channel">
+      <div class="channel-avatar add-avatar">
+        <span class="plus-icon">+</span>
+      </div>
+      <h3 class="channel-name">Create Channel</h3>
+    </div>
+  </div>
+</div>
