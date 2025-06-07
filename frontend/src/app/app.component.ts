@@ -26,7 +26,9 @@ export class AppComponent {
   }
 
   showHeaderAndSidebar(): boolean {
-    return !this.currentRoute.startsWith('/auth');
+    return !this.currentRoute.startsWith('/auth')
+      && !this.currentRoute.startsWith('/channel/choice')
+      && !this.currentRoute.startsWith('/channel/create');
   }
 
   toggleSidebar() {

@@ -3,6 +3,8 @@
   flex-direction: row;
   height: 100%;
   background: #121212;
+
+  --width-side-section: 408px;
 }
 
 .carousel-title {
@@ -29,8 +31,8 @@
   position: sticky;
   right: 0;
   overflow-y: scroll;
-  max-width: 400px;
-  min-width: 400px;
+  max-width: var(--width-side-section);
+  min-width: var(--width-side-section);
   background: #121212;
   padding: 8px;
   overflow-x: hidden;
@@ -49,7 +51,7 @@
   content: '';
   position: fixed;
   top: 56px;
-  left: calc(100% - 400px);
+  left: calc(100% - var(--width-side-section));
   right: 0;
   height: var(--blur-height-dynamic-top);
   background: linear-gradient(to bottom, #121212, transparent);
@@ -61,7 +63,7 @@
   content: '';
   position: fixed;
   bottom: 0;
-  left: calc(100% - 400px);
+  left: calc(100% - var(--width-side-section));
   right: 0;
   height: var(--blur-height-dynamic-bottom);
   background: linear-gradient(to top, #121212, transparent);

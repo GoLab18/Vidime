@@ -3,8 +3,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { TrendingComponent } from './pages/trending/trending.component';
 import { WatchComponent } from './pages/watch/watch.component';
 import { ChannelComponent } from './pages/channel/channel.component';
-import { AccountComponent } from './pages/account/account.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { ChannelManageComponent } from './pages/channel-manage/channel-manage.component';
+import { authGuard } from './guards/auth.guard';
+import { publicGuard } from './guards/public.guard';
+import { ChannelChoiceComponent } from './pages/channel-choice/channel-choice.component';
+import { channelGuard } from './guards/channel.guard';
+import { ChannelCreateComponent } from './pages/channel-create/channel-create.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +18,8 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
+    canActivate: [publicGuard]
   },
   {
     path: 'watch',
@@ -21,11 +27,27 @@ export const routes: Routes = [
   },
   {
     path: 'channel',
-    component: ChannelComponent
-  },
-  {
-    path: 'account',
-    component: AccountComponent
+    children: [
+      {
+        path: '',
+        component: ChannelComponent
+      },
+      {
+        path: 'choice',
+        component: ChannelChoiceComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'create',
+        component: ChannelCreateComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'manage',
+        component: ChannelManageComponent,
+        canActivate: [authGuard, channelGuard]
+      }
+    ]
   },
   {
     path: 'trending',
@@ -33,14 +55,21 @@ export const routes: Routes = [
   },
   {
     path: 'subscriptions',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [authGuard, channelGuard]
   },
   {
     path: 'library',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [authGuard, channelGuard]
   },
   {
     path: 'history',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [authGuard, channelGuard]
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];
