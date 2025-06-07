@@ -1,10 +1,10 @@
-import { Channel } from './channel.model';
+import { ChannelSlim } from './channel.model';
 import { Video } from './video.model';
 
 export interface Playlist {
   id: number;
   uuid: string;
-  channel?: Channel;
+  channel?: ChannelSlim;
   title: string;
   description: string;
   thumbnailUrl: string;

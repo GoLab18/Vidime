@@ -1,3 +1,11 @@
+export interface ChannelSlim {
+  id: number;
+  uuid: string;
+  name: string;
+  picture?: string;
+  verified: boolean;
+}
+
 export interface Channel {
   id: number;
   uuid: string;
