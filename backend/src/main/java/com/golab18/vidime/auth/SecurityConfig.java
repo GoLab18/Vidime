@@ -51,7 +51,7 @@ public class SecurityConfig {
         JwtAuthenticationFilter jwtAuthFilter = new JwtAuthenticationFilter(authManager, jwtGenerator);
         JwtValidationFilter jwtValidationFilter = new JwtValidationFilter(authManager);
         JwtRefreshFilter jwtRefreshFilter = new JwtRefreshFilter(authManager, jwtGenerator);
-        
+
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
@@ -75,6 +75,15 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:4200")); // TODO switch to HTTPS at last
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(
+            List.of(
+                "Authorization",
+                "Content-Disposition",
+                "Content-Type",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"
+            )
+        );
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

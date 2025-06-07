@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.golab18.vidime.entity.User;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,9 @@ public class JwtRefreshFilter extends OncePerRequestFilter {
 
         if (!authRes.isAuthenticated()) return;
 
-        String jwtAccessToken = jwtGenerator.generateToken(authRes.getName(), false);
+        Long userId = ((User) authRes.getPrincipal()).getId();
+
+        String jwtAccessToken = jwtGenerator.generateToken(authRes.getName(), userId, false);
         response.setHeader("Authorization", "Bearer " + jwtAccessToken);
     }
 
