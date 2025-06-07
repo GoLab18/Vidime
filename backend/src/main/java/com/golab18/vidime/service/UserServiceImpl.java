@@ -26,11 +26,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto createUser(AuthRequest authRequest) {
+    public void createUser(AuthRequest authRequest) {
         User user = userMapper.toEntity(authRequest);
         user.setPasswordHash(passwordEncoder.encode(authRequest.getPassword()));
-        User savedUser = userRepository.save(user);
-        return userMapper.toDto(savedUser);
+        userRepository.save(user);
     }
 
     @Override
