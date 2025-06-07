@@ -1,4 +1,4 @@
-<div class="auth-container" [class.loading]="isLoading">
+<div class="auth-container">
   <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth-form" [class.signup-mode]="!isLoginMode">
     <div class="form-panel left-panel">
       <div class="content">
@@ -31,6 +31,20 @@
           </a>
         </div>
         
+        @if (error) {
+          <div class="message error">
+            <i class="material-icons">error_outline</i>
+            <span>{{ error }}</span>
+          </div>
+        }
+        
+        @if (isSuccess) {
+          <div class="message success">
+            <i class="material-icons">check_circle</i>
+            <span>{{ successMessage }}</span>
+          </div>
+        }
+        
         <div class="divider">
           <span>or</span>
         </div>
@@ -42,20 +56,24 @@
         
         <div class="form-group">
           <i class="material-icons generic-icon">lock</i>
-          <input id="password-input" name="password-input" autocomplete="on" [type]="passwordVisible ? 'text' : 'password'" placeholder="Password" formControlName="password"/>
+          <input id="password-input" name="password-input" autocomplete="off" [type]="passwordVisible ? 'text' : 'password'" placeholder="Password" formControlName="password"/>
           <i class="material-icons toggle-password" (click)="togglePasswordVisibility($event)" title="Toggle password visibility">{{ passwordVisible ? 'visibility_off' : 'visibility' }}</i>
         </div>
         
         <div class="form-footer">
-          <label class="remember-me" [class.disabled]="!isLoginMode" *ngIf="isLoginMode">
-            <input id="rememberMe-input" name="rememberMe-input" autocomplete="off" type="checkbox" formControlName="rememberMe"/>
-            <span>Remember me</span>
-          </label>
-          <a *ngIf="isLoginMode" href="#" class="forgot-password">Forgot password?</a>
+          @if (isLoginMode) {
+            <label class="remember-me" [class.disabled]="!isLoginMode">
+              <input id="rememberMe-input" name="rememberMe-input" autocomplete="off" type="checkbox" formControlName="rememberMe"/>
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          }
         </div>
         
         <button type="submit" class="btn" [disabled]="authForm.invalid || isLoading">
-          <span *ngIf="isLoading" class="spinner"></span>
+          @if (isLoading) {
+            <span class="spinner"></span>
+          }
           {{ isLoginMode ? 'Sign In' : 'Create Account' }}
         </button>
         
@@ -68,8 +86,4 @@
       </div>
     </div>
   </form>
-  
-  <div *ngIf="isLoading" class="loading-overlay">
-    <div class="spinner"></div>
-  </div>
 </div>

@@ -95,7 +95,7 @@
 .content p {
   font-size: 14px;
   line-height: 1.6;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
   color: var(--text-gray);
 }
 
@@ -156,16 +156,16 @@ input:focus {
 
 .btn {
   width: 100%;
-  padding: 15px;
+  padding: 16px;
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   background: transparent;
   color: var(--primary-color);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  margin: 20px 0;
+  margin: 16px 0;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -328,7 +328,7 @@ input:focus {
 .subtitle {
   color: var(--text-color);
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .auth-form.signup-mode .left-panel {
@@ -347,28 +347,69 @@ input:focus {
   transition-delay: 0.3s;
 }
 
-.loading-overlay {
+.message {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.message i {
+  margin: 0 8px 0 4px;
+  font-size: 20px;
+}
+
+.message.error {
+  background-color: transparent;
+  color: var(--error-color);
+  border-left: 4px solid var(--error-color);
+}
+
+.message.success {
+  background-color: transparent;
+  color: var(--success-color);
+  border-left: 4px solid var(--success-color);
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto;
+}
+
+.btn .spinner {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.form-content {
+  position: relative;
+}
+
+.form-content.loading::after {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s ease-in-out infinite;
-  margin-right: 10px;
+.form-content.loading.active::after {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @keyframes spin {
