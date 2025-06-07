@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.JwtBuilder;
 
 @Component
 public class JwtGenerator {
@@ -31,14 +32,17 @@ public class JwtGenerator {
         return jwtRefreshExpirationMs;
     }
 
-    public String generateToken(String email, boolean isRefreshToken) {
-        return Jwts
+    public String generateToken(String email, Long userId, boolean isRefreshToken) {
+        JwtBuilder builder = Jwts
             .builder()
             .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + (isRefreshToken ? jwtRefreshExpirationMs : jwtAccessExpirationMs)))
-            .signWith(key, Jwts.SIG.HS256)
-            .compact();
+            .signWith(key, Jwts.SIG.HS256);
+
+        if (!isRefreshToken) builder.claim("userId", userId);
+
+        return builder.compact();
     }
 
     public String validateAndRetrieveSubject(String token) {
