@@ -3,14 +3,14 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { env } from '../../environments/env';
 import { ChannelSlim } from '../models/channel.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl + '/auth';
+  private apiUrl = env.apiUrl + '/auth';
 
   // Token keys for sessionStorage
   private readonly TOKEN_KEY = 'authToken';
@@ -187,7 +187,7 @@ export class AuthService {
   }
 
   getCurrUserChannels(): Observable<ChannelSlim[]> {
-    return this.http.get<ChannelSlim[]>(`${environment.apiUrl}/channels/user/${this.currUserIdValue}`)
+    return this.http.get<ChannelSlim[]>(`${env.apiUrl}/channels/user/${this.currUserIdValue}`)
       .pipe(
         catchError(this.handleError)
       );
