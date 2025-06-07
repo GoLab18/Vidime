@@ -9,7 +9,7 @@ public class ChannelDto {
     private String name;
     private String picture;
     private String description;
-    private UserDto user;
+    private Long userId;
     private Integer videosAmount;
     private Integer subscribersCount;
     private Boolean verified;
