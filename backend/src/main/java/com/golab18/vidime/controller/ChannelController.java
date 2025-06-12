@@ -1,7 +1,10 @@
 package com.golab18.vidime.controller;
 
+import com.golab18.vidime.dto.ChannelCreateDto;
 import com.golab18.vidime.dto.ChannelDto;
+import com.golab18.vidime.dto.ChannelSlimDto;
 import com.golab18.vidime.service.ChannelService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +20,9 @@ public class ChannelController {
 
     private final ChannelService channelService;
 
-    @PostMapping
-    public ResponseEntity<ChannelDto> createChannel(@RequestBody ChannelDto channelDto) {
-        ChannelDto createdChannel = channelService.createChannel(channelDto);
+    @PostMapping("/create")
+    public ResponseEntity<ChannelSlimDto> createChannel(@RequestBody ChannelCreateDto channelCreateDto) {
+        ChannelSlimDto createdChannel = channelService.createChannel(channelCreateDto);
         return new ResponseEntity<>(createdChannel, HttpStatus.CREATED);
     }
 
@@ -36,8 +39,8 @@ public class ChannelController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ChannelDto>> getChannelsByUserId(@PathVariable Long userId) {
-        List<ChannelDto> channels = channelService.getChannelsByUserId(userId);
+    public ResponseEntity<List<ChannelSlimDto>> getChannelsByUserId(@PathVariable Long userId) {
+        List<ChannelSlimDto> channels = channelService.getChannelsByUserId(userId);
         return ResponseEntity.ok(channels);
     }
 

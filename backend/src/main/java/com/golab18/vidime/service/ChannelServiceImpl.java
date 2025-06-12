@@ -1,6 +1,8 @@
 package com.golab18.vidime.service;
 
+import com.golab18.vidime.dto.ChannelCreateDto;
 import com.golab18.vidime.dto.ChannelDto;
+import com.golab18.vidime.dto.ChannelSlimDto;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.User;
 import com.golab18.vidime.repository.ChannelRepository;
@@ -23,15 +25,15 @@ public class ChannelServiceImpl implements ChannelService {
     private final UserRepository userRepository;
 
     @Override
-    public ChannelDto createChannel(ChannelDto channelDto) {
-        if (!userRepository.existsById(channelDto.getUserId())) throw new ResourceNotFoundException("User", "id", channelDto.getUserId());
+    public ChannelSlimDto createChannel(ChannelCreateDto channelCreateDto) {
+        if (!userRepository.existsById(channelCreateDto.getUserId())) throw new ResourceNotFoundException("User", "id", channelCreateDto.getUserId());
 
-        Channel channel = channelMapper.toEntity(channelDto);
+        Channel channel = channelMapper.createToEntity(channelCreateDto);
 
-        channel.setUser(new User(channelDto.getUserId()));
+        channel.setUser(new User(channelCreateDto.getUserId()));
         
         Channel savedChannel = channelRepository.save(channel);
-        return channelMapper.toDto(savedChannel);
+        return channelMapper.toSlimDto(savedChannel);
     }
 
     @Override
@@ -49,9 +51,9 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public List<ChannelDto> getChannelsByUserId(Long userId) {
-        return channelRepository.findByUser(new User(userId)).stream()
-            .map(channelMapper::toDto)
+    public List<ChannelSlimDto> getChannelsByUserId(Long userId) {
+        return channelRepository.findByUserId(userId).stream()
+            .map(channelMapper::toSlimDto)
             .collect(Collectors.toList());
     }
 

@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
     Optional<Channel> findByUuid(UUID uuid);
-    List<Channel> findByUser(User user);
+    List<Channel> findByUserId(Long userId);
     Optional<Channel> findByName(String name);
 }
