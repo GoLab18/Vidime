@@ -23,14 +23,39 @@
   </div>
 
   <div class="header-right">
-    <button class="icon-button">
-      <i class="material-icons">video_call</i>
-    </button>
-    <button class="icon-button">
-      <i class="material-icons">notifications</i>
-    </button>
-    <button class="profile-button">
-      <i class="material-icons">account_circle</i>
-    </button>
+    @if(isLoggedIn) {
+      <button class="icon-button">
+        <i class="material-icons">video_call</i>
+      </button>
+    }
+    <div class="auth-buttons">
+      @if(!isLoggedIn) {
+        <button (click)="onLogin()" class="login-button">
+          <span>Sign In</span>
+        </button>
+      }
+      @if(isLoggedIn) {
+        <div class="account-menu">
+          <button class="profile-button" (click)="$event.stopPropagation()">
+            <i class="material-icons">account_circle</i>
+          </button>
+          <div class="dropdown-menu">
+            <a routerLink="/channel/me" class="dropdown-item">
+              <i class="material-icons">person</i>
+              <span>Your Channel</span>
+            </a>
+            <a routerLink="/channel/choice" class="dropdown-item">
+              <i class="material-icons">switch_account</i>
+              <span>Change Channel</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <button (click)="onLogout()" class="dropdown-item">
+              <i class="material-icons">logout</i>
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </header>
