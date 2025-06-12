@@ -12,6 +12,8 @@
     <div class="search-container">
       <input 
         type="text" 
+        id="search-input"
+        name="search-input"
         [(ngModel)]="searchQuery"
         placeholder="Search..."
         class="search-input"
@@ -24,9 +26,9 @@
 
   <div class="header-right">
     @if(isLoggedIn) {
-      <button class="icon-button">
+      <div class="header-button bigger-icon">
         <i class="material-icons">video_call</i>
-      </button>
+      </div>
     }
     <div class="auth-buttons">
       @if(!isLoggedIn) {
@@ -36,7 +38,7 @@
       }
       @if(isLoggedIn) {
         <div class="account-menu">
-          <button class="profile-button" (click)="$event.stopPropagation()">
+          <button class="header-button" (click)="$event.stopPropagation()">
             <i class="material-icons">account_circle</i>
           </button>
           <div class="dropdown-menu">

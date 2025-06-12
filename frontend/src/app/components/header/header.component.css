@@ -75,6 +75,9 @@
 }
 
 .search-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 64px;
   border: 1px solid #1db954;
   background-color: #1db954;
@@ -94,21 +97,10 @@
   justify-content: flex-end;
 }
 
-.icon-button {
-  padding: 8px;
-  margin: 0 8px;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.icon-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 .auth-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 8px;
 }
 
@@ -133,7 +125,10 @@
   color: #1db954;
 }
 
-.profile-button {
+.header-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1px 6px;
   background: none;
   border: none;
@@ -146,13 +141,17 @@
   transition: color 0.2s;
 }
 
-.profile-button:hover .material-icons {
+.header-button:hover .material-icons {
   color: #1db954;
+}
+
+.bigger-icon .material-icons {
+  font-size: 28px;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   right: 0;
   background-color: #282828;
   min-width: 200px;

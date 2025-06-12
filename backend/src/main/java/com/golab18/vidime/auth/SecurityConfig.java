@@ -74,7 +74,16 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200")); // TODO switch to HTTPS at last
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(
+            List.of(
+                "Authorization",
+                "Accept",
+                "X-Requested-With",
+                "Content-Type",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+            )
+        );
         configuration.setExposedHeaders(
             List.of(
                 "Authorization",
