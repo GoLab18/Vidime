@@ -1,1 +1,110 @@
-<p>channel-create works!</p>
+<div class="channel-create-container">
+  <div class="channel-create-card">
+    <h1>Create Channel</h1>
+    <p class="subtitle">Add your channel name, description, and profile picture</p>
+
+    <form [formGroup]="channelForm" (ngSubmit)="onSubmit()" class="channel-form">
+      @if (error) {
+        <app-hint-bubble [hint]="error" [isError]="true"></app-hint-bubble>
+      }
+
+      @if (isSuccess) {
+        <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
+      }
+
+      <div class="form-group picture-upload">
+        <div class="image-preview" [class.has-image]="previewUrl">
+          @if (!previewUrl) {
+            <div class="upload-placeholder">
+              <i class="material-icons">add_a_photo</i>
+              <span>Channel Picture</span>
+            </div>
+          }
+          @if (previewUrl) {
+            <img [src]="previewUrl" alt="Channel preview" class="preview-image">
+          }
+          <input
+            type="file"
+            id="channel-picture"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="file-input"
+          >
+        </div>
+
+        <p class="hint">Recommended size: <span class="hint-bold">800x800px</span>. Max <span class="hint-bold">5MB</span>.</p>
+
+        @if(previewUrl) {
+          <div class="clear-preview-icon" (click)="onClearPreview()">
+            <i class="material-icons">clear</i>
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="channel-name">Channel Name</label>
+        <div class="input-container">
+          <i class="material-icons">badge</i>
+          <input 
+            type="text"
+            id="channel-name"
+            formControlName="name"
+            placeholder="Enter your channel name"
+            [class.error]="hasError('name', 'required') || hasError('name', 'minlength') || hasError('name', 'pattern')"
+            autocomplete="off"
+          >
+        </div>
+        @if (hasError('name', 'required') || hasError('name', 'minlength') || hasError('name', 'pattern')) {
+          <div class="error-message">
+            <i class="material-icons">error</i>
+            @if (hasError('name', 'required')) {
+              <span>Channel name is required</span>
+            } @else if (hasError('name', 'minlength')) {
+              <span>Channel name must be at least 3 characters long</span>
+            } @else if (hasError('name', 'pattern')) {
+              <span>Only letters, numbers, spaces, hyphens, and underscores are allowed</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <div class="description-header">
+            <label for="channel-description">Description</label>
+            <div class="hint">
+                {{ channelForm.get('description')?.value?.length || 0 }}/1000
+              </div>
+        </div>
+        <div class="input-container">
+          <textarea
+            id="channel-description"
+            formControlName="description"
+            placeholder="Tell viewers about your channel"
+            [class.error]="hasError('description', 'required') || hasError('description', 'maxlength')"
+          ></textarea>
+        </div>
+        @if (hasError('description', 'required') || hasError('description', 'maxlength')) {
+          <div class="error-message">
+            <i class="material-icons">error</i>
+            @if (hasError('description', 'required')) {
+              <span>Description is required</span>
+            } @else if (hasError('description', 'maxlength')) {
+              <span>Description cannot exceed 1000 characters</span>
+            }
+          </div>
+        }
+      </div>
+
+      <button 
+        type="submit" 
+        class="submit-button" 
+        [disabled]="channelForm.invalid || isLoading"
+      >
+        @if (isLoading) {
+          <span class="loading-spinner"></span>
+        }
+        {{ isLoading ? 'Creating...' : 'Create Channel' }}
+      </button>
+    </form>
+  </div>
+</div>
