@@ -32,17 +32,11 @@
         </div>
         
         @if (error) {
-          <div class="message error">
-            <i class="material-icons">error_outline</i>
-            <span>{{ error }}</span>
-          </div>
+          <app-hint-bubble [hint]="error" [isError]="true"></app-hint-bubble>
         }
-        
+
         @if (isSuccess) {
-          <div class="message success">
-            <i class="material-icons">check_circle</i>
-            <span>{{ successMessage }}</span>
-          </div>
+          <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
         }
         
         <div class="divider">

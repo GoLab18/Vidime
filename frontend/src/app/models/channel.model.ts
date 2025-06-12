@@ -3,6 +3,7 @@ export interface ChannelSlim {
   uuid: string;
   name: string;
   picture?: string;
+  userId: number;
   verified: boolean;
 }
 

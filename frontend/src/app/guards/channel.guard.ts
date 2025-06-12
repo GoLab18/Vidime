@@ -11,8 +11,8 @@ export const channelGuard: CanActivateFn = (_, state) => {
   return authService.currChannel$.pipe(
     take(1),
     map(channel => {
-      const isAuthenticated = !!channel;
-      if (isAuthenticated) return true;
+      const isChannelPicked = !!channel;
+      if (isChannelPicked) return true;
       return router.createUrlTree(['/channel/choice'], {
         queryParams: { returnUrl: state.url }
       });

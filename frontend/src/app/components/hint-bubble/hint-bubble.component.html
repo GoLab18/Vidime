@@ -1,0 +1,6 @@
+@if (hint) {
+  <div class="message" [ngClass]="isError ? 'error' : 'success'">
+    <i class="material-icons">{{ isError ? 'error_outline' : 'check_circle' }}</i>
+    <span>{{ hint }}</span>
+  </div>
+}

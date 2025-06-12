@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { finalize } from 'rxjs/operators';
+import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, HintBubbleComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -92,7 +93,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.isLoginMode) {
       this.redirectTimer = setTimeout(() => {
         this.router.navigate(['channel/choice'], { queryParams: { returnUrl: this.returnUrl } });
-      }, 2000);
+      }, 1000);
     } else {
       setTimeout(() => {
         this.isLoginMode = true;
@@ -100,7 +101,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.successMessage = '';
 
         this.authForm.patchValue({ email: this.authForm.value.email, password: '' });
-      }, 2000);
+      }, 1000);
     }
   }
 

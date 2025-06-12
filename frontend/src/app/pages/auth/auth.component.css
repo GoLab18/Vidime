@@ -347,32 +347,6 @@ input:focus {
   transition-delay: 0.3s;
 }
 
-.message {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.2;
-}
-
-.message i {
-  margin: 0 8px 0 4px;
-  font-size: 20px;
-}
-
-.message.error {
-  background-color: transparent;
-  color: var(--error-color);
-  border-left: 4px solid var(--error-color);
-}
-
-.message.success {
-  background-color: transparent;
-  color: var(--success-color);
-  border-left: 4px solid var(--success-color);
-}
-
 .spinner {
   display: inline-block;
   width: 20px;

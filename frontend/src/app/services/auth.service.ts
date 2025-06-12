@@ -141,6 +141,11 @@ export class AuthService {
     this.setAutoLogout();
   }
 
+  manualLogout() {
+    this.clearSession();
+    this.router.navigate(['/']);
+  }
+
   logout() {
     this.clearSession();
     this.router.navigate(['/auth']);
@@ -191,5 +196,20 @@ export class AuthService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  createChannel(name: String, picture: String, description: String): Observable<void> {
+    return this.http.post<ChannelSlim>(
+      `${env.apiUrl}/channels/create`,
+      { name, picture, description, userId: this.currUserIdValue },
+      { withCredentials: true, observe: 'response' }
+    ).pipe(
+      tap((response) => {
+        sessionStorage.setItem(this.CURRENT_CHANNEL_KEY, JSON.stringify(response.body));
+        this.currChannelSubject.next(response.body);
+      }),
+      map(() => void 0),
+      catchError(this.handleError)
+    );
   }
 }

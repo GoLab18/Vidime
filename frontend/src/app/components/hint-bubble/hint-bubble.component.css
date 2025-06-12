@@ -1,0 +1,36 @@
+:host {
+  --success: #1db954;
+  --error: #ff3860;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message i {
+  margin: 0 8px 0 4px;
+  font-size: 20px;
+}
+
+.message.error {
+  background-color: transparent;
+  color: var(--error);
+  border-left: 4px solid var(--error);
+}
+
+.message.success {
+  background-color: transparent;
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
