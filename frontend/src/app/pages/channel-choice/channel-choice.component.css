@@ -1,28 +1,41 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 100%;
+
+  --primary-color: #1db954;
+  --background-main: rgba(255, 255, 255, 0.1);
+  --background-main-accent: rgba(255, 255, 255, 0.2);
+  --background-main-lite: rgba(255, 255, 255, 0.05);
+}
+
 .channel-choice-container {
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  margin: 32px auto;
+  padding: 0 20px;
   text-align: center;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 40px;
+  margin-bottom: 8px;
   color: #fff;
 }
 
 .subtitle {
   color: #aaa;
-  margin-bottom: 3rem;
-  font-size: 1.1rem;
+  margin-bottom: 48px;
+  font-size: 20px;
 }
 
 .channels-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 2rem;
+  gap: 32px;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 16px 0;
 }
 
 .channel-card {
@@ -33,16 +46,16 @@ h1 {
   transition: transform 0.2s ease, opacity 0.2s ease;
   text-decoration: none;
   color: inherit;
-  padding: 1.5rem 1rem;
+  padding: 24px 16px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--background-main-lite);
+  border: 1px solid var(--background-main);
 }
 
 .channel-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--background-main);
+  border-color: var(--background-main-accent);
 }
 
 .channel-avatar {
@@ -50,18 +63,29 @@ h1 {
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   background: #2c2c2c;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid rgba(255, 255, 255, 0.1);
+  border: 3px solid var(--background-main);
   transition: all 0.3s ease;
 }
 
 .channel-card:hover .channel-avatar {
-  border-color: var(--primary-color, #ff4d4d);
+  border-color: var(--primary-color);
   transform: scale(1.05);
+}
+
+.avatar-fallback-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-fallback-icon .material-icons {
+  font-size: 48px;
+  color: var(--primary-color);
 }
 
 .channel-image {
@@ -71,38 +95,37 @@ h1 {
 }
 
 .channel-name {
-  margin: 0.75rem 0 0;
-  font-size: 1.1rem;
+  margin: 12px 0 0;
+  font-size: 20px;
   font-weight: 500;
   color: #fff;
   transition: color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
 }
 
 .add-channel {
   background: rgba(255, 255, 255, 0.03);
-  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border: 2px dashed var(--background-main-accent);
 }
 
 .add-channel:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--primary-color, #ff4d4d);
+  background: var(--background-main-lite);
+  border-color: var(--primary-color);
 }
 
 .add-avatar {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--background-main-lite);
   border-style: dashed;
 }
 
 .plus-icon {
-  font-size: 3rem;
-  color: var(--primary-color, #ff4d4d);
+  font-size: 48px;
+  color: var(--primary-color);
   line-height: 1;
-  margin-top: -0.5rem;
-  transition: transform 0.2s ease;
-}
-
-.add-channel:hover .plus-icon {
-  transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
@@ -117,14 +140,14 @@ h1 {
   }
   
   h1 {
-    font-size: 2rem;
+    font-size: 32px;
   }
 }
 
 @media (max-width: 480px) {
   .channels-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 16px;
   }
   
   .channel-avatar {
@@ -133,6 +156,6 @@ h1 {
   }
   
   .channel-name {
-    font-size: 0.95rem;
+    font-size: 14px;
   }
 }

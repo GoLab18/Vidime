@@ -6,7 +6,14 @@
     @for (channel of channels; track channel.id) {
       <div class="channel-card" (click)="selectChannel(channel)">
         <div class="channel-avatar">
-          <img [src]="channel.picture" [alt]="channel.name + ' avatar'" class="channel-image">
+          @if(channel.picture) {
+            <img [src]="channel.picture" class="channel-image">
+          }
+          @else {
+            <div class="avatar-fallback-icon">
+              <span class="material-icons">person</span>
+            </div>
+          }
         </div>
         <h3 class="channel-name">{{ channel.name }}</h3>
       </div>

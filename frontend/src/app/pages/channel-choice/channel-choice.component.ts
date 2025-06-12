@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ChannelSlim } from '../../models/channel.model';
 
 @Component({
@@ -13,15 +13,19 @@ export class ChannelChoiceComponent {
   channels: ChannelSlim[] = [];
   private returnUrl = '/';
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.authService.getCurrUserChannels().subscribe((channels) => {
-      if (channels.length === 0) this.router.navigate(['/channel/create']);
+      if (channels.length === 0) this.navigateToCreate();
       this.channels = channels;
     });
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((params: any) => {
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
       this.returnUrl = params.get('returnUrl') || '/';
     });
   }
@@ -32,6 +36,8 @@ export class ChannelChoiceComponent {
   }
 
   navigateToCreate() {
-    this.router.navigate(['/channel/create']);
+    this.router.navigate(['/channel/create'], {
+      queryParams: { returnUrl: this.returnUrl }
+    });
   }
 }
