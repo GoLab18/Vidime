@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CommentDto {
     private Long id;
-    private ChannelDto channel;
+    private ChannelDto commenter;
     private Long videoId;
     private String content;
     private Integer likes;
