@@ -14,8 +14,8 @@ public class Reply {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id")
-    private Channel channel;
+    @JoinColumn(name = "replier_id", referencedColumnName = "id")
+    private Channel replier;
 
     @ManyToOne
     @JoinColumn(name = "parent_comment_id", referencedColumnName = "id", nullable = false)

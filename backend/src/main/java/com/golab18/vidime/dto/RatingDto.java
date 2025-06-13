@@ -1,12 +1,14 @@
 package com.golab18.vidime.dto;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
 public class RatingDto {
     private Long id;
-    private ChannelDto channel;
+    private ChannelDto rater;
     private VideoDto video;
-    private Integer level;
+    private BigDecimal score;
     private String createdAt;
 }

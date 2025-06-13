@@ -6,6 +6,7 @@ import com.golab18.vidime.dto.RatingDto;
 import com.golab18.vidime.entity.Rating;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.math.BigDecimal;
 
 @Mapper(componentModel = "spring", uses = {ChannelMapper.class, VideoMapper.class}, imports = {Timestamp.class, Instant.class})
 public interface RatingMapper {
