@@ -6,8 +6,6 @@ import lombok.Data;
 import java.sql.Timestamp;
 import java.util.UUID;
 import java.util.List;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
 
 @Data
 @Entity
@@ -57,16 +55,16 @@ public class Channel {
     @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Subscription> subscribers;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "viewer", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<WatchHistory> watchHistoryEntries;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "commenter", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "replier", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Reply> replies;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "rater", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Rating> ratings;
 
     @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE, orphanRemoval = true)

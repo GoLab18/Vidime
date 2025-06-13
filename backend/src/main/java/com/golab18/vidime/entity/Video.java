@@ -67,4 +67,7 @@ public class Video {
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Rating> ratings;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<VideoView> videoViews;
 }

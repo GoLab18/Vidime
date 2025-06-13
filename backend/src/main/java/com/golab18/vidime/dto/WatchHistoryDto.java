@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class WatchHistoryDto {
     private Long id;
-    private Long channelId;
+    private Long viewerId;
     private VideoDto video;
     private String watchedDate;
     private String lastWatchedAt;

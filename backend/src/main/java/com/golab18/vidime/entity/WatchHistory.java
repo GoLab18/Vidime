@@ -8,15 +8,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "watch_history", uniqueConstraints = {@UniqueConstraint(columnNames = {"channel_id", "video_id", "watched_date"})})
+@Table(name = "watch_history", uniqueConstraints = {@UniqueConstraint(columnNames = {"viewer_id", "video_id", "watched_date"})})
 public class WatchHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
-    private Channel channel;
+    @JoinColumn(name = "viewer_id", referencedColumnName = "id", nullable = false)
+    private Channel viewer;
 
     @ManyToOne
     @JoinColumn(name = "video_id", referencedColumnName = "id")

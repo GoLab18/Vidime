@@ -29,5 +29,6 @@ public interface VideoMapper {
     @Mapping(target = "watchHistories", ignore = true)
     @Mapping(target = "playlistEntries", ignore = true)
     @Mapping(target = "ratings", ignore = true)
+    @Mapping(target = "videoViews", ignore = true)
     Video toEntity(VideoDto videoDto);
 }
