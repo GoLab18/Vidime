@@ -48,8 +48,8 @@
       <div class="video-title">{{ video.title }}</div>
       <div class="video-stats-container">
         <div class="video-stats">{{ video.views | formatNumber:'view':'views' }} <span class="dot">•</span> {{ video.addedAt | formatDate }}</div>
-        <div class="rating-bar" [style.--rating-value]="video.avgRating / 5">
-          <span class="rating-value">{{ (video.avgRating / 5 * 100) | number:'1.0-0' }}%</span>
+        <div class="rating-bar" [style.--rating-value]="video.avgRating">
+          <span class="rating-value">{{ (video.avgRating * 100) | number:'1.0-0' }}%</span>
         </div>
       </div>
     </div>
