@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { ChannelSlim } from '../../models/channel.model';
 
 @Component({
   selector: 'app-header',
@@ -14,23 +15,27 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   isLoggedIn = false;
-  private authSubscription: Subscription | undefined;
+  channel: ChannelSlim | null = null;
+  authSubscription?: Subscription;
+  channelSubscription?: Subscription;
   
   @Output() sidebarToggle = new EventEmitter<void>();
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authSubscription = this.authService.currUserId$.subscribe(userId => {
       this.isLoggedIn = !!userId;
+
+      this.channelSubscription = this.authService.currChannel$.subscribe(channel => {
+        this.channel = channel;
+      });
     });
   }
 
   ngOnDestroy() {
     if (this.authSubscription) this.authSubscription.unsubscribe();
+    if (this.channelSubscription) this.channelSubscription.unsubscribe();
   }
 
   toggleSidebar() {

@@ -25,7 +25,7 @@
   </div>
 
   <div class="header-right">
-    @if(isLoggedIn) {
+    @if(isLoggedIn && channel) {
       <div class="header-button bigger-icon">
         <i class="material-icons">video_call</i>
       </div>
@@ -38,14 +38,27 @@
       }
       @if(isLoggedIn) {
         <div class="account-menu">
-          <button class="header-button" (click)="$event.stopPropagation()">
-            <i class="material-icons">account_circle</i>
-          </button>
+          @if(channel) {
+            <div class="channel-avatar">
+              @if(channel.picture) {
+                <img [src]="channel.picture">
+              } @else {
+                <div class="avatar-picture-fallback-background"></div>
+                <i class="material-icons avatar-picture-fallback">account_circle</i>
+              }
+            </div>
+          } @else {
+            <button class="header-button" (click)="$event.stopPropagation()">
+              <i class="material-icons">account_circle</i>
+            </button>
+          }
           <div class="dropdown-menu">
+            @if(channel) {
             <a routerLink="/channel/me" class="dropdown-item">
               <i class="material-icons">person</i>
-              <span>Your Channel</span>
+              <span>Manage Channel</span>
             </a>
+            }
             <a routerLink="/channel/choice" class="dropdown-item">
               <i class="material-icons">switch_account</i>
               <span>Change Channel</span>
