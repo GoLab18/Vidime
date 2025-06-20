@@ -1,73 +1,86 @@
 <main id="main-content">
-  <app-video-player [videoId]="videoId"></app-video-player>
+  <app-video-watch-panel [videoId]="videoId"></app-video-watch-panel>
   
   <div id="info-panel" [class.collapsed]="commentSectionCollapsed">
     <div class="collapse-btn-wrapper">
       <button id="collapse-btn" (click)="toggleCommentSectionPanel()">
-        <span *ngIf="commentSectionCollapsed">Show Comments</span>
-        <span *ngIf="!commentSectionCollapsed" class="hide-comments">Hide Comments</span>
+        @if (commentSectionCollapsed) {
+          <span>Show Comments</span>
+        } @else {
+          <span class="hide-comments">Hide Comments</span>
+        }
       </button>
     </div>
-    <div *ngIf="!commentSectionCollapsed" class="comments-section">
-      <div class="comment-form">
-        <div class="form-group new-comment-info">
-          <div class="channel-avatar channel-redirect" (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">
-            <img [src]="mockChannel.picture" [alt]="mockChannel.name">
+    @if (!commentSectionCollapsed) {
+      <div class="comments-section">
+        <div class="comment-form">
+          <div class="form-group new-comment-info">
+            <div class="channel-avatar channel-redirect" (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">
+              <img [src]="mockChannel.picture" [alt]="mockChannel.name">
+            </div>
+            <div class="channel-name channel-redirect">
+              <span (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">{{ mockChannel.name }}</span>
+              @if (mockChannel.verified) {
+                <i class="material-icons verified">verified</i>
+              }
+            </div>
           </div>
-          <div class="channel-name channel-redirect">
-            <span (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">{{ mockChannel.name }}</span>
-            <i class="material-icons verified" *ngIf="mockChannel.verified">verified</i>
+          <div class="form-group">
+            <textarea [(ngModel)]="newCommentContent" placeholder="Write a comment..." class="comment-input"></textarea>
           </div>
+          <button (click)="addComment()" class="submit-button" [disabled]="!newCommentContent.trim() || !videoCommentsLoaded">Post Comment</button>
         </div>
-        <div class="form-group">
-          <textarea [(ngModel)]="newCommentContent" placeholder="Write a comment..." class="comment-input"></textarea>
-        </div>
-        <button (click)="addComment()" class="submit-button" [disabled]="!newCommentContent.trim() || !videoCommentsLoaded">Post Comment</button>
-      </div>
 
-      <div class="comments-header" *ngIf="videoCommentsLoaded">
-        <h3>{{ comments.length }} Comments</h3>
-        <div class="sort-options">
-          <button class="sort-button active">Newest</button>
-          <button class="sort-button">Top</button>
-        </div>
-      </div>
+        @if (videoCommentsLoaded) {
+          <div class="comments-header">
+            <h3>{{ comments.length }} Comments</h3>
+            <div class="sort-options">
+              <button class="sort-button active">Newest</button>
+              <button class="sort-button">Top</button>
+            </div>
+          </div>
+        }
 
-      <div class="comments-list" *ngIf="videoCommentsLoaded">
-        @for (comment of comments; track comment.id) {
-          <div class="comment-item">
-            <div class="comment-header">
-              <div class="comment-author">
-                <div class="channel-avatar channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">
-                  <img [src]="comment.channel.picture" [alt]="comment.channel.name">
+        @if (videoCommentsLoaded) {
+          <div class="comments-list">
+            @for (comment of comments; track comment.id) {
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="comment-author">
+                    <div class="channel-avatar channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">
+                      <img [src]="comment.channel.picture" [alt]="comment.channel.name">
+                    </div>
+                    <span class="author-name channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">{{ comment.channel.name }}</span>
+                    @if (comment.channel.verified) {
+                      <i class="material-icons verified">verified</i>
+                    }
+                    <span class="comment-timestamp dot">•</span>
+                    <span class="comment-timestamp">{{ comment.createdAt | formatDate }}</span>
+                  </div>
+                  <div class="comment-actions">
+                    <button class="action-button">
+                      <i class="material-icons">thumb_up</i>
+                      <span>{{ comment.likes }}</span>
+                    </button>
+                    <button class="action-button">
+                      <i class="material-icons">thumb_down</i>
+                      <span>{{ comment.dislikes }}</span>
+                    </button>
+                    <button class="action-button">
+                      <i class="material-icons">reply</i>
+                    </button>
+                  </div>
                 </div>
-                <span class="author-name channel-redirect" (click)="navigateToChannel(comment.channel.id, comment.channel.uuid)">{{ comment.channel.name }}</span>
-                <i class="material-icons verified" *ngIf="comment.channel.verified">verified</i>
-                <span class="comment-timestamp dot">•</span>
-                <span class="comment-timestamp">{{ comment.createdAt | formatDate }}</span>
+                <div class="comment-content">
+                  {{ comment.content }}
+                </div>
+                <app-comment-replies [commentId]="comment.id" [repliesAmount]="comment.repliesAmount"></app-comment-replies>
               </div>
-              <div class="comment-actions">
-                <button class="action-button">
-                  <i class="material-icons">thumb_up</i>
-                  <span>{{ comment.likes }}</span>
-                </button>
-                <button class="action-button">
-                  <i class="material-icons">thumb_down</i>
-                  <span>{{ comment.dislikes }}</span>
-                </button>
-                <button class="action-button">
-                  <i class="material-icons">reply</i>
-                </button>
-              </div>
-            </div>
-            <div class="comment-content">
-              {{ comment.content }}
-            </div>
-            <app-comment-replies [commentId]="comment.id" [repliesAmount]="comment.repliesAmount"></app-comment-replies>
+            }
           </div>
         }
       </div>
-    </div>
+    }
   </div>
 
   <div class="side-section-overlay">

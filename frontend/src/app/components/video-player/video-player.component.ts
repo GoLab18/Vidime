@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Video } from '../../models/video.model';
-import { FormatNumberPipe } from '../../pipes/format-number.pipe';
-import { FormatDatePipe } from '../../pipes/format-date.pipe';
-import { VideoService } from '../../services/video.service';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Input, ViewChild, HostListener, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 
 enum VideoState {
   PLAYING,
@@ -16,18 +11,15 @@ enum VideoState {
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css',
-  imports: [CommonModule, FormatNumberPipe, FormatDatePipe]
+  imports: [CommonModule]
 })
-export class VideoPlayerComponent implements OnInit, OnChanges {
-  @Input({required: true}) videoId!: number;
+export class VideoPlayerComponent implements AfterViewInit, OnChanges {
+  @Input() videoUrl?: string;
 
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
   @ViewChild('videoPlayerContainer') videoPlayerContainer!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('volumeSliderContainer') volumeSliderContainer!: ElementRef;
-
-  video?: Video;
-  isLoading = true;
 
   videoState: VideoState = VideoState.PAUSED;
   isFullscreen = false;
@@ -35,36 +27,21 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   isMuted = false;
   volume = 1;
 
-  constructor(private videoService: VideoService, private router: Router) {}
-
-  ngOnInit() {
-    this.loadVideo();
+  constructor() {
   }
-
-  loadVideo() {
-    this.isLoading = true;
-
-    this.videoService.getVideo(this.videoId).subscribe((video) => {
-      this.video = video;
-      this.isLoading = false;
-
-      setTimeout(() => {
-        this.videoOverlay?.nativeElement?.focus();
-        this.videoPlayer.nativeElement.addEventListener('ended', () => {
-          this.videoState = VideoState.ENDED;
-        });
-      });
+  
+  ngAfterViewInit() {
+    this.videoOverlay?.nativeElement?.focus();
+    this.videoPlayer.nativeElement.addEventListener('ended', () => {
+      this.videoState = VideoState.ENDED;
     });
   }
-
+  
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['videoId']) {
-      this.loadVideo();
+    if (changes['videoUrl'] && changes['videoUrl'].currentValue) {
+      this.videoPlayer.nativeElement.src = changes['videoUrl'].currentValue;
+      this.videoState = VideoState.PAUSED;
     }
-  }
-
-  navigateToChannel(channelId: number, channelUuid: string) {
-    this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
   }
 
   handleVideoStateButton() {

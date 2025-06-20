@@ -1,7 +1,7 @@
 <div id="video-section">
-  <div id="video-player-container" *ngIf="!isLoading && video" #videoPlayerContainer>
+  <div id="video-player-container" #videoPlayerContainer>
     <video #videoPlayer>
-      <source [src]="video.cdnUrl" type="video/mp4">
+      <source [src]="videoUrl">
     </video>
     <div id="video-overlay" #videoOverlay tabindex="0">
       <div id="video-timeline"></div>
@@ -40,35 +40,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div id="video-info" *ngIf="!isLoading && video">
-    <div class="video-info-base">
-      <div class="video-info-base-background"></div>
-      <div class="video-title">{{ video.title }}</div>
-      <div class="video-stats-container">
-        <div class="video-stats">{{ video.views | formatNumber:'view':'views' }} <span class="dot">•</span> {{ video.addedAt | formatDate }}</div>
-        <div class="rating-bar" [style.--rating-value]="video.avgRating">
-          <span class="rating-value">{{ (video.avgRating * 100) | number:'1.0-0' }}%</span>
-        </div>
-      </div>
-    </div>
-    <div class="channel-info">
-      <div class="channel-avatar channel-redirect" (click)="navigateToChannel(video.channel!.id, video.channel!.uuid)">
-        <img [src]="video.channel!.picture" [alt]="video.channel!.name">
-      </div>
-      <div class="channel-details">
-        <div class="channel-name">
-          <span class="channel-redirect" (click)="navigateToChannel(video.channel!.id, video.channel!.uuid)">{{ video.channel!.name }}</span>
-          <i class="material-icons verified" *ngIf="video.channel!.verified">verified</i>
-        </div>
-        <div class="channel-stats">
-          {{ video.channel!.subscribersCount | formatNumber:'sub':'subs' }} <span class="dot">•</span> {{ video.channel!.videosAmount | formatNumber:'video':'videos' }}
-        </div>
-      </div>
-    </div>
-    <div class="video-description-container">
-      <div class="video-description">{{ video.description }}</div>
     </div>
   </div>
 </div>

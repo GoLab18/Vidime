@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 import { RelatedVideoComponent } from '../../components/related-video/related-video.component';
 import { VideoService } from '../../services/video.service';
 import { CommentService } from '../../services/comment.service';
@@ -11,10 +10,11 @@ import { Channel } from '../../models/channel.model';
 import { Comment } from '../../models/comment.model';
 import { CommentRepliesComponent } from '../../components/comment-replies/comment-replies.component';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
+import { VideoWatchPanelComponent } from '../../components/video-watch-panel/video-watch-panel.component';
 
 @Component({
   selector: 'app-watch',
-  imports: [CommonModule, FormsModule, VideoPlayerComponent, RelatedVideoComponent, CommentRepliesComponent, FormatDatePipe],
+  imports: [CommonModule, FormsModule, VideoWatchPanelComponent, RelatedVideoComponent, CommentRepliesComponent, FormatDatePipe],
   templateUrl: './watch.component.html',
   styleUrl: './watch.component.css'
 })
