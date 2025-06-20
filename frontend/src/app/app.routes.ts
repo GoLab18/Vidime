@@ -10,6 +10,8 @@ import { publicGuard } from './guards/public.guard';
 import { ChannelChoiceComponent } from './pages/channel-choice/channel-choice.component';
 import { channelGuard } from './guards/channel.guard';
 import { ChannelCreateComponent } from './pages/channel-create/channel-create.component';
+import { PlaylistCreateComponent } from './pages/playlist-create/playlist-create.component';
+import { VideoAddComponent } from './pages/video-add/video-add.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +47,26 @@ export const routes: Routes = [
       {
         path: 'manage',
         component: ChannelManageComponent,
+        canActivate: [authGuard, channelGuard]
+      }
+    ]
+  },
+  {
+    path: 'video',
+    children: [
+      {
+        path: 'add',
+        component: VideoAddComponent,
+        canActivate: [authGuard, channelGuard]
+      }
+    ]
+  },
+  {
+    path: 'playlist',
+    children: [
+      {
+        path: 'create',
+        component: PlaylistCreateComponent,
         canActivate: [authGuard, channelGuard]
       }
     ]

@@ -26,8 +26,13 @@
 
   <div class="header-right">
     @if(isLoggedIn && channel) {
-      <div class="header-button bigger-icon">
+      <div class="header-button bigger-icon" routerLink="/video/add" tabindex="0">
         <i class="material-icons">video_call</i>
+      </div>
+    }
+    @if(isLoggedIn && channel) {
+      <div class="header-button bigger-icon" routerLink="/playlist/create" tabindex="0">
+        <i class="material-icons">playlist_add</i>
       </div>
     }
     <div class="auth-buttons">
@@ -39,7 +44,7 @@
       @if(isLoggedIn) {
         <div class="account-menu">
           @if(channel) {
-            <div class="channel-avatar">
+            <div class="channel-avatar" tabindex="0">
               @if(channel.picture) {
                 <img [src]="channel.picture">
               } @else {
@@ -48,23 +53,23 @@
               }
             </div>
           } @else {
-            <button class="header-button" (click)="$event.stopPropagation()">
+            <button class="header-button" (click)="$event.stopPropagation()" tabindex="0">
               <i class="material-icons">account_circle</i>
             </button>
           }
           <div class="dropdown-menu">
             @if(channel) {
-            <a routerLink="/channel/me" class="dropdown-item">
+            <a routerLink="/channel/me" class="dropdown-item" tabindex="0">
               <i class="material-icons">person</i>
               <span>Manage Channel</span>
             </a>
             }
-            <a routerLink="/channel/choice" class="dropdown-item">
+            <a routerLink="/channel/choice" class="dropdown-item" tabindex="0">
               <i class="material-icons">switch_account</i>
               <span>Change Channel</span>
             </a>
             <div class="dropdown-divider"></div>
-            <button (click)="onLogout()" class="dropdown-item">
+            <button (click)="onLogout()" class="dropdown-item" tabindex="0">
               <i class="material-icons">logout</i>
               <span>Sign Out</span>
             </button>
