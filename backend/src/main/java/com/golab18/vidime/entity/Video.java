@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import lombok.Data;
@@ -17,7 +18,7 @@ public class Video {
     private Long id;
 
     @Column(length = 36, nullable = false, unique = true)
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
 
     @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
@@ -50,8 +51,8 @@ public class Video {
     @Column(nullable = false)
     private Timestamp addedAt = new Timestamp(System.currentTimeMillis());
 
-    @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<VideoTag> tags;
+    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<VideoTag> tags;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<PlaylistVideo> playlistEntries;

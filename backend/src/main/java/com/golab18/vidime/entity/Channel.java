@@ -19,7 +19,7 @@ public class Channel {
     private Long id;
 
     @Column(length = 36, nullable = false, unique = true)
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
 
     @Column(nullable = false)
     private String name;

@@ -3,6 +3,7 @@ package com.golab18.vidime.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.golab18.vidime.dto.TagCreateDto;
 import com.golab18.vidime.dto.TagDto;
 import com.golab18.vidime.entity.Tag;
 
@@ -12,4 +13,8 @@ public interface TagMapper {
     
     @Mapping(target = "videoTags", ignore = true)
     Tag toEntity(TagDto tagDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "videoTags", ignore = true)
+    Tag createToEntity(TagCreateDto tagCreateDto);
 }

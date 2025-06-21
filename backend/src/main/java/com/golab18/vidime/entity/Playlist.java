@@ -6,8 +6,7 @@ import java.util.UUID;
 import java.util.List;
 import com.golab18.vidime.entity.PlaylistVideo;
 import com.golab18.vidime.entity.SavedPlaylist;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+
 import lombok.Data;
 
 @Data
@@ -19,7 +18,7 @@ public class Playlist {
     private Long id;
 
     @Column(length = 36, nullable = false, unique = true)
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
 
     @ManyToOne
     @JoinColumn(name = "channel_id", referencedColumnName = "id")

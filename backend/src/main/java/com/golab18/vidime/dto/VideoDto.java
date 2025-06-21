@@ -1,6 +1,6 @@
 package com.golab18.vidime.dto;
 
-import java.util.List;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ public class VideoDto {
     private Long id;
     private String uuid;
     private ChannelDto channel;
-    private List<TagDto> tags;
+    private Set<TagDto> tags;
     private String title;
     private String description;
     private String cdnUrl;
