@@ -10,10 +10,11 @@ import { AuthService } from '../../services/auth.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
 import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
 import { CommonModule } from '@angular/common';
+import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 
 @Component({
   selector: 'app-video-add',
-  imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent, HintBubbleComponent, FormatFileSizePipe],
+  imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent, HintBubbleComponent, FormatFileSizePipe, FormatDurationPipe],
   templateUrl: './video-add.component.html',
   styleUrl: './video-add.component.css'
 })
@@ -25,11 +26,12 @@ export class VideoAddComponent implements OnDestroy {
   selectedVideoFile?: File;
   imagePreviewUrl?: string;
   videoPreviewUrl?: string;
-  maxThumbnailSize = 5 * 1024 * 1024; // 5MB
-  maxVideoSize = 1024 * 1024 * 1024; // 1GB
+  maxThumbnailSize = 5 * 1024 * 1024;
+  maxVideoSize = 1024 * 1024 * 1024;
   successMessage = '';
   maxLengthTitle = 100;
   maxLengthDescription = 1000;
+  videoDurationMillis = 0;
   redirectTimer: any;
 
   constructor(
@@ -102,7 +104,18 @@ export class VideoAddComponent implements OnDestroy {
       }
 
       const reader = new FileReader();
-      reader.onload = () => { this.videoPreviewUrl = reader.result as string; };
+      reader.onload = () => {
+        this.videoPreviewUrl = reader.result as string;
+    
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.src = this.videoPreviewUrl;
+        video.onloadedmetadata = () => {
+          window.URL.revokeObjectURL(video.src);
+          this.videoDurationMillis = video.duration * 1000;
+        };
+      };
+
       reader.readAsDataURL(file);
 
       this.selectedVideoFile = file;
@@ -130,7 +143,7 @@ export class VideoAddComponent implements OnDestroy {
           description: this.videoForm.get('description')?.value,
           cdnUrl,
           thumbnailUrl,
-          duration: this.videoForm.get('duration')?.value
+          duration: this.videoDurationMillis
         }
         this.videoService.createVideo(newVideo).subscribe({
           next: () => {
@@ -162,6 +175,7 @@ export class VideoAddComponent implements OnDestroy {
   onClearVideo() {
     this.videoPreviewUrl = undefined;
     this.selectedVideoFile = undefined;
+    this.videoDurationMillis = 0;
     this.videoForm.patchValue({ cdnName: null });
   }
 

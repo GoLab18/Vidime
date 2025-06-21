@@ -44,7 +44,7 @@
         <div id="video-input-container" class="input-container-fx">
           <div id="video-info">
             <p><span>File:</span> {{ selectedVideoFile?.name || 'Not picked' }}</p>
-            <p><span>Type:</span> {{ selectedVideoFile?.type || 'N/A' }}</p>
+            <p><span>Duration:</span> {{ videoDurationMillis > 0 ? (videoDurationMillis | formatDuration) : 'N/A' }}</p>
             <p><span>Size:</span> {{ selectedVideoFile?.size | formatFileSize }}</p>
           </div>
           <input type="file" id="video-input" formControlName="cdnName" accept="video/*" (change)="onFileSelected($event)"/>
