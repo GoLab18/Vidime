@@ -26,6 +26,7 @@
           <input
             type="file"
             id="channel-picture"
+            formControlName="picture"
             accept="image/*"
             (change)="onFileSelected($event)"
             class="file-input"
@@ -41,59 +42,32 @@
         }
       </div>
 
-      <div class="form-group">
-        <label for="channel-name">Channel Name</label>
-        <div class="input-container">
-          <i class="material-icons">badge</i>
-          <input 
-            type="text"
-            id="channel-name"
-            formControlName="name"
-            placeholder="Enter your channel name"
-            [class.error]="hasError('name', 'required') || hasError('name', 'minlength') || hasError('name', 'pattern')"
-            autocomplete="off"
-          >
-        </div>
-        @if (hasError('name', 'required') || hasError('name', 'minlength') || hasError('name', 'pattern')) {
-          <div class="error-message">
-            <i class="material-icons">error</i>
-            @if (hasError('name', 'required')) {
-              <span>Channel name is required</span>
-            } @else if (hasError('name', 'minlength')) {
-              <span>Channel name must be at least 3 characters long</span>
-            } @else if (hasError('name', 'pattern')) {
-              <span>Only letters, numbers, spaces, hyphens, and underscores are allowed</span>
-            }
-          </div>
-        }
-      </div>
+      <app-form-group-tile
+        [control]="nameControl"
+        controlName="name"
+        [maxLength]="maxLengthName"
+        label="Channel Name"
+        icon="badge"
+        placeholder="Enter your channel name"
+        [errors]="[
+          { type: 'required', message: 'Channel name is required' },
+          { type: 'minlength', message: 'Channel name must be at least 3 characters long' },
+          { type: 'pattern', message: 'Only letters, numbers, spaces, hyphens, and underscores are allowed' }
+        ]"
+      ></app-form-group-tile>
 
-      <div class="form-group">
-        <div class="description-header">
-            <label for="channel-description">Description</label>
-            <div class="hint">
-                {{ channelForm.get('description')?.value?.length || 0 }}/1000
-              </div>
-        </div>
-        <div class="input-container">
-          <textarea
-            id="channel-description"
-            formControlName="description"
-            placeholder="Tell viewers about your channel"
-            [class.error]="hasError('description', 'required') || hasError('description', 'maxlength')"
-          ></textarea>
-        </div>
-        @if (hasError('description', 'required') || hasError('description', 'maxlength')) {
-          <div class="error-message">
-            <i class="material-icons">error</i>
-            @if (hasError('description', 'required')) {
-              <span>Description is required</span>
-            } @else if (hasError('description', 'maxlength')) {
-              <span>Description cannot exceed 1000 characters</span>
-            }
-          </div>
-        }
-      </div>
+      <app-form-group-tile
+        [control]="descriptionControl"
+        controlName="description"
+        [maxLength]="maxLengthDescription"
+        [useTextArea]="true"
+        label="Channel Description"
+        placeholder="Tell viewers about your channel"
+        [errors]="[
+          { type: 'required', message: 'Description is required' },
+          { type: 'maxlength', message: 'Description cannot exceed 1000 characters' }
+        ]"
+      ></app-form-group-tile>
 
       <button 
         type="submit" 

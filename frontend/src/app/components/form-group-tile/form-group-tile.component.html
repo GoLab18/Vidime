@@ -1,0 +1,39 @@
+<div class="form-group">
+  <div class="description-header">
+    <label [for]="controlName">{{ label }}</label>
+    <div class="hint">
+      {{ control.value?.length || 0 }}/{{ maxLength }}
+    </div>
+  </div>
+  <div class="input-container">
+    @if(icon) {
+      <i class="material-icons">{{ icon }}</i>
+    }
+    @if(!useTextArea) {
+      <input
+        type="text"
+        [id]="controlName"
+        [formControl]="control"
+        [placeholder]="placeholder"
+        [class.error]="fetchFirstErrorMessage"
+        autocomplete="off"
+        [maxlength]="maxLength"
+      >
+    } @else {
+      <textarea
+        [id]="controlName"
+        [formControl]="control"
+        [placeholder]="placeholder"
+        [class.error]="fetchFirstErrorMessage"
+        [maxlength]="maxLength"
+      ></textarea>
+    }
+  </div>
+
+  @if(fetchFirstErrorMessage) {
+    <div class="error-message">
+    <i class="material-icons">error</i>
+    <span>{{ fetchFirstErrorMessage }}</span>
+    </div>
+  }
+</div>

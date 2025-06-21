@@ -1,15 +1,16 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { CdnService } from '../../services/cdn.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
+import { FormGroupTileComponent } from '../../components/form-group-tile/form-group-tile.component';
 
 @Component({
   selector: 'app-channel-create',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent],
+  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent, FormGroupTileComponent],
   templateUrl: './channel-create.component.html',
   styleUrl: './channel-create.component.css'
 })
@@ -24,6 +25,8 @@ export class ChannelCreateComponent implements OnDestroy {
   isSuccess = false;
   successMessage = '';
   redirectTimer: any;
+  maxLengthName = 50;
+  maxLengthDescription = 1000;
 
   constructor(
     private fb: FormBuilder,
@@ -35,13 +38,13 @@ export class ChannelCreateComponent implements OnDestroy {
     this.channelForm = this.fb.group({
       name: ['', [
         Validators.required, 
-        Validators.minLength(3), 
-        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.maxLength(this.maxLengthName),
         Validators.pattern(/^[a-zA-Z0-9\s\-_]+$/)
       ]],
       description: ['', [
         Validators.required,
-        Validators.maxLength(1000)
+        Validators.maxLength(this.maxLengthDescription)
       ]],
       picture: [null]
     });
@@ -101,7 +104,6 @@ export class ChannelCreateComponent implements OnDestroy {
       next: (url) => {
         this.authService.createChannel(name, url, description).subscribe({
           next: () => {
-            setTimeout(() => {}, 1000)
             this.isLoading = false;
             this.isSuccess = true;
             this.successMessage = 'Channel has been created!';
@@ -126,6 +128,14 @@ export class ChannelCreateComponent implements OnDestroy {
   hasError(controlName: string, errorType: string): boolean {
     const control = this.channelForm.get(controlName);
     return control ? control.hasError(errorType) && (control.dirty || control.touched) : false;
+  }
+
+  get nameControl(): FormControl {
+    return this.channelForm.get('name') as FormControl;
+  }
+
+  get descriptionControl(): FormControl {
+    return this.channelForm.get('description') as FormControl;
   }
 
   ngOnDestroy() {
