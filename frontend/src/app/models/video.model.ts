@@ -1,5 +1,15 @@
 import { Channel } from "./channel.model";
-import { Tag } from "./tag.model";
+import { Tag, TagCreateInfo } from "./tag.model";
+
+export interface VideoCreateInfo {
+    channelId: number;
+    tags: TagCreateInfo[];
+    title: string;
+    description: string;
+    cdnUrl: string;
+    thumbnailUrl: string;
+    duration: number;
+}
 
 export interface Video {
     id: number;
