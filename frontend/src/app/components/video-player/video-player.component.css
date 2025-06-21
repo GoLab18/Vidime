@@ -2,6 +2,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  background: rgba(14, 14, 14, 1);
 }
 
 #video-section {
@@ -16,6 +17,20 @@
   width: 100%;
   padding-top: 56.25%;
   max-height: 1280px;
+}
+
+#video-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#video-thumbnail > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 #video-player-container > video {

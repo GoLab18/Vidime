@@ -15,6 +15,7 @@ enum VideoState {
 })
 export class VideoPlayerComponent implements AfterViewInit, OnChanges {
   @Input() videoUrl?: string;
+  @Input() thumbnailUrl?: string;
 
   @ViewChild('videoOverlay') videoOverlay!: ElementRef;
   @ViewChild('videoPlayerContainer') videoPlayerContainer!: ElementRef;
