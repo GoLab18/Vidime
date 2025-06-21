@@ -7,11 +7,17 @@
     <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
   }
   
-  <div id="video-player-container">
-    <app-video-player [videoUrl]="videoPreviewUrl"></app-video-player>
+  <div>
+    <div id="video-player-container">
+      <app-video-player [videoUrl]="videoPreviewUrl" [thumbnailUrl]="imagePreviewUrl"></app-video-player>
+    </div>
+    <div id="bottom-border-div"></div>
   </div>
 
   <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" id="video-form">
+    <input type="file" accept="video/*" (change)="onFileSelected($event)"/>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)"/>
+    
     <app-form-group-tile
       [control]="titleControl"
       controlName="title"
@@ -37,8 +43,5 @@
         { type: 'maxlength', message: 'Description cannot exceed 1000 characters' }
       ]"
     ></app-form-group-tile>
-
-    <input type="file" accept="video/*" (change)="onFileSelected($event)"/>
-    <input type="file" accept="image/*" (change)="onFileSelected($event)"/>
   </form>
 </div>
