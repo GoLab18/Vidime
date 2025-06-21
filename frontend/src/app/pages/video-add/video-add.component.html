@@ -1,1 +1,44 @@
-<p>video-add works!</p>
+<div id="main-container">
+  @if (error) {
+    <app-hint-bubble [hint]="error" [isError]="true"></app-hint-bubble>
+  }
+
+  @if (successMessage) {
+    <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
+  }
+  
+  <div id="video-player-container">
+    <app-video-player [videoUrl]="videoPreviewUrl"></app-video-player>
+  </div>
+
+  <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" id="video-form">
+    <app-form-group-tile
+      [control]="titleControl"
+      controlName="title"
+      [maxLength]="maxLengthTitle"
+      label="Title"
+      icon="title"
+      placeholder="Video title"
+      [errors]="[
+        { type: 'required', message: 'Title is required' },
+        { type: 'maxlength', message: 'Title cannot exceed 100 characters' }
+      ]"
+    ></app-form-group-tile>
+
+    <app-form-group-tile
+      [control]="descriptionControl"
+      controlName="description"
+      [maxLength]="maxLengthDescription"
+      [useTextArea]="true"
+      label="Description"
+      placeholder="Describe your video"
+      [errors]="[
+        { type: 'required', message: 'Description is required' },
+        { type: 'maxlength', message: 'Description cannot exceed 1000 characters' }
+      ]"
+    ></app-form-group-tile>
+
+    <input type="file" accept="video/*" (change)="onFileSelected($event)"/>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)"/>
+  </form>
+</div>

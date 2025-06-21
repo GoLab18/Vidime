@@ -10,14 +10,14 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (req.url.includes('/auth/')) return next(req);
 
-  const authReq = addTokenToRequest(req, authService.getToken());
+  const authReq = addTokenToRequest(req, authService.token);
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
         return authService.refreshToken().pipe(
           switchMap(() => {
-            const newReq = addTokenToRequest(req, authService.getToken());
+            const newReq = addTokenToRequest(req, authService.token);
             
             return next(newReq);
           }),

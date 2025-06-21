@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       rememberMe: [false]
     });
 
-    let savedEmail = localStorage.getItem('savedEmail');
+    const savedEmail = this.authService.email;
     if (savedEmail) this.authForm.patchValue({ email: savedEmail, rememberMe: true });
   }
 
@@ -62,8 +62,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     const { email, password, rememberMe } = this.authForm.value;
     
-    if (rememberMe) localStorage.setItem('savedEmail', email);
-    else localStorage.removeItem('savedEmail');
+    if (rememberMe) this.authService.email = email;
+    else this.authService.removeEmail();
     
     const auth$ = this.isLoginMode
       ? this.authService.login(email, password)

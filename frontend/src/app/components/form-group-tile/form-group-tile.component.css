@@ -1,4 +1,5 @@
 :host {
+  --primary-color: #1db954;
   --text-color: #ffffff;
   --text-gray: #AAAAAA;
   --error-color: #ff3860;

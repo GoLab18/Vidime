@@ -16,6 +16,7 @@ export class AuthService {
   private readonly TOKEN_KEY = 'authToken';
   private readonly USER_ID_KEY = 'currUserId';
   private readonly CURRENT_CHANNEL_KEY = 'currChannel';
+  private readonly EMAIL_KEY = 'email';
 
   // Current user ID subject
   private currUserIdSubject = new BehaviorSubject<number | null>(null);
@@ -30,8 +31,8 @@ export class AuthService {
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {
-    const userId = sessionStorage.getItem(this.USER_ID_KEY);
-    const channel = sessionStorage.getItem(this.CURRENT_CHANNEL_KEY);
+    const userId = localStorage.getItem(this.USER_ID_KEY);
+    const channel = localStorage.getItem(this.CURRENT_CHANNEL_KEY);
   
     if (userId) {
       this.currUserIdSubject.next(Number(userId));
@@ -50,19 +51,39 @@ export class AuthService {
     return this.currChannelSubject.value;
   }
 
-  setCurrentChannel(channel: ChannelSlim) {
-    sessionStorage.setItem(this.CURRENT_CHANNEL_KEY, JSON.stringify(channel));
+  set currentChannel(channel: ChannelSlim) {
+    localStorage.setItem(this.CURRENT_CHANNEL_KEY, JSON.stringify(channel));
     this.currChannelSubject.next(channel);
   }
 
-  getToken(): string | null {
-    return sessionStorage.getItem(this.TOKEN_KEY);
+  get currentChannel(): ChannelSlim | null {
+    return this.currChannelSubject.value;
+  }
+
+  get currentChannelId(): number | null {
+    return this.currChannelSubject.value?.id || null;
+  }
+
+  get email(): string | null {
+    return localStorage.getItem(this.EMAIL_KEY);
+  }
+
+  set email(email: string) {
+    localStorage.setItem(this.EMAIL_KEY, email);
+  }
+
+  removeEmail() {
+    localStorage.removeItem(this.EMAIL_KEY);
+  }
+
+  get token(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
   private clearSession() {
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    sessionStorage.removeItem(this.USER_ID_KEY);
-    sessionStorage.removeItem(this.CURRENT_CHANNEL_KEY);
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_ID_KEY);
+    localStorage.removeItem(this.CURRENT_CHANNEL_KEY);
 
     this.currUserIdSubject.next(null);
     this.currChannelSubject.next(null);
@@ -71,7 +92,7 @@ export class AuthService {
 
   // Sets auto logout 1 minute before token expires
   private setAutoLogout() {
-    const token = this.getToken();
+    const token = this.token;
     if (!token) return;
 
     const jwtData = token.split('.')[1];
@@ -134,8 +155,8 @@ export class AuthService {
     const decodedPayload = JSON.parse(window.atob(jwtPayload));
     const userId = decodedPayload.userId;
     
-    sessionStorage.setItem(this.TOKEN_KEY, accessToken);
-    sessionStorage.setItem('currUserId', userId.toString());
+    localStorage.setItem(this.TOKEN_KEY, accessToken);
+    localStorage.setItem('currUserId', userId.toString());
     this.currUserIdSubject.next(userId);
 
     this.setAutoLogout();
@@ -152,7 +173,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    return !!this.token;
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -205,7 +226,7 @@ export class AuthService {
       { withCredentials: true, observe: 'response' }
     ).pipe(
       tap((response) => {
-        sessionStorage.setItem(this.CURRENT_CHANNEL_KEY, JSON.stringify(response.body));
+        localStorage.setItem(this.CURRENT_CHANNEL_KEY, JSON.stringify(response.body));
         this.currChannelSubject.next(response.body);
       }),
       map(() => void 0),

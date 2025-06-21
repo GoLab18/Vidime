@@ -31,7 +31,7 @@ export class ChannelChoiceComponent {
   }
 
   selectChannel(channel: ChannelSlim) {
-    this.authService.setCurrentChannel(channel);
+    this.authService.currentChannel = channel;
     this.router.navigate([this.returnUrl]);
   }
 

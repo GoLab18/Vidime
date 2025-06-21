@@ -125,11 +125,6 @@ export class ChannelCreateComponent implements OnDestroy {
     });
   }
 
-  hasError(controlName: string, errorType: string): boolean {
-    const control = this.channelForm.get(controlName);
-    return control ? control.hasError(errorType) && (control.dirty || control.touched) : false;
-  }
-
   get nameControl(): FormControl {
     return this.channelForm.get('name') as FormControl;
   }
