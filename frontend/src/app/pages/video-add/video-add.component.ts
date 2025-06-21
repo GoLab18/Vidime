@@ -8,10 +8,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroupTileComponent } from '../../components/form-group-tile/form-group-tile.component';
 import { AuthService } from '../../services/auth.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
+import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-video-add',
-  imports: [ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent, HintBubbleComponent],
+  imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent, HintBubbleComponent, FormatFileSizePipe],
   templateUrl: './video-add.component.html',
   styleUrl: './video-add.component.css'
 })
@@ -48,8 +50,8 @@ export class VideoAddComponent implements OnDestroy {
         Validators.maxLength(this.maxLengthDescription)
       ]],
       tags: [[], [Validators.required]],
-      cdnName: [null, [Validators.required]],
-      thumbnailName: [null]
+      cdnName: ['', [Validators.required]],
+      thumbnailName: ['', [Validators.required]]
     });
   }
 
@@ -62,6 +64,7 @@ export class VideoAddComponent implements OnDestroy {
   }
 
   onFileSelected(event: Event) {
+    console.log('On file selected');
     const input = event.target as HTMLInputElement;
 
     if (!input.files || !input.files[0]) return;
@@ -77,6 +80,8 @@ export class VideoAddComponent implements OnDestroy {
     }
 
     if (isImageFile) {
+      if (file.name == this.selectedImageFile?.name) return;
+      
       if (file.size > this.maxThumbnailSize) {
         this.error = 'Image size is too large! Maximum size is 5MB.';
         return;
@@ -89,6 +94,8 @@ export class VideoAddComponent implements OnDestroy {
       this.selectedImageFile = file;
       this.videoForm.patchValue({ thumbnailName: file.name });
     } else {
+      if (file.name == this.selectedVideoFile?.name) return;
+      
       if (file.size > this.maxVideoSize) {
         this.error = 'Video size is too large! Maximum size is 1GB.';
         return;
@@ -108,7 +115,6 @@ export class VideoAddComponent implements OnDestroy {
   onSubmit() {
     if (this.videoForm.invalid) {
       Object.values(this.videoForm.controls).forEach(control => control.markAsTouched());
-      
       return;
     }
 
@@ -145,6 +151,18 @@ export class VideoAddComponent implements OnDestroy {
       }
     });
 
+  }
+
+  onClearThumbnail() {
+    this.imagePreviewUrl = undefined;
+    this.selectedImageFile = undefined;
+    this.videoForm.patchValue({ thumbnailName: null });
+  }
+
+  onClearVideo() {
+    this.videoPreviewUrl = undefined;
+    this.selectedVideoFile = undefined;
+    this.videoForm.patchValue({ cdnName: null });
   }
 
   ngOnDestroy() {

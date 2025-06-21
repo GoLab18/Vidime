@@ -15,8 +15,44 @@
   </div>
 
   <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" id="video-form">
-    <input type="file" accept="video/*" (change)="onFileSelected($event)"/>
-    <input type="file" accept="image/*" (change)="onFileSelected($event)"/>
+    <div id="video-inputs">
+      <div>
+        <div class="input-label-wrapper">
+          <label for="thumbnail-input" class="input-label">Thumbnail</label>
+          <div class="clear-pick-button" (click)="onClearThumbnail()" [ngStyle]="{ display: imagePreviewUrl ? 'flex' : 'none' }">
+            <i class="material-icons">clear</i>
+          </div>
+        </div>
+        <div id="thumbnail-input-container" class="input-container-fx">
+          @if (imagePreviewUrl) {
+            <img [src]="imagePreviewUrl" id="preview-image"/>
+          } @else {
+            <div id="thumbnail-placeholder">
+              <i class="material-icons">add_photo_alternate</i>
+            </div>
+          }
+          <input type="file" id="thumbnail-input" formControlName="thumbnailName" accept="image/*" (change)="onFileSelected($event)"/>
+        </div>
+      </div>
+      <div id="video-info-input-column">
+        <div class="input-label-wrapper">
+          <label for="video-input" class="input-label">Video info</label>
+          <div class="clear-pick-button" (click)="onClearVideo()" [ngStyle]="{ display: videoPreviewUrl ? 'flex' : 'none' }">
+            <i class="material-icons">clear</i>
+          </div>
+        </div>
+        <div id="video-input-container" class="input-container-fx">
+          <div id="video-info">
+            <p><span>File:</span> {{ selectedVideoFile?.name || 'Not picked' }}</p>
+            <p><span>Type:</span> {{ selectedVideoFile?.type || 'N/A' }}</p>
+            <p><span>Size:</span> {{ selectedVideoFile?.size | formatFileSize }}</p>
+          </div>
+          <input type="file" id="video-input" formControlName="cdnName" accept="video/*" (change)="onFileSelected($event)"/>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-divider"></div>
     
     <app-form-group-tile
       [control]="titleControl"

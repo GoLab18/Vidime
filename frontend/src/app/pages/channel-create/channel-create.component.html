@@ -33,7 +33,7 @@
           >
         </div>
 
-        <p class="hint">Recommended size: <span class="hint-bold">800x800px</span>. Max <span class="hint-bold">5MB</span>.</p>
+        <p class="hint">Recommended size: <span class="hint-bold">800x800px</span>. Max <span class="hint-bold">{{ maxFileSize | formatFileSize }}</span>.</p>
 
         @if(previewUrl) {
           <div class="clear-preview-icon" (click)="onClearPreview()">

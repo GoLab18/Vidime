@@ -6,11 +6,12 @@ import { AuthService } from '../../services/auth.service';
 import { CdnService } from '../../services/cdn.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
 import { FormGroupTileComponent } from '../../components/form-group-tile/form-group-tile.component';
+import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
 
 @Component({
   selector: 'app-channel-create',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent, FormGroupTileComponent],
+  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent, FormGroupTileComponent, FormatFileSizePipe],
   templateUrl: './channel-create.component.html',
   styleUrl: './channel-create.component.css'
 })
@@ -20,7 +21,7 @@ export class ChannelCreateComponent implements OnDestroy {
   error: string | null = null;
   selectedImageFile: File | null = null;
   previewUrl: string | null = null;
-  maxFileSize = 5 * 1024 * 1024; // 5MB
+  maxFileSize = 5 * 1024 * 1024;
   returnUrl = '/';
   isSuccess = false;
   successMessage = '';
