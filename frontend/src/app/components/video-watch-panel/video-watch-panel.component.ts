@@ -25,7 +25,7 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
   }
 
   loadVideo() {
-    this.videoService.getVideo(this.videoId).subscribe((video) => {
+    this.videoService.getFullVideoById(this.videoId).subscribe((video) => {
       this.video = video;
     });
   }

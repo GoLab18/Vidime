@@ -1,5 +1,5 @@
 import { Component, HostListener, Input } from '@angular/core';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormatNumberPipe } from '../../pipes/format-number.pipe';
@@ -13,7 +13,7 @@ import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
   styleUrl: './home-video.component.css'
 })
 export class HomeVideoComponent {
-  @Input({required: true}) video!: Video;
+  @Input({required: true}) video!: VideoSlim;
   @Input() minWidth: string = '300px';
   @Input() maxWidth: string = '460px';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
 import { HomeVideoComponent } from '../../components/home-video/home-video.component';
 
@@ -12,7 +12,7 @@ import { HomeVideoComponent } from '../../components/home-video/home-video.compo
   styleUrl: './trending.component.css'
 })
 export class TrendingComponent implements OnInit {
-  videos: Video[] = [];
+  videos: VideoSlim[] = [];
 
   constructor(private videoService: VideoService) { }
 

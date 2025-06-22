@@ -6,7 +6,7 @@ import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelLink } from '../../models/channel-link.model';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
 import { Playlist } from '../../models/playlist.model';
 import { PlaylistService } from '../../services/playlist.service';
@@ -33,9 +33,9 @@ export class ChannelComponent implements OnInit {
 
   channel!: Channel;
   links: ChannelLink[] = [];
-  newestVideos: Video[] = [];
-  mostViewedVideos: Video[] = [];
-  bestRatedVideos: Video[] = [];
+  newestVideos: VideoSlim[] = [];
+  mostViewedVideos: VideoSlim[] = [];
+  bestRatedVideos: VideoSlim[] = [];
   playlists: Playlist[] = [];
   playlistsLoaded: boolean = false;
 
@@ -49,22 +49,21 @@ export class ChannelComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.videoId = Number(params.get('i'));
-      this.videoId = 101;
       
       this.channelService.getChannel(this.videoId).subscribe(channel => {
         this.channel = channel;
         this.channelService.getLinks(this.channel.id).subscribe(links => this.links = links);
       });
 
-      this.videoService.getChannelVideos(this.videoId, SortStrategy.NEWEST).subscribe(videos => {
+      this.videoService.getChannelVideos(SortStrategy.NEWEST).subscribe(videos => {
         this.newestVideos = videos;
       });
 
-      this.videoService.getChannelVideos(this.videoId, SortStrategy.MOST_VIEWED).subscribe(videos => {
+      this.videoService.getChannelVideos(SortStrategy.MOST_VIEWED).subscribe(videos => {
         this.mostViewedVideos = videos;
       });
 
-      this.videoService.getChannelVideos(this.videoId, SortStrategy.MOST_RATED).subscribe(videos => {
+      this.videoService.getChannelVideos(SortStrategy.MOST_RATED).subscribe(videos => {
         this.bestRatedVideos = videos;
       });
     });

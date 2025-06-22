@@ -10,17 +10,21 @@
     </div>
   </div>
   <div class="video-info">
-    <div *ngIf="video.channel !== undefined" class="channel-info">
-      <div class="channel-avatar">
-        <img [src]="video.channel.picture" [alt]="video.channel.name">
-      </div>
-      <div class="channel-details">
-        <div class="channel-name">
-          {{ video.channel.name }}
-          <i class="material-icons verified" *ngIf="video.channel.verified">verified</i>
+    @if (video.channel) {
+      <div class="channel-info">
+        <div class="channel-avatar">
+          <img [src]="video.channel.picture" [alt]="video.channel.name">
+        </div>
+        <div class="channel-details">
+          <div class="channel-name">
+            {{ video.channel.name }}
+            @if(video.channel.verified) {
+              <i class="material-icons verified">verified</i>
+            }
+          </div>
         </div>
       </div>
-    </div>
+    }
     <h3 class="video-title">{{ video.title }}</h3>
     <div class="video-stats">
       <div class="stats-primary">

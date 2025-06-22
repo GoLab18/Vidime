@@ -11,6 +11,18 @@ export interface VideoCreateInfo {
     duration: number;
 }
 
+export interface VideoSlim {
+    id: number;
+    uuid: string;
+    channel?: Channel;
+    tags: Tag[];
+    title: string;
+    thumbnailUrl: string;
+    duration: number;
+    views: number;
+    addedAt: string;
+}
+
 export interface Video {
     id: number;
     uuid: string;
@@ -22,7 +34,7 @@ export interface Video {
     thumbnailUrl: string;
     duration: number;
     views: number;
-    ratings: number;
+    ratingsAmount: number;
     avgRating: number;
     addedAt: string;
 }

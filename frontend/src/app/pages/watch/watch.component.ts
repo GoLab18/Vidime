@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RelatedVideoComponent } from '../../components/related-video/related-video.component';
 import { VideoService } from '../../services/video.service';
 import { CommentService } from '../../services/comment.service';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { Comment } from '../../models/comment.model';
 import { CommentRepliesComponent } from '../../components/comment-replies/comment-replies.component';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class WatchComponent implements OnInit {
   videoId!: number;
-  relatedVideos: Video[] = [];
+  relatedVideos: VideoSlim[] = [];
   comments: Comment[] = [];
   currChannel: ChannelSlim | null;
 

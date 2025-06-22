@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { Playlist } from '../../models/playlist.model';
 import { Input } from '@angular/core';
 import { HomeVideoComponent } from '../home-video/home-video.component';
@@ -12,6 +12,6 @@ import { HomePlaylistComponent } from '../home-playlist/home-playlist.component'
   styleUrl: './dynamic-size-tile-grid.component.css'
 })
 export class DynamicSizeTileGridComponent {
-  @Input() videos: Video[] = [];
+  @Input() videos: VideoSlim[] = [];
   @Input() playlists: Playlist[] = [];
 }

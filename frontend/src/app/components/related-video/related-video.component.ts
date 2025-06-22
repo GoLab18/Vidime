@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Video } from '../../models/video.model';
+import { VideoSlim } from '../../models/video.model';
 import { Router } from '@angular/router';
 import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
@@ -13,7 +13,8 @@ import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
   styleUrl: './related-video.component.css'
 })
 export class RelatedVideoComponent {
-  @Input({required: true}) video!: Video;
+  @Input({required: true}) video!: VideoSlim;
+
   thumbnailLoaded = false;
 
   constructor(private router: Router) {}
