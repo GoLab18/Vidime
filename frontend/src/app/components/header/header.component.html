@@ -59,9 +59,13 @@
           }
           <div class="dropdown-menu">
             @if(channel) {
-            <a routerLink="/channel/me" class="dropdown-item" tabindex="0">
+            <a routerLink="/channel" [queryParams]="{i: channel.id, c: channel.uuid}" class="dropdown-item" tabindex="0">
               <i class="material-icons">person</i>
-              <span>Manage Channel</span>
+              <span>Channel Preview</span>
+            </a>
+            <a routerLink="/channel/statistics" class="dropdown-item" tabindex="0">
+              <i class="material-icons">bar_chart</i>
+              <span>Channel Statistics</span>
             </a>
             }
             <a routerLink="/channel/choice" class="dropdown-item" tabindex="0">

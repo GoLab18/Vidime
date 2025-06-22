@@ -4,7 +4,7 @@ import { TrendingComponent } from './pages/trending/trending.component';
 import { WatchComponent } from './pages/watch/watch.component';
 import { ChannelComponent } from './pages/channel/channel.component';
 import { AuthComponent } from './pages/auth/auth.component';
-import { ChannelManageComponent } from './pages/channel-manage/channel-manage.component';
+import { ChannelStatisticsComponent } from './pages/channel-statistics/channel-statistics.component';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public.guard';
 import { ChannelChoiceComponent } from './pages/channel-choice/channel-choice.component';
@@ -45,8 +45,8 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'manage',
-        component: ChannelManageComponent,
+        path: 'statistics',
+        component: ChannelStatisticsComponent,
         canActivate: [authGuard, channelGuard]
       }
     ]
