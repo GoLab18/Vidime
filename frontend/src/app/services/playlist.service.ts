@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Playlist } from '../models/playlist.model';
-import { of } from 'rxjs';
+import { env } from '../../environments/env';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistService {
+  private apiUrl = `${env.apiUrl}/playlists`;
   constructor(private httpClient: HttpClient) {}
+
+  getPlaylistsByChannelId(channelId: number): Observable<Playlist[]> {
+    return this.httpClient.get<Playlist[]>(`${this.apiUrl}/channel/${channelId}`);
+  }
 
   private mockPlaylistsWithChannels: Playlist[] = [
     {
@@ -19,12 +25,8 @@ export class PlaylistService {
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
         picture: 'https://picsum.photos/1600/900?random=1',
-        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
-        userId: 1,
-        videosAmount: 42,
-        subscribersCount: 1500,
-        verified: true,
-        createdAt: new Date().toISOString()
+        userId: 6,
+        verified: true
       },
       title: 'Funny',
       description: 'Funny videos, i am super funny so',
@@ -41,12 +43,8 @@ export class PlaylistService {
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
         picture: 'https://picsum.photos/1600/900?random=2',
-        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
-        userId: 1,
-        videosAmount: 42,
-        subscribersCount: 1500,
-        verified: true,
-        createdAt: new Date().toISOString()
+        userId: 6,
+        verified: true
       },
       title: 'Automation',
       description: 'Automation theory',
@@ -63,12 +61,8 @@ export class PlaylistService {
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
         picture: 'https://picsum.photos/1600/900?random=3',
-        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
-        userId: 1,
-        videosAmount: 42,
-        subscribersCount: 1500,
-        verified: true,
-        createdAt: new Date().toISOString()
+        userId: 6,
+        verified: true
       },
       title: 'RandomMusic',
       description: 'DUBSTEP',
@@ -85,12 +79,8 @@ export class PlaylistService {
         uuid: '123e4567-e89b-12d3-a456-426614174000',
         name: 'NewYorkBros',
         picture: 'https://picsum.photos/1600/900?random=4',
-        description: 'Welcome to NY Bros! We create amazing content about technology, programming, and digital trends. Subscribe for weekly updates and exclusive content.',
-        userId: 1,
-        videosAmount: 42,
-        subscribersCount: 1500,
-        verified: true,
-        createdAt: new Date().toISOString()
+        userId: 6,
+        verified: true
       },
       title: 'LongVids',
       description: 'Longest videos you will ever see',

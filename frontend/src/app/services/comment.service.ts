@@ -49,7 +49,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },
@@ -98,7 +98,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },
@@ -147,7 +147,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },
@@ -196,7 +196,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },
@@ -245,7 +245,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },
@@ -301,7 +301,7 @@ export class CommentService {
         thumbnailUrl: "https://cdn.example.com/thumbnails/observables.jpg",
         duration: 845,
         views: 13500,
-        ratings: 320,
+        ratingsAmount: 320,
         avgRating: 4.6,
         addedAt: new Date(2024, 10, 10).toISOString()
       },

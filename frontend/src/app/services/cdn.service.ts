@@ -26,15 +26,16 @@ export class CdnService {
   }
 
   randomMockPhotoUrl(): string {
-    return `https://picsum.photos/1600/900?random=${Math.random()}`;
+    return `https://picsum.photos/1600/900?random=${Math.floor(Math.random() * 10)}`;
   }
 
   randomMockVideoUrl(): string {
     const videos = [
       'https://www.w3schools.com/html/mov_bbb.mp4',
       'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-      'https://www.w3schools.com/html/movie.mp4'
+      'https://www.w3schools.com/html/movie.mp4',
+      'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     ];
-    return `https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4?random=${Math.random()}`;
+    return videos[Math.floor(Math.random() * videos.length)];
   }
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Video } from '../models/video.model';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Video, VideoCreateInfo, VideoSlim } from '../models/video.model';
+import { delay, Observable, of } from 'rxjs';
+import { env } from '../../environments/env';
+
 import { HttpClient } from '@angular/common/http';
+import { fetchSortString, SortOrder } from '../util/sorting';
 
 export enum SortStrategy {
   NEWEST,
@@ -19,9 +21,19 @@ export enum SortStrategy {
   providedIn: 'root'
 })
 export class VideoService {
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl = `${env.apiUrl}/videos`;
 
-  private mockVideos: Video[] = [
+  constructor(private http: HttpClient) {}
+
+  getFullVideoById(id: number): Observable<Video> {
+    return this.http.get<Video>(`${this.apiUrl}/id/${id}`);
+  }
+
+  getFullVideoByUuid(uuid: string): Observable<Video> {
+    return this.http.get<Video>(`${this.apiUrl}/uuid/${uuid}`);
+  }
+
+  private mockVideos: VideoSlim[] = [
     {
       id: 1,
       uuid: '123e4567-e89b-12d3-a456-426614174000',
@@ -42,13 +54,9 @@ export class VideoService {
         { id: 2, name: 'Documentary' }
       ],
       title: 'Amazing Nature Documentary',
-      description: 'An immersive journey through Earth’s most beautiful landscapes.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200',
-      duration: 750,
+      duration: 750000,
       views: 125000,
-      ratings: 1500,
-      avgRating: 4.7,
       addedAt: new Date('2024-04-12T14:20:00Z').toISOString()
     },
     {
@@ -71,13 +79,9 @@ export class VideoService {
         { id: 4, name: 'Review' }
       ],
       title: 'Tech Review: Latest Gadgets 2025',
-      description: 'Hands-on review of this year’s hottest gadgets.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=1',
-      duration: 525,
+      duration: 525000,
       views: 89120,
-      ratings: 800,
-      avgRating: 4.2,
       addedAt: new Date().toISOString()
     },
     {
@@ -100,13 +104,9 @@ export class VideoService {
         { id: 6, name: 'Food' }
       ],
       title: 'Cooking Masterclass: Italian Cuisine for Beginners',
-      description: 'Learn how to prepare authentic Italian dishes.',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=2',
-      duration: 920,
+      duration: 920000,
       views: 311760,
-      ratings: 250,
-      avgRating: 4.8,
       addedAt: new Date('2024-07-22T17:45:00Z').toISOString()
     },
     {
@@ -129,13 +129,9 @@ export class VideoService {
         { id: 8, name: 'Sports' }
       ],
       title: 'Skydiving from 15,000ft!',
-      description: 'An adrenaline-packed skydiving experience.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=3',
-      duration: 500,
+      duration: 500000,
       views: 70210,
-      ratings: 150,
-      avgRating: 4.9,
       addedAt: new Date('2024-03-02T19:00:00Z').toISOString()
     },
     {
@@ -158,13 +154,9 @@ export class VideoService {
         { id: 10, name: 'Cuisine' }
       ],
       title: 'Sushi Making Tutorial: Authentic Japanese Recipes',
-      description: 'Learn how to make delicious sushi at home!',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=4',
-      duration: 600,
+      duration: 600000,
       views: 451000,
-      ratings: 1200,
-      avgRating: 4.5,
       addedAt: new Date('2024-05-10T11:00:00Z').toISOString()
     },
     {
@@ -187,13 +179,9 @@ export class VideoService {
         { id: 12, name: 'Space' }
       ],
       title: 'Mars Mission: Journey to the Red Planet',
-      description: 'Follow the latest mission to Mars.',
-      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=5',
-      duration: 1150,
+      duration: 1150000,
       views: 205000,
-      ratings: 3000,
-      avgRating: 4.9,
       addedAt: new Date('2024-02-15T10:30:00Z').toISOString()
     },
     {
@@ -216,13 +204,9 @@ export class VideoService {
         { id: 14, name: 'Performance' }
       ],
       title: 'Live Concert: The Ultimate Rock Show',
-      description: 'A live performance from the best rock band of the year!',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=6',
-      duration: 1300,
+      duration: 1300000,
       views: 730000,
-      ratings: 5000,
-      avgRating: 4.8,
       addedAt: new Date('2024-03-25T12:00:00Z').toISOString()
     },
     {
@@ -245,13 +229,9 @@ export class VideoService {
         { id: 16, name: 'Health' }
       ],
       title: 'HIIT Workout: Burn Fat Fast!',
-      description: 'A quick, high-intensity workout to get you in shape.',
-      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=7',
-      duration: 600,
+      duration: 600000,
       views: 120000,
-      ratings: 700,
-      avgRating: 4.6,
       addedAt: new Date('2024-04-01T09:00:00Z').toISOString()
     },
     {
@@ -274,18 +254,14 @@ export class VideoService {
         { id: 18, name: 'Sustainability' }
       ],
       title: 'Green Tech: Solar Energy Innovations',
-      description: 'Explore the latest in solar energy technology.',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=8',
-      duration: 57,
+      duration: 57000,
       views: 485000,
-      ratings: 2300,
-      avgRating: 4.4,
       addedAt: new Date('2024-05-08T13:00:00Z').toISOString()
     }
   ];
 
-  private mockVideosNoChannels: Video[] = [
+  private mockVideosNoChannels: VideoSlim[] = [
     {
       id: 1,
       uuid: '123e4567-e89b-12d3-a456-426614174000',
@@ -295,13 +271,9 @@ export class VideoService {
         { id: 2, name: 'Documentary' }
       ],
       title: 'Amazing Nature Documentary',
-      description: 'An immersive journey through Earth’s most beautiful landscapes.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200',
-      duration: 750,
+      duration: 750000,
       views: 125000,
-      ratings: 1500,
-      avgRating: 4.7,
       addedAt: new Date('2024-04-12T14:20:00Z').toISOString()
     },
     {
@@ -313,13 +285,9 @@ export class VideoService {
         { id: 4, name: 'Review' }
       ],
       title: 'Tech Review: Latest Gadgets 2025',
-      description: 'Hands-on review of this year’s hottest gadgets.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=1',
-      duration: 525,
+      duration: 525000,
       views: 89120,
-      ratings: 800,
-      avgRating: 4.2,
       addedAt: new Date().toISOString()
     },
     {
@@ -331,13 +299,9 @@ export class VideoService {
         { id: 6, name: 'Food' }
       ],
       title: 'Cooking Masterclass: Italian Cuisine for Beginners',
-      description: 'Learn how to prepare authentic Italian dishes.',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=2',
-      duration: 920,
+      duration: 920000,
       views: 311760,
-      ratings: 250,
-      avgRating: 4.8,
       addedAt: new Date('2024-07-22T17:45:00Z').toISOString()
     },
     {
@@ -349,13 +313,9 @@ export class VideoService {
         { id: 8, name: 'Sports' }
       ],
       title: 'Skydiving from 15,000ft!',
-      description: 'An adrenaline-packed skydiving experience.',
-      cdnUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=3',
-      duration: 500,
+      duration: 500000,
       views: 70210,
-      ratings: 150,
-      avgRating: 4.9,
       addedAt: new Date('2024-03-02T19:00:00Z').toISOString()
     },
     {
@@ -367,13 +327,9 @@ export class VideoService {
         { id: 10, name: 'Cuisine' }
       ],
       title: 'Sushi Making Tutorial: Authentic Japanese Recipes',
-      description: 'Learn how to make delicious sushi at home!',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=4',
-      duration: 600,
+      duration: 600000,
       views: 451000,
-      ratings: 1200,
-      avgRating: 4.5,
       addedAt: new Date('2024-05-10T11:00:00Z').toISOString()
     },
     {
@@ -385,13 +341,9 @@ export class VideoService {
         { id: 12, name: 'Space' }
       ],
       title: 'Mars Mission: Journey to the Red Planet',
-      description: 'Follow the latest mission to Mars.',
-      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=5',
-      duration: 1150,
+      duration: 1150000,
       views: 205000,
-      ratings: 3000,
-      avgRating: 4.9,
       addedAt: new Date('2024-02-15T10:30:00Z').toISOString()
     },
     {
@@ -403,13 +355,9 @@ export class VideoService {
         { id: 14, name: 'Performance' }
       ],
       title: 'Live Concert: The Ultimate Rock Show',
-      description: 'A live performance from the best rock band of the year!',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=6',
-      duration: 1300,
+      duration: 1300000,
       views: 730000,
-      ratings: 5000,
-      avgRating: 4.8,
       addedAt: new Date('2024-03-25T12:00:00Z').toISOString()
     },
     {
@@ -421,13 +369,9 @@ export class VideoService {
         { id: 16, name: 'Health' }
       ],
       title: 'HIIT Workout: Burn Fat Fast!',
-      description: 'A quick, high-intensity workout to get you in shape.',
-      cdnUrl: 'https://www.w3schools.com/html/movie.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=7',
-      duration: 600,
+      duration: 600000,
       views: 120000,
-      ratings: 700,
-      avgRating: 4.6,
       addedAt: new Date('2024-04-01T09:00:00Z').toISOString()
     },
     {
@@ -439,30 +383,23 @@ export class VideoService {
         { id: 18, name: 'Sustainability' }
       ],
       title: 'Green Tech: Solar Energy Innovations',
-      description: 'Explore the latest in solar energy technology.',
-      cdnUrl: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
       thumbnailUrl: 'https://picsum.photos/300/200?random=8',
-      duration: 57,
+      duration: 57000,
       views: 485000,
-      ratings: 2300,
-      avgRating: 4.4,
       addedAt: new Date('2024-05-08T13:00:00Z').toISOString()
     }
   ];
 
-  getVideos(): Observable<Video[]> {
-    return of(this.mockVideos).pipe(delay(500));
-  }
-
-  getVideo(id: number): Observable<Video> {
-    return of(this.mockVideos.find(v => v.id === id)!).pipe(delay(500));
-  }
-
-  getRelatedVideos(id: number): Observable<Video[]> {
+  getRelatedVideos(id: number): Observable<VideoSlim[]> {
     return of(this.mockVideos.filter(v => v.id !== id)).pipe(delay(500));
   }
 
-  getChannelVideos(channelId: number, sortStrategy: SortStrategy): Observable<Video[]> {
+  getTrendingVideos(): Observable<VideoSlim[]> {
+    const sortedVideos = [...this.mockVideos].sort((a, b) => b.views - a.views);
+    return of(sortedVideos).pipe(delay(500));
+  }
+
+  getChannelVideos(sortStrategy: SortStrategy): Observable<VideoSlim[]> {
     switch (sortStrategy) {
       case SortStrategy.NEWEST:
         return of(this.mockVideosNoChannels.sort((a, b) => b.addedAt.localeCompare(a.addedAt))).pipe(delay(500));
@@ -472,18 +409,17 @@ export class VideoService {
         return of(this.mockVideosNoChannels.sort((a, b) => b.views - a.views)).pipe(delay(500));
       case SortStrategy.LEAST_VIEWED:
         return of(this.mockVideosNoChannels.sort((a, b) => a.views - b.views)).pipe(delay(500));
-      case SortStrategy.BEST_RATED:
-        return of(this.mockVideosNoChannels.sort((a, b) => b.avgRating - a.avgRating)).pipe(delay(500));
-      case SortStrategy.WORST_RATED:
-        return of(this.mockVideosNoChannels.sort((a, b) => a.avgRating - b.avgRating)).pipe(delay(500));
-      case SortStrategy.MOST_RATED:
-        return of(this.mockVideosNoChannels.sort((a, b) => b.ratings - a.ratings)).pipe(delay(500));
-      case SortStrategy.LEAST_RATED:
-        return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
+      default:
+        return of(this.mockVideosNoChannels).pipe(delay(500));
     }
   }
 
+  getAllVideos(sortField: string, sortOrder: SortOrder): Observable<VideoSlim[]> {
+    const sortParam = fetchSortString(sortField, sortOrder);
+    return this.http.get<VideoSlim[]>(`${this.apiUrl}/all?${sortParam}`);
+  }
+
   createVideo(videoCreateInfo: VideoCreateInfo): Observable<void> {
-    return this.httpClient.post<void>(`${this.apiUrl}/create`, videoCreateInfo);
+    return this.http.post<void>(`${this.apiUrl}/create`, videoCreateInfo);
   }
 }
