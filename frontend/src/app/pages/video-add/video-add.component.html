@@ -1,12 +1,4 @@
 <div id="main-container">
-  @if (error) {
-    <app-hint-bubble [hint]="error" [isError]="true"></app-hint-bubble>
-  }
-
-  @if (successMessage) {
-    <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
-  }
-  
   <div>
     <div id="video-player-container">
       <app-video-player [videoUrl]="videoPreviewUrl" [thumbnailUrl]="imagePreviewUrl"></app-video-player>
@@ -15,6 +7,14 @@
   </div>
 
   <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" id="video-form">
+    @if (error) {
+      <app-hint-bubble [hint]="error" [isError]="true"></app-hint-bubble>
+    }
+  
+    @if (successMessage) {
+      <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
+    }
+    
     <div id="tags-container">
       @for (tag of addedTags; track $index) {
         <div class="tag-base added-tag" (click)="onTagRemove($index)" tabindex="0">
