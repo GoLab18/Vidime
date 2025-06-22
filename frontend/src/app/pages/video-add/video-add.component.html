@@ -15,6 +15,21 @@
   </div>
 
   <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" id="video-form">
+    <div id="tags-container">
+      @for (tag of addedTags; track $index) {
+        <div class="tag-base added-tag" (click)="onTagRemove($index)" tabindex="0">
+          <div class="added-tag-overlay">
+            <i class="material-icons">clear</i>
+          </div>
+          {{ tag.name }}
+        </div>
+      }
+      <div id="tag-add-tile" class="tag-base input-container-fx">
+        <input type="text" id="tag-input" formControlName="tagName" placeholder="Tag name" maxLength="20" autocomplete="off"/>
+        <i class="material-icons" id="tag-add-icon-button" type="button" (click)="onTagAdded()" [ngClass]="{ 'disabled': disabledAddTag }" tabindex="0">add</i>
+      </div>
+    </div>
+    
     <div id="video-inputs">
       <div>
         <div class="input-label-wrapper">

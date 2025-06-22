@@ -3,9 +3,10 @@
   height: 100%;
 
   --primary-color: #1db954;
-  --text-color-gray: #AAAAAA;
+  --text-color-gray: #AAA;
   --input-container-color: rgba(30, 30, 30, 0.7);
   --background-main-accent: rgba(255, 255, 255, 0.2);
+  --background-gray-accent-hover: rgba(84, 84, 84, 0.9);
 }
 
 #main-container {
@@ -95,6 +96,7 @@
 }
 
 .input-container-fx {
+  cursor: pointer;
   transition: border-color 0.2s ease;
   border: 2px dashed var(--background-main-accent);
   background-color: var(--input-container-color);
@@ -174,4 +176,90 @@
 
 .submit-button {
   margin: 16px 0;
+}
+
+#tags-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag-base {
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+}
+
+.added-tag {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  transition: background-color 0.2s ease;
+}
+
+.added-tag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background-gray-accent-hover);
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+.added-tag-overlay > i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 14px;
+  transform: translate(-50%, -50%);
+}
+
+.added-tag:hover .added-tag-overlay,
+.added-tag:focus .added-tag-overlay {
+  opacity: 1;
+}
+
+.added-tag i {
+  cursor: pointer;
+}
+
+#tag-add-tile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+#tag-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+}
+
+#tag-input:hover, #tag-input:focus {
+  outline: none;
+}
+
+#tag-add-icon-button {
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-color);
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+#tag-add-icon-button.disabled {
+  cursor: not-allowed;
+  color: var(--text-color-gray);
 }

@@ -12,6 +12,7 @@ import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
 import { CommonModule } from '@angular/common';
 import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 import { MainCustomButtonComponent } from '../../components/main-custom-button/main-custom-button.component';
+import { TagCreateInfo } from '../../models/tag.model';
 
 @Component({
   selector: 'app-video-add',
@@ -30,6 +31,7 @@ export class VideoAddComponent implements OnDestroy {
   videoPreviewUrl?: string;
   maxThumbnailSize = 5 * 1024 * 1024;
   maxVideoSize = 1024 * 1024 * 1024;
+  addedTags: TagCreateInfo[] = [];
   successMessage = '';
   maxLengthTitle = 100;
   maxLengthDescription = 1000;
@@ -52,6 +54,7 @@ export class VideoAddComponent implements OnDestroy {
         Validators.required,
         Validators.maxLength(this.maxLengthDescription)
       ]],
+      tagName: ['', []],
       cdnName: [null, [Validators.required]],
       thumbnailName: [null, [Validators.required]]
     });
@@ -65,8 +68,24 @@ export class VideoAddComponent implements OnDestroy {
     return this.videoForm.get('description') as FormControl;
   }
 
+  onTagAdded() {
+    if (this.disabledAddTag) return;
+
+    const tagName = this.videoForm.get('tagName')?.value?.trim();
+    this.addedTags.push({ name: tagName });
+    this.videoForm.patchValue({ tagName: '' });
+  }
+
+  onTagRemove(index: number) {
+    this.addedTags.splice(index, 1);
+  }
+
+  get disabledAddTag() {
+    const tagName = this.videoForm.get('tagName')?.value?.trim();
+    return tagName === '' || this.addedTags.some(tag => tag.name === tagName) || this.isLoading;
+  }
+
   onFileSelected(event: Event) {
-    console.log('On file selected');
     const input = event.target as HTMLInputElement;
 
     if (!input.files || !input.files[0]) return;
@@ -134,17 +153,20 @@ export class VideoAddComponent implements OnDestroy {
     this.isLoading = true;
     this.error = null;
 
+    const { title, description } = this.videoForm.value;
+
     this.cdnService.uploadVideoWithThumbnail(this.selectedVideoFile!, this.selectedImageFile!).subscribe({
       next: ({cdnUrl, thumbnailUrl}) => {
         const newVideo: VideoCreateInfo = {
           channelId: this.authService.currentChannelId!,
-          tags: [],
-          title: this.videoForm.get('title')?.value,
-          description: this.videoForm.get('description')?.value,
+          tags: this.addedTags,
+          title,
+          description,
           cdnUrl,
           thumbnailUrl,
           duration: this.videoDurationMillis
-        }
+        };
+        
         this.videoService.createVideo(newVideo).subscribe({
           next: () => {
             this.isLoading = false;
