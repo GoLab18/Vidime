@@ -7,12 +7,13 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.golab18.vidime.dto.VideoDto;
+import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Video;
 import com.golab18.vidime.dto.TagDto;
 import com.golab18.vidime.dto.VideoCreateDto;
 import com.golab18.vidime.entity.VideoTag;
 
-@Mapper(componentModel = "spring", uses = {ChannelMapper.class, TagMapper.class}, imports = {Timestamp.class, Instant.class, UUID.class})
+@Mapper(componentModel = "spring", uses = {ChannelMapper.class, TagMapper.class}, imports = {Timestamp.class, Instant.class, UUID.class, Channel.class})
 public interface VideoMapper {
     @Mapping(target = "uuid", expression = "java(video.getUuid().toString())")
     @Mapping(target = "addedAt", expression = "java(video.getAddedAt() != null ? video.getAddedAt().toString() : null)")
