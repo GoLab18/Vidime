@@ -20,13 +20,7 @@ public class ChannelController {
 
     private final ChannelService channelService;
 
-    @PostMapping("/create")
-    public ResponseEntity<ChannelSlimDto> createChannel(@RequestBody ChannelCreateDto channelCreateDto) {
-        ChannelSlimDto createdChannel = channelService.createChannel(channelCreateDto);
-        return new ResponseEntity<>(createdChannel, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<ChannelDto> getChannelById(@PathVariable Long id) {
         ChannelDto channelDto = channelService.getChannelById(id);
         return ResponseEntity.ok(channelDto);
@@ -44,13 +38,19 @@ public class ChannelController {
         return ResponseEntity.ok(channels);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/create")
+    public ResponseEntity<ChannelSlimDto> createChannel(@RequestBody ChannelCreateDto channelCreateDto) {
+        ChannelSlimDto createdChannel = channelService.createChannel(channelCreateDto);
+        return new ResponseEntity<>(createdChannel, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<ChannelDto> updateChannel(@PathVariable Long id, @RequestBody ChannelDto channelDto) {
         ChannelDto updatedChannel = channelService.updateChannel(id, channelDto);
         return ResponseEntity.ok(updatedChannel);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteChannel(@PathVariable Long id) {
         channelService.deleteChannel(id);
         return ResponseEntity.noContent().build();
