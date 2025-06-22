@@ -7,11 +7,12 @@ import { CdnService } from '../../services/cdn.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
 import { FormGroupTileComponent } from '../../components/form-group-tile/form-group-tile.component';
 import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
+import { MainCustomButtonComponent } from '../../components/main-custom-button/main-custom-button.component';
 
 @Component({
   selector: 'app-channel-create',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent, FormGroupTileComponent, FormatFileSizePipe],
+  imports: [ReactiveFormsModule, CommonModule, HintBubbleComponent, FormGroupTileComponent, FormatFileSizePipe, MainCustomButtonComponent],
   templateUrl: './channel-create.component.html',
   styleUrl: './channel-create.component.css'
 })

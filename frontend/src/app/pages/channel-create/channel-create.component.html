@@ -69,16 +69,14 @@
         ]"
       ></app-form-group-tile>
 
-      <button 
-        type="submit" 
-        class="submit-button" 
+      <app-main-custom-button
+        class="submit-button"
+        type="submit"
         [disabled]="channelForm.invalid || isLoading"
-      >
-        @if (isLoading) {
-          <span class="loading-spinner"></span>
-        }
-        {{ isLoading ? 'Creating...' : 'Create Channel' }}
-      </button>
+        [isLoading]="isLoading"
+        buttonText="Create Channel"
+        loadingText="Creating..."
+      ></app-main-custom-button>
     </form>
   </div>
 </div>

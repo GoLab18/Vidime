@@ -79,5 +79,14 @@
         { type: 'maxlength', message: 'Description cannot exceed 1000 characters' }
       ]"
     ></app-form-group-tile>
+
+    <app-main-custom-button
+      class="submit-button"
+      type="submit"
+      [disabled]="videoForm.invalid || isLoading"
+      [isLoading]="isLoading"
+      buttonText="Submit Video"
+      loadingText="Submitting video..."
+    ></app-main-custom-button>
   </form>
 </div>

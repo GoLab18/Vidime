@@ -171,3 +171,7 @@
   height: 100%;
   gap: 24px;
 }
+
+.submit-button {
+  margin: 16px 0;
+}

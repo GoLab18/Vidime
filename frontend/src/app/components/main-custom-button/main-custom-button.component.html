@@ -1,0 +1,10 @@
+<button
+[type]="type" 
+class="custom-button" 
+[disabled]="disabled"
+>
+@if (isLoading) {
+  <span class="loading-spinner"></span>
+}
+{{ isLoading ? loadingText : buttonText }}
+</button>

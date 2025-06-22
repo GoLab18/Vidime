@@ -4,17 +4,19 @@ import { VideoCreateInfo } from '../../models/video.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VideoService } from '../../services/video.service';
 import { CdnService } from '../../services/cdn.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroupTileComponent } from '../../components/form-group-tile/form-group-tile.component';
 import { AuthService } from '../../services/auth.service';
 import { HintBubbleComponent } from '../../components/hint-bubble/hint-bubble.component';
 import { FormatFileSizePipe } from '../../pipes/format-file-size.pipe';
 import { CommonModule } from '@angular/common';
 import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
+import { MainCustomButtonComponent } from '../../components/main-custom-button/main-custom-button.component';
 
 @Component({
   selector: 'app-video-add',
-  imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent, HintBubbleComponent, FormatFileSizePipe, FormatDurationPipe],
+  imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent,
+    HintBubbleComponent, FormatFileSizePipe, FormatDurationPipe, MainCustomButtonComponent],
   templateUrl: './video-add.component.html',
   styleUrl: './video-add.component.css'
 })
@@ -40,7 +42,6 @@ export class VideoAddComponent implements OnDestroy {
     private cdnService: CdnService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
   ) {
     this.videoForm = this.fb.group({
       title: ['', [
@@ -51,9 +52,8 @@ export class VideoAddComponent implements OnDestroy {
         Validators.required,
         Validators.maxLength(this.maxLengthDescription)
       ]],
-      tags: [[], [Validators.required]],
-      cdnName: ['', [Validators.required]],
-      thumbnailName: ['', [Validators.required]]
+      cdnName: [null, [Validators.required]],
+      thumbnailName: [null, [Validators.required]]
     });
   }
 
@@ -138,7 +138,7 @@ export class VideoAddComponent implements OnDestroy {
       next: ({cdnUrl, thumbnailUrl}) => {
         const newVideo: VideoCreateInfo = {
           channelId: this.authService.currentChannelId!,
-          tags: this.videoForm.get('tags')?.value || [],
+          tags: [],
           title: this.videoForm.get('title')?.value,
           description: this.videoForm.get('description')?.value,
           cdnUrl,
