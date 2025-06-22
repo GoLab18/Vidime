@@ -6,11 +6,12 @@ import { RelatedVideoComponent } from '../../components/related-video/related-vi
 import { VideoService } from '../../services/video.service';
 import { CommentService } from '../../services/comment.service';
 import { Video } from '../../models/video.model';
-import { Channel } from '../../models/channel.model';
 import { Comment } from '../../models/comment.model';
 import { CommentRepliesComponent } from '../../components/comment-replies/comment-replies.component';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { VideoWatchPanelComponent } from '../../components/video-watch-panel/video-watch-panel.component';
+import { ChannelSlim } from '../../models/channel.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-watch',
@@ -22,11 +23,20 @@ export class WatchComponent implements OnInit {
   videoId!: number;
   relatedVideos: Video[] = [];
   comments: Comment[] = [];
+  currChannel: ChannelSlim | null;
 
   commentSectionCollapsed: boolean = true;
   videoCommentsLoaded: boolean = false;
 
-  constructor(private route: ActivatedRoute, private videoService: VideoService, private commentService: CommentService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private videoService: VideoService,
+    private commentService: CommentService,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.currChannel = this.authService.currChannelValue;
+  }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
@@ -67,19 +77,6 @@ export class WatchComponent implements OnInit {
   navigateToChannel(channelId: number, channelUuid: string) {
     this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
   }
-
-  mockChannel: Channel = {
-    id: 134,
-    uuid: '123e4567-e89b-12d3-a456-426614174999',
-    name: 'Hitachi',
-    picture: 'https://picsum.photos/1600/900',
-    description: 'Hi, welcome :)',
-    userId: 1,
-    videosAmount: 21,
-    subscribersCount: 1577,
-    verified: true,
-    createdAt: new Date().toISOString()
-  };
 
   newCommentContent = '';
 

@@ -482,4 +482,8 @@ export class VideoService {
         return of(this.mockVideosNoChannels.sort((a, b) => a.ratings - b.ratings)).pipe(delay(500));
     }
   }
+
+  createVideo(videoCreateInfo: VideoCreateInfo): Observable<void> {
+    return this.httpClient.post<void>(`${this.apiUrl}/create`, videoCreateInfo);
+  }
 }

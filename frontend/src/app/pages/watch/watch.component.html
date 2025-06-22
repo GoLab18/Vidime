@@ -14,21 +14,25 @@
     @if (!commentSectionCollapsed) {
       <div class="comments-section">
         <div class="comment-form">
-          <div class="form-group new-comment-info">
-            <div class="channel-avatar channel-redirect" (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">
-              <img [src]="mockChannel.picture" [alt]="mockChannel.name">
+          @if (currChannel) {
+            <div class="form-group new-comment-info">
+              <div class="channel-avatar channel-redirect" (click)="navigateToChannel(currChannel!.id, currChannel!.uuid)">
+                <img [src]="currChannel!.picture" [alt]="currChannel!.name">
+              </div>
+              <div class="channel-name channel-redirect">
+                <span (click)="navigateToChannel(currChannel!.id, currChannel!.uuid)">{{ currChannel!.name }}</span>
+                @if (currChannel!.verified) {
+                  <i class="material-icons verified">verified</i>
+                }
+              </div>
             </div>
-            <div class="channel-name channel-redirect">
-              <span (click)="navigateToChannel(mockChannel.id, mockChannel.uuid)">{{ mockChannel.name }}</span>
-              @if (mockChannel.verified) {
-                <i class="material-icons verified">verified</i>
-              }
+            <div class="form-group">
+              <textarea [(ngModel)]="newCommentContent" placeholder="Write a comment..." class="comment-input"></textarea>
             </div>
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="newCommentContent" placeholder="Write a comment..." class="comment-input"></textarea>
-          </div>
-          <button (click)="addComment()" class="submit-button" [disabled]="!newCommentContent.trim() || !videoCommentsLoaded">Post Comment</button>
+            <button (click)="addComment()" class="submit-button" [disabled]="!newCommentContent.trim() || !videoCommentsLoaded">Post Comment</button>
+          } @else {
+            <p>Create an account with a channel to comment</p>
+          }
         </div>
 
         @if (videoCommentsLoaded) {
