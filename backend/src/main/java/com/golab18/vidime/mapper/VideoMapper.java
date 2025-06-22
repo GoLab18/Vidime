@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.golab18.vidime.dto.VideoDto;
+import com.golab18.vidime.dto.VideoSlimDto;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Video;
 import com.golab18.vidime.dto.TagDto;
@@ -18,6 +19,10 @@ public interface VideoMapper {
     @Mapping(target = "uuid", expression = "java(video.getUuid().toString())")
     @Mapping(target = "addedAt", expression = "java(video.getAddedAt() != null ? video.getAddedAt().toString() : null)")
     VideoDto toDto(Video video);
+
+    @Mapping(target = "uuid", expression = "java(video.getUuid().toString())")
+    @Mapping(target = "addedAt", expression = "java(video.getAddedAt() != null ? video.getAddedAt().toString() : null)")
+    VideoSlimDto toSlimDto(Video video);
 
     @Mapping(source = "tag.id", target = "id")
     @Mapping(source = "tag.name", target = "name")

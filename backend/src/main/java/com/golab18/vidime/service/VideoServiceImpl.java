@@ -4,6 +4,7 @@ import com.golab18.vidime.dto.TagCreateDto;
 import com.golab18.vidime.dto.TagDto;
 import com.golab18.vidime.dto.VideoCreateDto;
 import com.golab18.vidime.dto.VideoDto;
+import com.golab18.vidime.dto.VideoSlimDto;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Tag;
 import com.golab18.vidime.entity.Video;
@@ -14,6 +15,8 @@ import com.golab18.vidime.repository.TagRepository;
 import com.golab18.vidime.mapper.VideoMapper;
 import com.golab18.vidime.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,40 @@ public class VideoServiceImpl implements VideoService {
     private final TagRepository tagRepository;
     private final VideoMapper videoMapper;
 
+    @Override
+    public VideoDto getVideoById(Long id) {
+        Video video = videoRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Video", "id", id));
+        return videoMapper.toDto(video);
+    }
+
+    @Override
+    public VideoDto getVideoByUuid(UUID uuid) {
+        Video video = videoRepository.findByUuid(uuid)
+            .orElseThrow(() -> new ResourceNotFoundException("Video", "uuid", uuid));
+        return videoMapper.toDto(video);
+    }
+
+    @Override
+    public List<VideoSlimDto> getAllVideos(Sort sort) {
+        List<Video> videos = videoRepository.findAll(sort);
+        return videos.stream()
+            .map(videoMapper::toSlimDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VideoSlimDto> getChannelVideos(Long channelId, Sort sort) {
+        if (!channelRepository.existsById(channelId)) throw new ResourceNotFoundException("Channel", "id", channelId);
+
+        List<Video> videos = videoRepository.findByChannelId(channelId, sort);
+        if (videos.isEmpty()) return Collections.emptyList();
+
+        return videos.stream()
+            .map(videoMapper::toSlimDto)
+            .collect(Collectors.toList());
+    }
+    
     @Override
     @Transactional
     public void createVideo(VideoCreateDto videoCreateDto) {
@@ -63,33 +100,9 @@ public class VideoServiceImpl implements VideoService {
 
         video.setTags(videoTags);
 
+        channelRepository.incrementVideosAmount(video.getChannel().getId());
+
         videoRepository.save(video);
-    }
-
-    @Override
-    public VideoDto getVideoById(Long id) {
-        Video video = videoRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Video", "id", id));
-        return videoMapper.toDto(video);
-    }
-
-    @Override
-    public VideoDto getVideoByUuid(UUID uuid) {
-        Video video = videoRepository.findByUuid(uuid)
-            .orElseThrow(() -> new ResourceNotFoundException("Video", "uuid", uuid));
-        return videoMapper.toDto(video);
-    }
-
-    @Override
-    public List<VideoDto> getVideosByChannelId(Long channelId) {
-        if (!channelRepository.existsById(channelId)) throw new ResourceNotFoundException("Channel", "id", channelId);
-
-        List<Video> videos = videoRepository.findByChannelId(channelId);
-        if (videos.isEmpty()) return Collections.emptyList();
-
-        return videos.stream()
-            .map(videoMapper::toDto)
-            .collect(Collectors.toList());
     }
 
     @Override
@@ -142,6 +155,8 @@ public class VideoServiceImpl implements VideoService {
     public void deleteVideo(Long id) {
         Video video = videoRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Video", "id", id));
+
+        channelRepository.decrementVideosAmount(video.getChannel().getId());
 
         videoRepository.delete(video);
     }

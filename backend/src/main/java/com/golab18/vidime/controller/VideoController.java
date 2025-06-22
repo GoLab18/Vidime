@@ -1,7 +1,9 @@
 package com.golab18.vidime.controller;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.golab18.vidime.dto.VideoCreateDto;
 import com.golab18.vidime.dto.VideoDto;
+import com.golab18.vidime.dto.VideoSlimDto;
 import com.golab18.vidime.service.VideoService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,17 +28,27 @@ public class VideoController {
 
     private final VideoService videoService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<VideoDto> getVideoById(@PathVariable Long id) {
         return ResponseEntity.ok(videoService.getVideoById(id));
     }
     
-    @GetMapping("/{uuid}")
+    @GetMapping("/uuid/{uuid}")
     public ResponseEntity<VideoDto> getVideoByUuid(@PathVariable UUID uuid) {
         return ResponseEntity.ok(videoService.getVideoByUuid(uuid));
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/all")
+    public ResponseEntity<List<VideoSlimDto>> getAllVideos(Sort sort) {
+        return ResponseEntity.ok(videoService.getAllVideos(sort));
+    }
+
+    @GetMapping("/channel/{channelId}")
+    public ResponseEntity<List<VideoSlimDto>> getChannelVideos(@PathVariable Long channelId, Sort sort) {
+        return ResponseEntity.ok(videoService.getChannelVideos(channelId, sort));
+    }
+
+    @PostMapping("/update/{id}")
     public ResponseEntity<Void> updateVideo(@PathVariable Long id, @RequestBody VideoDto videoDto) {
         videoService.updateVideo(id, videoDto);
         return ResponseEntity.noContent().build();
