@@ -56,6 +56,13 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/videos/id/{id}").permitAll()
+                .requestMatchers("/api/videos/uuid/{uuid}").permitAll()
+                .requestMatchers("/api/videos/all").permitAll()
+                .requestMatchers("/api/videos/channel/{channelId}").permitAll()
+                .requestMatchers("/api/channels/id/{id}").permitAll()
+                .requestMatchers("/api/channels/uuid/{uuid}").permitAll()
+                .requestMatchers("/api/channels/user/{userId}").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
