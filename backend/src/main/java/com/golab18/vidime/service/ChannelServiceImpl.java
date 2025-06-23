@@ -3,6 +3,7 @@ package com.golab18.vidime.service;
 import com.golab18.vidime.dto.ChannelCreateDto;
 import com.golab18.vidime.dto.ChannelDto;
 import com.golab18.vidime.dto.ChannelSlimDto;
+import com.golab18.vidime.dto.ChannelTrending;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.User;
 import com.golab18.vidime.repository.ChannelRepository;
@@ -55,6 +56,21 @@ public class ChannelServiceImpl implements ChannelService {
         return channelRepository.findByUserId(userId).stream()
             .map(channelMapper::toSlimDto)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChannelTrending> getMostSubscribedChannelsAllTime() {
+        return channelRepository.findChannelsWithStats("subscribersCount");
+    }
+
+    @Override
+    public List<ChannelTrending> getMostViewedChannelsAllTime() {
+        return channelRepository.findChannelsWithStats("viewsAllTime");
+    }
+
+    @Override
+    public List<ChannelTrending> getMostViewedChannelsLastWeek() {
+        return channelRepository.findChannelsWithStats("decayedViews");
     }
 
     @Override

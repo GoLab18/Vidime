@@ -1,5 +1,6 @@
 package com.golab18.vidime.repository;
 
+import com.golab18.vidime.dto.ChannelTrending;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,16 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
     @Modifying
     @Query("UPDATE Channel c SET c.videosAmount = c.videosAmount - 1 WHERE c.id = :channelId")
     void decrementVideosAmount(@Param("channelId") Long channelId);
+
+    @Query("""
+    SELECT new com.golab18.vidime.dto.ChannelTrending(c.id, c.uuid, c.name, c.picture, c.verified, c.subscribersCount, SUM(v.views))
+    FROM Channel c 
+    JOIN Video v ON v.channel.id = c.id 
+    GROUP BY c.id, c.uuid, c.name, c.picture, c.verified, c.subscribersCount 
+    ORDER BY 
+        CASE WHEN :sortBy = 'viewsAllTime' THEN SUM(v.views) END DESC,
+        CASE WHEN :sortBy = 'decayedViews' THEN SUM(v.decayedViews) END DESC,
+        CASE WHEN :sortBy = 'subscribersCount' THEN c.subscribersCount END DESC
+    """)
+    List<ChannelTrending> findChannelsWithStats(@Param("sortBy") String sortBy);
 }
