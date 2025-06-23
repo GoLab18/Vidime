@@ -37,6 +37,10 @@ public interface VideoMapper {
     @Mapping(target = "playlistEntries", ignore = true)
     @Mapping(target = "ratings", ignore = true)
     @Mapping(target = "videoViews", ignore = true)
+    @Mapping(target = "bayesianRating", ignore = true)
+    @Mapping(target = "ratingsSum", ignore = true)
+    @Mapping(target = "bayesianRatingWithTimeDecay", ignore = true)
+    @Mapping(target = "decayedViews", ignore = true)
     Video toEntity(VideoDto videoDto);
 
     @Mapping(target = "id", ignore = true)
@@ -53,5 +57,9 @@ public interface VideoMapper {
     @Mapping(target = "playlistEntries", ignore = true)
     @Mapping(target = "ratings", ignore = true)
     @Mapping(target = "videoViews", ignore = true)
+    @Mapping(target = "bayesianRating", ignore = true)
+    @Mapping(target = "ratingsSum", ignore = true)
+    @Mapping(target = "bayesianRatingWithTimeDecay", ignore = true)
+    @Mapping(target = "decayedViews", ignore = true)
     Video createToEntity(VideoCreateDto videoCreateDto);
 }

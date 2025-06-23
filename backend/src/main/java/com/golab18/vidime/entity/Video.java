@@ -46,7 +46,19 @@ public class Video {
     private Integer ratingsAmount = 0;
 
     @Column(nullable = false)
+    private Float ratingsSum = 0f;
+
+    @Column(nullable = false)
     private Float avgRating = 0f;
+
+    @Column(nullable = false)
+    private Float bayesianRating = 0f;
+
+    @Column(nullable = false)
+    private Float bayesianRatingWithTimeDecay = 0f;
+
+    @Column(nullable = false)
+    private Float decayedViews = 0f;
 
     @Column(nullable = false)
     private Timestamp addedAt = new Timestamp(System.currentTimeMillis());
@@ -71,4 +83,22 @@ public class Video {
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<VideoView> videoViews;
+
+    // Calculates Bayesian rating (all time) based on:
+    // m -> global average rating of all videos,
+    // C -> confidence level
+    public void calculateBayesianRating(float m, float C) {
+        float v = this.ratingsAmount;
+        this.bayesianRating = (v / (v + C)) * this.avgRating + (C / (v + C)) * m;
+    }
+
+    // Calculates Bayesian rating (last week) based on:
+    // decayedAvgRating -> average rating of videos decayed,
+    // decayedRatingCount -> number of ratings decayed,
+    // m -> global average rating of all videos,
+    // C -> confidence level
+    public void calculateTimeDecayedBayesianRating(float decayedAvgRating, float decayedRatingCount, float m, float C) {
+        this.bayesianRatingWithTimeDecay = (decayedRatingCount / (decayedRatingCount + C)) * decayedAvgRating
+            + (C / (decayedRatingCount + C)) * m;
+    }
 }

@@ -12,8 +12,15 @@ public interface VideoService {
     VideoDto getVideoById(Long id);
     VideoDto getVideoByUuid(UUID uuid);
     List<VideoSlimDto> getAllVideos(Sort sort);
+    List<VideoSlimDto> getMostViewedVideosAllTime();
+    List<VideoSlimDto> getBestRatedVideosAllTime();
+    List<VideoSlimDto> getMostViewedVideosLastWeekDecayed();
+    List<VideoSlimDto> getBestRatedVideosLastWeekDecayed();
     List<VideoSlimDto> getChannelVideos(Long channelId, Sort sort);
     void updateVideo(Long id, VideoDto videoDto);
     void deleteVideo(Long id);
+    void updateBayesianRatings();
+    void updateTimeDecayedBayesianRatings();
+    void updateDecayedViews();
 }
 
