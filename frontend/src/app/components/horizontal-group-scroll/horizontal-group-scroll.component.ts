@@ -67,7 +67,7 @@ export class HorizontalGroupScrollComponent implements AfterViewInit {
   }
 
   groupItems<T>(items: T[], groupSize: number): T[][] {
-    if (!items?.length) return [];
+    if (!items?.length || groupSize <= 0) return [];
     
     let groups: T[][] = [];
     for (let i = 0; i < items.length; i += groupSize) groups.push(items.slice(i, i + groupSize));

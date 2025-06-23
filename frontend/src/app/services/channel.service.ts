@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Channel } from '../models/channel.model';
+import { Channel, ChannelTrending } from '../models/channel.model';
 import { Observable } from 'rxjs';
 import { env } from '../../environments/env';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,16 @@ export class ChannelService {
 
   getChannels(): Observable<Channel[]> {
     return this.http.get<Channel[]>(`${env.apiUrl}/channels`);
+  }
+
+  getMostSubsChannelsAllTime() {
+    return this.http.get<ChannelTrending[]>(`${env.apiUrl}/channels/most-subscribed`);
+  }
+  getMostViewedChannelsAllTime() {
+    return this.http.get<ChannelTrending[]>(`${env.apiUrl}/channels/most-viewed`);
+  }
+  getMostViewedChannelsLastWeek() {
+    return this.http.get<ChannelTrending[]>(`${env.apiUrl}/channels/most-viewed/week`);
   }
 
   getLinks(channelId: number): Observable<ChannelLink[]> {
