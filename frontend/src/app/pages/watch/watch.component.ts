@@ -41,7 +41,6 @@ export class WatchComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       let newVideoId = Number(params.get('i'));
-      // this.videoId = Number(params.get('i'));
       if (this.videoId !== newVideoId) {
         this.videoId = newVideoId;
 

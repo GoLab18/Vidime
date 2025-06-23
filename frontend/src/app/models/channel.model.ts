@@ -7,6 +7,16 @@ export interface ChannelSlim {
   verified: boolean;
 }
 
+export interface ChannelTrending {
+  id: number;
+  uuid: string;
+  name: string;
+  picture: string;
+  verified: boolean;
+  subscribersCount: number;
+  viewsAllTime: number;
+}
+
 export interface Channel {
   id: number;
   uuid: string;
