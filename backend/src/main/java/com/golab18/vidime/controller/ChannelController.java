@@ -3,6 +3,7 @@ package com.golab18.vidime.controller;
 import com.golab18.vidime.dto.ChannelCreateDto;
 import com.golab18.vidime.dto.ChannelDto;
 import com.golab18.vidime.dto.ChannelSlimDto;
+import com.golab18.vidime.dto.ChannelTrending;
 import com.golab18.vidime.service.ChannelService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,24 @@ public class ChannelController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ChannelSlimDto>> getChannelsByUserId(@PathVariable Long userId) {
         List<ChannelSlimDto> channels = channelService.getChannelsByUserId(userId);
+        return ResponseEntity.ok(channels);
+    }
+
+    @GetMapping("/most-subscribed")
+    public ResponseEntity<List<ChannelTrending>> getMostSubscribedChannelsAllTime() {
+        List<ChannelTrending> channels = channelService.getMostSubscribedChannelsAllTime();
+        return ResponseEntity.ok(channels);
+    }
+
+    @GetMapping("/most-viewed")
+    public ResponseEntity<List<ChannelTrending>> getMostViewedChannelsAllTime() {
+        List<ChannelTrending> channels = channelService.getMostViewedChannelsAllTime();
+        return ResponseEntity.ok(channels);
+    }
+
+    @GetMapping("/most-viewed/week")
+    public ResponseEntity<List<ChannelTrending>> getMostViewedChannelsLastWeek() {
+        List<ChannelTrending> channels = channelService.getMostViewedChannelsLastWeek();
         return ResponseEntity.ok(channels);
     }
 

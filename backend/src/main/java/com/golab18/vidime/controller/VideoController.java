@@ -43,6 +43,26 @@ public class VideoController {
         return ResponseEntity.ok(videoService.getAllVideos(sort));
     }
 
+    @GetMapping("/trending")
+    public ResponseEntity<List<VideoSlimDto>> getTrendingVideos() {
+        return ResponseEntity.ok(videoService.getMostViewedVideosAllTime());
+    }
+
+    @GetMapping("/trending/week")
+    public ResponseEntity<List<VideoSlimDto>> getTrendingVideosLastWeek() {
+        return ResponseEntity.ok(videoService.getMostViewedVideosLastWeekDecayed());
+    }
+
+    @GetMapping("/best-rated")
+    public ResponseEntity<List<VideoSlimDto>> getBestRatedVideos() {
+        return ResponseEntity.ok(videoService.getBestRatedVideosAllTime());
+    }
+
+    @GetMapping("/best-rated/week")
+    public ResponseEntity<List<VideoSlimDto>> getBestRatedVideosLastWeek() {
+        return ResponseEntity.ok(videoService.getBestRatedVideosLastWeekDecayed());
+    }
+
     @GetMapping("/channel/{channelId}")
     public ResponseEntity<List<VideoSlimDto>> getChannelVideos(@PathVariable Long channelId, Sort sort) {
         return ResponseEntity.ok(videoService.getChannelVideos(channelId, sort));
