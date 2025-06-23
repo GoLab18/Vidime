@@ -1,11 +1,66 @@
-<div class="trending-page">
-  <h1>Trending Videos</h1>
-  <div class="video-grid" *ngIf="videos.length > 0; else noVideos">
-    @for(video of videos; track video.id) {
-      <app-home-video [video]="video"></app-home-video>
+<main class="trending-main">
+  <div id="hot-channels-container">
+    @if (mostSubsChannelsAllTime.length > 0) {
+      <div class="horizontal-list">
+        <div class="list-header">
+          <h3>Hot subs channels</h3>
+        </div>
+        <app-horizontal-channel-list [channels]="mostSubsChannelsAllTime"></app-horizontal-channel-list>
+      </div>
+    }
+  
+    @if (mostViewedChannelsAllTime.length > 0) {
+      <div class="horizontal-list">
+        <div class="list-header">
+          <h3>Most viewed channels</h3>
+        </div>
+        <app-horizontal-channel-list [channels]="mostViewedChannelsAllTime"></app-horizontal-channel-list>
+      </div>
+    }
+  
+    @if (mostViewedChannelsLastWeek.length > 0) {
+      <div class="horizontal-list">
+        <div class="list-header">
+          <h3>Hot viewed channels</h3>
+        </div>
+        <app-horizontal-channel-list [channels]="mostViewedChannelsLastWeek"></app-horizontal-channel-list>
+      </div>
     }
   </div>
-  <ng-template #noVideos>
-    <p>No trending videos available at the moment</p>
-  </ng-template>
-</div>
+  
+  @if (mostViewedVideosAllTime.length > 0) {
+    <div class="horizontal-list">
+      <div class="list-header">
+        <h3>Most viewed videos</h3>
+      </div>
+      <app-horizontal-group-scroll [items]="mostViewedVideosAllTime"></app-horizontal-group-scroll>
+    </div>
+  }
+
+  @if (mostViewedVideosLastWeek.length > 0) {
+    <div class="horizontal-list">
+      <div class="list-header">
+        <h3>Hot viewed videos</h3>
+      </div>
+      <app-horizontal-group-scroll [items]="mostViewedVideosLastWeek"></app-horizontal-group-scroll>
+    </div>
+  }
+
+  @if (bestRatedVideosAllTime.length > 0) {
+    <div class="horizontal-list">
+      <div class="list-header">
+        <h3>Best rated videos</h3>
+      </div>
+      <app-horizontal-group-scroll [items]="bestRatedVideosAllTime"></app-horizontal-group-scroll>
+    </div>
+  }
+
+  @if (bestRatedVideosLastWeek.length > 0) {
+    <div class="horizontal-list">
+      <div class="list-header">
+        <h3>Hot rated videos</h3>
+      </div>
+      <app-horizontal-group-scroll [items]="bestRatedVideosLastWeek"></app-horizontal-group-scroll>
+    </div>
+  }
+</main>
