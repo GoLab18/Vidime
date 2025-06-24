@@ -17,6 +17,8 @@ import com.golab18.vidime.dto.AggregatedGlobalRatings;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Video;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findByUuid(UUID uuid);
@@ -29,10 +31,14 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     @Query("SELECT ratingsAmount FROM Video ORDER BY ratingsAmount ASC")
     List<Integer> getRatingsAmountsSortedAsc();
 
-    @Query("SELECT DISTINCT v FROM Video v LEFT JOIN FETCH v.ratings")
-    Page<Video> findAllWithRatings(Pageable pageable);
+    @Query("SELECT v.id FROM Video v")
+    Page<Long> findVideoIds(Pageable pageable);
+
+    @Query("SELECT DISTINCT v FROM Video v LEFT JOIN FETCH v.ratings WHERE v.id IN :ids")
+    List<Video> findAllWithRatingsByIdIn(@Param("ids") List<Long> ids);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Video SET decayedViews = :decayedViews WHERE id = :videoId")
     void updateDecayedViews(@Param("videoId") Long videoId, @Param("decayedViews") float decayedViews);
 }
