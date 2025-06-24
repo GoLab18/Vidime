@@ -31,9 +31,6 @@
   </div>
 
   @if(fetchFirstErrorMessage) {
-    <div class="error-message">
-    <i class="material-icons">error</i>
-    <span>{{ fetchFirstErrorMessage }}</span>
-    </div>
+    <app-form-error-message [content]="fetchFirstErrorMessage"></app-form-error-message>
   }
 </div>

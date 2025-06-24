@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { FormatDurationPipe } from '../../pipes/format-duration.pipe';
 import { MainCustomButtonComponent } from '../../components/main-custom-button/main-custom-button.component';
 import { TagCreateInfo } from '../../models/tag.model';
+import { FormErrorMessageComponent } from '../../components/form-error-message/form-error-message.component';
 
 @Component({
   selector: 'app-video-add',
   imports: [CommonModule, ReactiveFormsModule, VideoPlayerComponent, FormGroupTileComponent,
-    HintBubbleComponent, FormatFileSizePipe, FormatDurationPipe, MainCustomButtonComponent],
+    HintBubbleComponent, FormatFileSizePipe, FormatDurationPipe, MainCustomButtonComponent, FormErrorMessageComponent],
   templateUrl: './video-add.component.html',
   styleUrl: './video-add.component.css'
 })
@@ -68,6 +69,11 @@ export class VideoAddComponent implements OnDestroy {
     return this.videoForm.get('description') as FormControl;
   }
 
+  get maxTagsAmountReached() {
+    return this.addedTags.length >= 4;
+  }
+    
+
   onTagAdded() {
     if (this.disabledAddTag) return;
 
@@ -82,7 +88,7 @@ export class VideoAddComponent implements OnDestroy {
 
   get disabledAddTag() {
     const tagName = this.videoForm.get('tagName')?.value?.trim();
-    return tagName === '' || this.addedTags.some(tag => tag.name === tagName) || this.isLoading;
+    return tagName === '' || this.addedTags.some(tag => tag.name === tagName) || this.isLoading || this.maxTagsAmountReached;
   }
 
   onFileSelected(event: Event) {

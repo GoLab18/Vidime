@@ -7,6 +7,7 @@
   --input-container-color: rgba(30, 30, 30, 0.7);
   --background-main-accent: rgba(255, 255, 255, 0.2);
   --background-gray-accent-hover: rgba(84, 84, 84, 0.9);
+  --error-color: #ff3860;
 }
 
 #main-container {
@@ -262,4 +263,10 @@
 #tag-add-icon-button.disabled {
   cursor: not-allowed;
   color: var(--text-color-gray);
+}
+
+.tag-input-disabled:hover,
+.tag-input-disabled:focus,
+.tag-input-disabled:focus-within {
+  border: 2px dashed var(--error-color);
 }

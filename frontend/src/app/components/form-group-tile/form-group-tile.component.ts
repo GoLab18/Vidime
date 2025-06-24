@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormErrorMessageComponent } from '../form-error-message/form-error-message.component';
 
 @Component({
   selector: 'app-form-group-tile',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormErrorMessageComponent],
   templateUrl: './form-group-tile.component.html',
   styleUrl: './form-group-tile.component.css'
 })

@@ -15,19 +15,24 @@
       <app-hint-bubble [hint]="successMessage" [isError]="false"></app-hint-bubble>
     }
     
-    <div id="tags-container">
-      @for (tag of addedTags; track $index) {
-        <div class="tag-base added-tag" (click)="onTagRemove($index)" tabindex="0">
-          <div class="added-tag-overlay">
-            <i class="material-icons">clear</i>
+    <div id="tags-container-wrapper">
+      <div id="tags-container">
+        @for (tag of addedTags; track $index) {
+          <div class="tag-base added-tag" (click)="onTagRemove($index)" tabindex="0">
+            <div class="added-tag-overlay">
+              <i class="material-icons">clear</i>
+            </div>
+            {{ tag.name }}
           </div>
-          {{ tag.name }}
+        }
+        <div id="tag-add-tile" class="tag-base input-container-fx" [ngClass]="{ 'tag-input-disabled': maxTagsAmountReached }">
+          <input type="text" id="tag-input" formControlName="tagName" placeholder="Tag name" maxLength="20" autocomplete="off"/>
+          <i class="material-icons" id="tag-add-icon-button" type="button" (click)="onTagAdded()" [ngClass]="{ 'disabled': disabledAddTag }" tabindex="0">add</i>
         </div>
-      }
-      <div id="tag-add-tile" class="tag-base input-container-fx">
-        <input type="text" id="tag-input" formControlName="tagName" placeholder="Tag name" maxLength="20" autocomplete="off"/>
-        <i class="material-icons" id="tag-add-icon-button" type="button" (click)="onTagAdded()" [ngClass]="{ 'disabled': disabledAddTag }" tabindex="0">add</i>
       </div>
+      @if (maxTagsAmountReached) {
+        <app-form-error-message content="Max tags limit reached"></app-form-error-message>
+      }
     </div>
     
     <div id="video-inputs">
