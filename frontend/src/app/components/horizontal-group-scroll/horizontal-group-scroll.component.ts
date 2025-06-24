@@ -46,6 +46,12 @@ export class HorizontalGroupScrollComponent implements AfterViewInit {
     this.itemGroupSize = Math.max(1, itemsPerGroup);
 
     this.scrollStep = this.itemGroupSize * itemWidth + 24;
+
+    // For when there are not enough items to fill the container
+    if (itemWidth * itemsPerGroup < containerWidth) {
+      this.scrollLeftVisible = false;
+      this.scrollRightVisible = false;
+    }
   }
 
   handleScroll() {
