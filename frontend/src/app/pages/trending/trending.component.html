@@ -1,37 +1,47 @@
 <main class="trending-main">
   <div id="hot-channels-container">
-    @if (mostSubsChannelsAllTime.length > 0) {
-      <div class="horizontal-list">
-        <div class="list-header">
-          <h3>Hot subs channels</h3>
+    <div class="part-header">
+      <h2>Trending channels</h2>
+      <i class="material-icons" (click)="toggleChannels()">{{ showChannels ? 'arrow_upward' : 'arrow_downward' }}</i>
+    </div>
+    <div id="expandable-channels-container" [ngClass]="{ expanded: showChannels }">
+      @if (mostSubsChannelsAllTime.length > 0) {
+        <div class="horizontal-list">
+          <div class="list-header">
+            <h3>Hot subs</h3>
+          </div>
+          <app-horizontal-channel-list [channels]="mostSubsChannelsAllTime"></app-horizontal-channel-list>
         </div>
-        <app-horizontal-channel-list [channels]="mostSubsChannelsAllTime"></app-horizontal-channel-list>
-      </div>
-    }
-  
-    @if (mostViewedChannelsAllTime.length > 0) {
-      <div class="horizontal-list">
-        <div class="list-header">
-          <h3>Most viewed channels</h3>
+      }
+    
+      @if (mostViewedChannelsAllTime.length > 0) {
+        <div class="horizontal-list">
+          <div class="list-header">
+            <h3>Most viewed</h3>
+          </div>
+          <app-horizontal-channel-list [channels]="mostViewedChannelsAllTime"></app-horizontal-channel-list>
         </div>
-        <app-horizontal-channel-list [channels]="mostViewedChannelsAllTime"></app-horizontal-channel-list>
-      </div>
-    }
-  
-    @if (mostViewedChannelsLastWeek.length > 0) {
-      <div class="horizontal-list">
-        <div class="list-header">
-          <h3>Hot viewed channels</h3>
+      }
+    
+      @if (mostViewedChannelsLastWeek.length > 0) {
+        <div class="horizontal-list">
+          <div class="list-header">
+            <h3>Hot viewed</h3>
+          </div>
+          <app-horizontal-channel-list [channels]="mostViewedChannelsLastWeek"></app-horizontal-channel-list>
         </div>
-        <app-horizontal-channel-list [channels]="mostViewedChannelsLastWeek"></app-horizontal-channel-list>
-      </div>
-    }
+      }
+    </div>
+  </div>
+
+  <div id="videos-header" class="part-header">
+    <h2>Trending videos</h2>
   </div>
   
   @if (mostViewedVideosAllTime.length > 0) {
     <div class="horizontal-list">
       <div class="list-header">
-        <h3>Most viewed videos</h3>
+        <h3>Most viewed</h3>
       </div>
       <app-horizontal-group-scroll [items]="mostViewedVideosAllTime"></app-horizontal-group-scroll>
     </div>
@@ -40,7 +50,7 @@
   @if (mostViewedVideosLastWeek.length > 0) {
     <div class="horizontal-list">
       <div class="list-header">
-        <h3>Hot viewed videos</h3>
+        <h3>Hot viewed</h3>
       </div>
       <app-horizontal-group-scroll [items]="mostViewedVideosLastWeek"></app-horizontal-group-scroll>
     </div>
@@ -49,7 +59,7 @@
   @if (bestRatedVideosAllTime.length > 0) {
     <div class="horizontal-list">
       <div class="list-header">
-        <h3>Best rated videos</h3>
+        <h3>Best rated</h3>
       </div>
       <app-horizontal-group-scroll [items]="bestRatedVideosAllTime"></app-horizontal-group-scroll>
     </div>
@@ -58,7 +68,7 @@
   @if (bestRatedVideosLastWeek.length > 0) {
     <div class="horizontal-list">
       <div class="list-header">
-        <h3>Hot rated videos</h3>
+        <h3>Hot rated</h3>
       </div>
       <app-horizontal-group-scroll [items]="bestRatedVideosLastWeek"></app-horizontal-group-scroll>
     </div>

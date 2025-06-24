@@ -21,22 +21,12 @@ export class TrendingComponent implements OnInit {
   mostViewedVideosLastWeek: VideoSlim[] = [];
   bestRatedVideosAllTime: VideoSlim[] = [];
   bestRatedVideosLastWeek: VideoSlim[] = [];
+  channelsFirstLoad: boolean = true;
+  showChannels: boolean = false;
 
   constructor(private videoService: VideoService, private channelService: ChannelService) {}
 
   ngOnInit() {
-    this.channelService.getMostSubsChannelsAllTime().subscribe(data => {
-      this.mostSubsChannelsAllTime = data;
-    });
-
-    this.channelService.getMostViewedChannelsAllTime().subscribe(data => {
-      this.mostViewedChannelsAllTime = data;
-    });
-
-    this.channelService.getMostViewedChannelsLastWeek().subscribe(data => {
-      this.mostViewedChannelsLastWeek = data;
-    });
-
     this.videoService.getMostViewedVideosAllTime().subscribe(data => {
       this.mostViewedVideosAllTime = data;
     });
@@ -52,5 +42,25 @@ export class TrendingComponent implements OnInit {
     this.videoService.getBestRatedVideosLastWeek().subscribe(data => {
       this.bestRatedVideosLastWeek = data;
     });
+  }
+
+  toggleChannels() {
+    if (this.channelsFirstLoad) {
+      this.channelService.getMostSubsChannelsAllTime().subscribe(data => {
+        this.mostSubsChannelsAllTime = data;
+      });
+  
+      this.channelService.getMostViewedChannelsAllTime().subscribe(data => {
+        this.mostViewedChannelsAllTime = data;
+      });
+  
+      this.channelService.getMostViewedChannelsLastWeek().subscribe(data => {
+        this.mostViewedChannelsLastWeek = data;
+      });
+
+      this.channelsFirstLoad = false;
+    }
+    
+    this.showChannels = !this.showChannels;
   }
 }

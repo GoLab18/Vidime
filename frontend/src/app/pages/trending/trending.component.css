@@ -1,4 +1,5 @@
 :host {
+  --primary-color: #1db954;
   --input-container-color: rgba(30, 30, 30, 0.7);
 }
 
@@ -19,14 +20,46 @@
   margin-bottom: 4px;
   margin-left: 16px;
   margin-right: 16px;
-  border-bottom: 1px solid #1db954;
+  border-bottom: 1px solid var(--primary-color);
 }
 
 #hot-channels-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   background-color: var(--input-container-color);
   border-radius: 8px;
   padding: 16px 8px;
+}
+
+.part-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px;
+}
+
+.part-header > i {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.part-header > i:hover {
+  transform: translateY(-1px);
+  color: var(--primary-color);
+}
+
+#expandable-channels-container {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#expandable-channels-container.expanded {
+  opacity: 1;
+  margin-top: 24px;
+  height: auto;
 }
