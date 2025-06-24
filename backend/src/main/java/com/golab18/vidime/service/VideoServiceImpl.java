@@ -221,19 +221,22 @@ public class VideoServiceImpl implements VideoService {
 
         // Batch processing
         int page = 0;
-        int batchSize = 100;
+        final int batchSize = 100;
         Page<Video> videoPage;
     
         while (true) {
             videoPage = videoRepository.findAll(PageRequest.of(page, batchSize));
-        
-            videoPage.forEach(video -> video.calculateBayesianRating(m, C));
-        
-            videoRepository.saveAll(videoPage.getContent());
-            
+            updateRatingsBatch(videoPage.getContent(), m, C);
+    
             if (!videoPage.hasNext()) break;
             page++;
         }
+    }
+    
+    @Transactional
+    public void updateRatingsBatch(List<Video> videos, float m, float C) {
+        videos.forEach(video -> video.calculateBayesianRating(m, C));
+        videoRepository.saveAll(videos);
     }
 
     @Override
@@ -255,72 +258,95 @@ public class VideoServiceImpl implements VideoService {
         final double lambda = Math.log(2) / 7.0;
 
         int page = 0;
-        int batchSize = 100;
-        Page<Video> videoPage;
+        final int batchSize = 100;
+        Page<Long> videosIdsPage;
 
         while (true) {
-            videoPage = videoRepository.findAllWithRatings(PageRequest.of(page, batchSize));
-            List<Video> pageContent = videoPage.getContent();
-    
-            for (Video video : pageContent) {
-                List<Rating> ratings = video.getRatings();
-                if (ratings == null || ratings.isEmpty()) continue;
-    
-                double weightedSum = 0.0;
-                double weightTotal = 0.0;
-    
-                for (Rating rating : ratings) {
-                    long ageInDays = Math.max(0, 
-                        (System.currentTimeMillis() - rating.getCreatedAt().getTime()) / (1000 * 60 * 60 * 24)
-                    );
-                    double weight = Math.exp(-lambda * ageInDays);
-    
-                    weightedSum += rating.getScore().doubleValue() * weight;
-                    weightTotal += weight;
-                }
-    
-                float decayedAvg = (float) (weightTotal > 0 ? weightedSum / weightTotal : 0);
-                float decayedCount = (float) weightTotal;
-    
-                video.calculateTimeDecayedBayesianRating(decayedAvg, decayedCount, m, C);
-            }
-    
-            videoRepository.saveAll(pageContent);
+            videosIdsPage = videoRepository.findVideoIds(PageRequest.of(page, batchSize));
+            if (videosIdsPage.isEmpty()) break;
 
-            if (!videoPage.hasNext()) break;
+            List<Video> videos = videoRepository.findAllWithRatingsByIdIn(videosIdsPage.getContent());
+
+            updateTimeDecayedRatingsBatch(videos, m, C, lambda);
+    
+            if (!videosIdsPage.hasNext()) break;
             page++;
         }
     }
 
+    @Transactional
+    public void updateTimeDecayedRatingsBatch(List<Video> videos, float m, float C, double lambda) {
+        final long now = System.currentTimeMillis();
+        final long millisPerDay = 1000L * 60 * 60 * 24;
+
+        for (Video video : videos) {
+            List<Rating> ratings = video.getRatings();
+            if (ratings == null || ratings.isEmpty()) continue;
+
+            double weightedSum = 0.0;
+            double weightTotal = 0.0;
+
+            for (Rating rating : ratings) {
+                long ageInDays = Math.max(0, (now - rating.getCreatedAt().getTime()) / millisPerDay);
+                double weight = Math.exp(-lambda * ageInDays);
+
+                weightedSum += rating.getScore().doubleValue() * weight;
+                weightTotal += weight;
+            }
+
+            float decayedAvg = (float) (weightTotal > 0 ? weightedSum / weightTotal : 0);
+            float decayedCount = (float) weightTotal;
+
+            video.calculateTimeDecayedBayesianRating(decayedAvg, decayedCount, m, C);
+        }
+
+        videoRepository.saveAll(videos);
+    }
+
     @Override
     public void updateDecayedViews() {
-        List<Object[]> viewData = videoViewRepository.findAllVideoViewsTimestampsVideoIds();
+        final int batchSize = 100;
+        int page = 0;
+        Page<Long> videoIdsPage;
+
+        while (true) {
+            videoIdsPage = videoRepository.findVideoIds(PageRequest.of(page, batchSize));
+            if (videoIdsPage.getContent().isEmpty()) break;
+
+            processDecayedViewsBatch(videoIdsPage.getContent());
+
+            if (!videoIdsPage.hasNext()) break;
+            page++;
+        }
+    }
+
+    @Transactional
+    public void processDecayedViewsBatch(List<Long> videoIds) {
+        final double lambda = Math.log(2) / 7.0;
+        final long now = System.currentTimeMillis();
+        final long millisPerDay = 1000L * 60 * 60 * 24;
+
+        List<Object[]> viewsData = videoViewRepository.findViewsByVideoIds(videoIds);
 
         Map<Long, List<Timestamp>> viewsByVideo = new HashMap<>();
-        for (Object[] row : viewData) {
+        for (Object[] row : viewsData) {
             Long videoId = (Long) row[0];
             Timestamp viewedAt = (Timestamp) row[1];
             viewsByVideo.computeIfAbsent(videoId, k -> new ArrayList<>()).add(viewedAt);
         }
 
-        // Decay constant -> Half-life = 7 days -> lambda = ln(2) / 7
-        double lambda = Math.log(2) / 7.0;
-
-        long now = System.currentTimeMillis();
-
-        for (var entry : viewsByVideo.entrySet()) {
-            Long videoId = entry.getKey();
-            List<Timestamp> timestamps = entry.getValue();
+        for (Long videoId : videoIds) {
+            List<Timestamp> timestamps = viewsByVideo.getOrDefault(videoId, Collections.emptyList());
 
             double totalWeight = 0.0;
             for (Timestamp viewedAt : timestamps) {
-                long ageInDays = Math.max(0, (now - viewedAt.getTime()) / (1000 * 60 * 60 * 24));
+                long ageInDays = Math.max(0, (now - viewedAt.getTime()) / millisPerDay);
                 double weight = Math.exp(-lambda * ageInDays);
                 totalWeight += weight;
             }
 
             float decayedViewScore = (float) totalWeight;
-    
+
             videoRepository.updateDecayedViews(videoId, decayedViewScore);
         }
     }
