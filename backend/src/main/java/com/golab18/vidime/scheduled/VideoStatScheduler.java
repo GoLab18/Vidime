@@ -13,17 +13,17 @@ public class VideoStatScheduler {
     
     private final VideoService videoService;
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void periodicBayesianRatingUpdate() {
         videoService.updateBayesianRatings();
     }
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void periodicTimeDecayedBayesianRatingUpdate() {
         videoService.updateTimeDecayedBayesianRatings();
     }
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void periodicDecayedViewsUpdate() {
         videoService.updateDecayedViews();
     }
