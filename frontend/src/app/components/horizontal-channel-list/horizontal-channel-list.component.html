@@ -1,1 +1,36 @@
-<p>horizontal-channel-list works!</p>
+<div class="channel-list-container">
+  <div class="channel-list-wrapper">
+    <div class="channel-list">
+      @for (channel of channels; track channel.id) {
+        <div class="channel-item" (click)="navigateToChannel(channel.id, channel.uuid)">
+          <div class="channel-avatar-wrapper">
+            <div class="channel-avatar">
+              @if (channel.picture) {
+                <img [src]="channel.picture" [alt]="channel.name" class="avatar-image">
+              }
+              @else {
+                <i class="material-icons">person</i>
+              }
+            </div>
+            @if (channel.verified) {
+              <span class="verified-badge" title="Verified">
+                <i class="material-icons">verified</i>
+              </span>
+            }
+          </div>
+          <div class="channel-info">
+            <h4 class="channel-name">{{ channel.name }}</h4>
+            <div class="agr-stats">
+              <p class="channel-stats">
+                {{ channel.subscribersCount | formatNumber }} subs
+              </p>
+              <p class="channel-stats">
+                {{ channel.viewsAllTime | formatNumber }} views
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
