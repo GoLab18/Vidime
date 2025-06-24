@@ -1,5 +1,5 @@
 <div id="video-section">
-  <app-video-player [videoUrl]="video?.cdnUrl" [thumbnailUrl]="video?.thumbnailUrl"></app-video-player>
+  <app-video-player [videoId]="isCurrentChannelsVideo ? undefined : video?.id" [videoUrl]="video?.cdnUrl" [thumbnailUrl]="video?.thumbnailUrl"></app-video-player>
 
   @if (video) {
     <div id="video-info">

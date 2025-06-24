@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, ViewChild, HostListener, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { ViewService } from '../../services/view.service';
 
 enum VideoState {
   PLAYING,
@@ -14,6 +15,7 @@ enum VideoState {
   imports: [CommonModule]
 })
 export class VideoPlayerComponent implements AfterViewInit, OnChanges {
+  @Input() videoId?: number; // Should be undefined if the current channel is the owner of the video
   @Input() videoUrl?: string;
   @Input() thumbnailUrl?: string;
 
@@ -28,18 +30,26 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
   isMuted = false;
   volume = 1;
 
-  constructor() {
-  }
+  constructor(private viewService: ViewService) {}
   
   ngAfterViewInit() {
     this.videoOverlay?.nativeElement?.focus();
+
     this.videoPlayer.nativeElement.addEventListener('ended', () => {
       this.videoState = VideoState.ENDED;
+      if (this.videoId) this.viewService.reset();
+    });
+
+    this.videoPlayer.nativeElement.addEventListener('timeupdate', () => {
+      if (this.videoId && this.videoPlayer?.nativeElement?.duration) {
+        const duration = this.videoPlayer.nativeElement.duration;
+        this.viewService.tryIncrementingViews(this.videoId, duration);
+      }
     });
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['videoUrl'] && (changes['videoUrl'].currentValue || changes['videoUrl'].previousValue)) {
+    if (changes['videoId'] && changes['videoUrl'] && (changes['videoUrl'].currentValue || changes['videoUrl'].previousValue)) {
       this.videoPlayer.nativeElement.src = changes['videoUrl'].currentValue;
       this.videoState = VideoState.PAUSED;
     }
@@ -214,5 +224,9 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
         this.isFullscreen = !!document.fullscreenElement;
         break;
     }
+  }
+
+  ngOnDestroy() {
+    if (this.videoId) this.viewService.reset();
   }
 }

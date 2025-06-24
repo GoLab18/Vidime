@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-video-watch-panel',
@@ -18,10 +19,14 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
 
   video?: Video;
 
-  constructor(private videoService: VideoService, private router: Router) {}
+  constructor(private videoService: VideoService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadVideo();
+  }
+
+  get isCurrentChannelsVideo(): boolean {
+    return this.video?.channel?.id === this.authService.currentChannelId;
   }
 
   loadVideo() {
