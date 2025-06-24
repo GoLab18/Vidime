@@ -25,8 +25,9 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
     this.loadVideo();
   }
 
-  get isCurrentChannelsVideo(): boolean {
-    return this.video?.channel?.id === this.authService.currentChannelId;
+  get isCurrentUsersVideo(): boolean {
+    if (!this.video?.channel?.userId || !this.authService.currentUserId) return false;
+    return this.video?.channel?.userId === this.authService.currentUserId;
   }
 
   loadVideo() {
