@@ -13,6 +13,9 @@ import lombok.Data;
 @Entity
 @Table(name = "videos")
 public class Video {
+    public Video() {}
+    public Video(Long id) { this.id = id; }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

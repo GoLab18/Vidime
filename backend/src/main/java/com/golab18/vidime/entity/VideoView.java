@@ -23,7 +23,8 @@ public class VideoView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // On viewer channel getting deleted, this is set to null with SET NULL appended during foreign key creation
+    // On viewer channel getting deleted, this is set to null with SET NULL appended during foreign key creation
+    @ManyToOne
     @JoinColumn(name = "viewer_id", referencedColumnName = "id")
     private Channel viewer;
 
