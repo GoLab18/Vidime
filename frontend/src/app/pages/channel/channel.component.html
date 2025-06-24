@@ -15,7 +15,7 @@
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
         <div class="list-header">
           <h3>Newest Videos</h3>
-          <span class="list-count">{{ newestVideos.length }} videos</span>
+          <span class="list-count">{{ newestVideos.length }} {{ newestVideos.length === 1 ? 'video' : 'videos' }}</span>
         </div>
         <app-horizontal-group-scroll [items]="newestVideos" type="video"></app-horizontal-group-scroll>
       </div>
@@ -23,7 +23,7 @@
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
         <div class="list-header">
           <h3>Most Viewed Videos</h3>
-          <span class="list-count">{{ mostViewedVideos.length }} videos</span>
+          <span class="list-count">{{ mostViewedVideos.length }} {{ mostViewedVideos.length === 1 ? 'video' : 'videos' }}</span>
         </div>
         <app-horizontal-group-scroll [items]="mostViewedVideos" type="video"></app-horizontal-group-scroll>
       </div>
@@ -31,7 +31,7 @@
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.VIDEOS">
         <div class="list-header">
           <h3>Best Rated Videos</h3>
-          <span class="list-count">{{ bestRatedVideos.length }} videos</span>
+          <span class="list-count">{{ bestRatedVideos.length }} {{ bestRatedVideos.length === 1 ? 'video' : 'videos' }}</span>
         </div>
         <app-horizontal-group-scroll [items]="bestRatedVideos" type="video"></app-horizontal-group-scroll>
       </div>
@@ -39,7 +39,7 @@
       <div class="horizontal-list" [class.hidden]="activeTab !== ChannelTab.PLAYLISTS">
         <div class="list-header list-header-space">
           <h3>Playlists</h3>
-          <span class="list-count">{{ playlists.length }} playlists</span>
+          <span class="list-count">{{ playlists.length }} {{ playlists.length === 1 ? 'playlist' : 'playlists' }}</span>
         </div>
         <div id="main-playlist-grid">
           <app-dynamic-size-tile-grid [playlists]="playlists"></app-dynamic-size-tile-grid>
