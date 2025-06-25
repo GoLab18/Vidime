@@ -19,7 +19,7 @@ public class WatchHistory {
     private Channel viewer;
 
     @ManyToOne
-    @JoinColumn(name = "video_id", referencedColumnName = "id")
+    @JoinColumn(name = "video_id", referencedColumnName = "id", nullable = false)
     private Video video;
 
     @Column(nullable = false)
