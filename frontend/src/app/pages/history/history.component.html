@@ -1,0 +1,11 @@
+<main id="main-history-container">
+    <div id="history-content">
+        @if (paginatedVideos) {
+            @for (video of paginatedVideos.content; track video.id) {
+                <div class="history-video-wrapper">
+                    <app-history-video [video]="video"></app-history-video>
+                </div>
+            }
+        }
+    </div>
+</main>
