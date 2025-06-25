@@ -1,0 +1,16 @@
+#main-history-container {
+  padding: 24px;
+}
+
+#history-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.history-video-wrapper {
+    min-width: 640px;
+    max-width: 640px;
+}

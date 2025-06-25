@@ -12,6 +12,7 @@ import { channelGuard } from './guards/channel.guard';
 import { ChannelCreateComponent } from './pages/channel-create/channel-create.component';
 import { PlaylistCreateComponent } from './pages/playlist-create/playlist-create.component';
 import { VideoAddComponent } from './pages/video-add/video-add.component';
+import { HistoryComponent } from './pages/history/history.component';
 
 export const routes: Routes = [
   {
@@ -87,7 +88,7 @@ export const routes: Routes = [
   },
   {
     path: 'history',
-    component: HomeComponent,
+    component: HistoryComponent,
     canActivate: [authGuard, channelGuard]
   },
   {
