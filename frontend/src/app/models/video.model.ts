@@ -38,3 +38,16 @@ export interface Video {
     avgRating: number;
     addedAt: string;
 }
+
+export interface HistoryVideo {
+    id: number;
+    uuid: string;
+    channel: Channel;
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    duration: number;
+    views: number;
+    addedAt: string;
+    lastWatchedAt: string;
+}

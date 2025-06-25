@@ -1,0 +1,19 @@
+<div id="history-video-card" (click)="navigateToVideo(video.id, video.uuid)">
+    <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}">
+        <div class="loading-placeholder"></div>
+        <img [src]="video.thumbnailUrl" (load)="onImageLoad()">
+        <div class="duration">{{ video.duration | formatDuration }}</div>
+    </div>
+    <div id="history-video-info">
+        <div id="tile-header">
+            <div class="video-title">{{ video.title }}</div>
+            <div class="tile-last-watched-at">Watched at {{ video.lastWatchedAt | formatTime }}</div>
+        </div>
+        <div class="related-meta">
+            <span class="views">{{ video.views | formatNumber:'view':'views' }}</span>
+            <span class="dot">•</span>
+            <span class="addedAt">{{ video.addedAt | formatDate }}</span>
+        </div>
+        <div class="related-channel">{{ video.channel!.name }}</div>
+    </div>
+</div>
