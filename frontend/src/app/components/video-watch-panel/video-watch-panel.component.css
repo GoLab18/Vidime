@@ -2,6 +2,9 @@
   display: block;
   width: 100%;
   height: 100%;
+
+  --primary-color: #1db954;
+  --action-background: rgba(19, 128, 57, 0.1);
 }
 
 #video-section {
@@ -9,7 +12,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border-right: 1px solid #1db954;
+  border-right: 1px solid var(--primary-color);
 }
 
 #video-info {
@@ -38,7 +41,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border: 1px solid #1db954;
+  border: 1px solid var(--primary-color);
   border-left: none;
   border-right: none;
 }
@@ -76,7 +79,7 @@
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #1db954;
+  border: 2px solid var(--primary-color);
 }
 
 .channel-avatar img {
@@ -88,6 +91,7 @@
 .channel-details {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 2px;
 }
 
@@ -100,13 +104,35 @@
   font-weight: 500;
   display: flex;
   align-items: center;
-  color: #1db954;
+  color: var(--primary-color);
   gap: 4px;
 }
 
 .verified {
-  color: #1db954;
+  color: var(--primary-color);
   font-size: 16px;
+}
+
+.subscribe-button {
+  padding: 8px 16px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 1;
+}
+
+.subscribe-button:hover {
+  opacity: 0.8;
+}
+
+.subscribe-button.subscribed {
+  background-color: var(--action-background);
+}
+
+.subscribe-button.subscribed:hover, .subscribe-button.subscribed:focus {
+  background-color: var(--primary-color);
 }
 
 .video-title {
@@ -144,11 +170,11 @@
   top: 0;
   left: 0;
   height: 100%;
-  background: linear-gradient(90deg, #1db954, #1ed760);
+  background: linear-gradient(90deg, var(--primary-color), #1ed760);
   border-radius: 6px;
   transition: width 0.3s ease;
   width: calc(var(--rating-value) * 100%);
-  box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+  box-shadow: 0 0 10px rgba(var(--primary-color), 0.5);
 }
 
 .rating-value {

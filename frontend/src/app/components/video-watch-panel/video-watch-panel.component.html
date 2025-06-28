@@ -28,6 +28,14 @@
             {{ video.channel!.subscribersCount | formatNumber:'sub':'subs' }} <span class="dot">•</span> {{ video.channel!.videosAmount | formatNumber:'video':'videos' }}
           </div>
         </div>
+        @if (isSubscriptionAvailable) {
+          @if (subscription) {
+            <div class="subscribe-button subscribed" (click)="unsubscribeButtonInvoked()">Unsubscribe</div>
+          }
+          @else {
+            <div class="subscribe-button" (click)="subscribeButtonInvoked()">Subscribe</div>
+          }
+        }
       </div>
       <div class="video-description-container">
         <div class="video-description">{{ video.description }}</div>

@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+
+  --primary-color: #1db954;
+  --text-gray: #a0a0a0;
+  --action-background: #121212;
   background: #121212;
 }
 
@@ -16,7 +20,7 @@
 }
 
 .border-bottom-wrapper {
-  border-bottom: 1px solid #1db954;
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .channel-tabs {
@@ -29,7 +33,7 @@
 .channel-tabs button {
   background: none;
   border: none;
-  color: #a0a0a0;
+  color: var(--text-gray);
   font-size: 16px;
   font-weight: 500;
   padding: 8px 16px;
@@ -39,11 +43,11 @@
 }
 
 .channel-tabs button:hover {
-  color: #1db954;
+  color: var(--primary-color);
 }
 
 .channel-tabs button.active {
-  color: #1db954;
+  color: var(--primary-color);
   background: rgba(29, 185, 84, 0.1);
 }
 
@@ -80,7 +84,7 @@
 }
 
 .list-count {
-  color: #a0a0a0;
+  color: var(--text-gray);
   font-size: 14px;
 }
 
@@ -96,7 +100,7 @@
   top: 56px;
   height: calc(100vh - 56px);
   scrollbar-width: none;
-  border-left: 1px solid #1db954;
+  border-left: 1px solid var(--primary-color);
 }
 
 #channel-content {
@@ -106,7 +110,7 @@
 }
 
 #description-container {
-  border-bottom: 1px solid #1db954;
+  border-bottom: 1px solid var(--primary-color);
 }
 
 #description-container, #links-container {
@@ -119,7 +123,7 @@
 #description-container > span, #links-container > span {
   font-weight: 600;
   font-size: 20px;
-  color: #1db954;
+  color: var(--primary-color);
 }
 
 #channel-links {
@@ -145,7 +149,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background-color: #1db954;
+  background-color: var(--primary-color);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.1s ease-in-out;
@@ -153,7 +157,7 @@
 
 .link-wrapper > a {
   text-decoration: none;
-  color: #1db954;
+  color: var(--primary-color);
 }
 
 .link-wrapper:hover::after, .link-wrapper:focus-within::after {
@@ -174,14 +178,14 @@
   min-height: 1px;
   max-height: 1px;
   width: 100%;
-  background-color: #1db954;
+  background-color: var(--primary-color);
 }
 
 .channel-name {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #1db954;
+  color: var(--primary-color);
   font-weight: 600;
   font-size: 24px;
 }
@@ -240,7 +244,7 @@
 #channel-stats {
   display: flex;
   gap: 8px;
-  color: #a0a0a0;
+  color:var(--text-gray);
   font-size: 14px;
 }
 
@@ -249,7 +253,7 @@
 }
 
 #action-button {
-  background-color: #1db954;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -267,6 +271,38 @@
   background-color: #159d43;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#action-button.subscribed {
+  background-color: var(--action-background);
+}
+
+#action-button.subscribed:hover, #action-button.subscribed:focus {
+  background-color: var(--primary-color);
+}
+
+#channel-actions-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#subscription-info {
+  font-size: 14px;
+  color: var(--text-gray);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#subscription-info.expanded {
+  margin-top: 8px;
+  opacity: 1;
+  height: auto;
 }
 
 #channel-actions {
@@ -289,5 +325,5 @@
 
 .verified {
   font-size: 16px;
-  color: #1db954;
+  color: var(--primary-color);
 }

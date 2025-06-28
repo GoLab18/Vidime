@@ -52,36 +52,61 @@
     <div id="channel-content">
       <div id="channel-avatar-name">
         <div id="channel-avatar">
-          <img *ngIf="channel" [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+          @if (channel) {
+            <img [src]="channel.picture" [alt]="channel.name" id="avatar-image">
+          }
         </div>
-        <div class="channel-name" *ngIf="channel">
-          {{ channel.name }}
-          <i class="material-icons verified" *ngIf="channel.verified">verified</i>
-        </div>
+        @if (channel) {
+          <div class="channel-name">
+            {{ channel.name }}
+            @if (channel.verified) {
+              <i class="material-icons verified">verified</i>
+            }
+          </div>
+        }
       </div>
       <div id="channel-utils">
         <div id="channel-stats">
-          <span *ngIf="channel">Joined {{ channel.createdAt | formatDate }}</span>
-          <span class="dot">•</span>
-          <span *ngIf="channel">{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
-          <span class="dot">•</span>
-          <span *ngIf="channel">{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
+          @if (channel) {
+            <span>Joined {{ channel.createdAt | formatDate }}</span>
+            <span class="dot">•</span>
+            <span>{{ channel.videosAmount | formatNumber:'video':'videos' }}</span>
+            <span class="dot">•</span>
+            <span>{{ channel.subscribersCount | formatNumber:'sub':'subs' }}</span>
+          }
         </div>
-        <div id="channel-actions">
-          <button id="action-button">
-            <span>Sub</span>
-          </button>
-          <button id="action-button">
-            <span>Share</span>
-            <i class="material-icons">share</i>
-          </button>
+        <div id="channel-actions-wrapper">
+          <div id="channel-actions">
+            @if (isSubscriptionAvailable) {
+              @if (subscription) {
+                <button id="action-button" class="subscribed" (click)="unsubscribeButtonInvoked()">
+                  <span>Unsubscribe</span>
+                </button>
+              } @else {
+                <button id="action-button" (click)="subscribeButtonInvoked()">
+                  <span>Subscribe</span>
+                </button>
+              }
+            }
+            <button id="action-button">
+              <span>{{ isCurrentUsersChannel ? 'Share your channel' : 'Share' }}</span>
+              <i class="material-icons">share</i>
+            </button>
+          </div>
+          <div id="subscription-info" [class.expanded]="isSubscriptionExpanded">
+            @if (subscription) {
+              <span>Subscribed {{ subscription.subscribedAt | formatDate }}</span>
+            }
+          </div>
         </div>
       </div>
       <div id="description-container">
         <div class="divider"></div>
         <span>Description</span>
         <div id="channel-description">
-          <p class="description-text" *ngIf="channel">{{ channel.description }}</p>
+          @if (channel) {
+            <p class="description-text">{{ channel.description }}</p>
+          }
         </div>
         <div class="divider"></div>
       </div>

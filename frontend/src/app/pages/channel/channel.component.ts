@@ -13,6 +13,9 @@ import { PlaylistService } from '../../services/playlist.service';
 import { HorizontalGroupScrollComponent } from '../../components/horizontal-group-scroll/horizontal-group-scroll.component';
 import { DynamicSizeTileGridComponent } from '../../components/dynamic-size-tile-grid/dynamic-size-tile-grid.component';
 import { SortOrder } from '../../util/sorting';
+import { Subscription } from '../../models/subscription.model';
+import { SubscriptionService } from '../../services/subscription.service';
+import { AuthService } from '../../services/auth.service';
 
 export enum ChannelTab {
   VIDEOS,
@@ -38,20 +41,30 @@ export class ChannelComponent implements OnInit {
   bestRatedVideos: VideoSlim[] = [];
   playlists: Playlist[] = [];
   playlistsLoaded: boolean = false;
+  subscription?: Subscription | null;
 
   constructor(
     private channelService: ChannelService,
     private videoService: VideoService,
     private playlistService: PlaylistService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private subscriptionService: SubscriptionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.channelId = Number(params.get('i'));
-      
+
       this.channelService.getChannel(this.channelId).subscribe(channel => {
         this.channel = channel;
+
+        if (this.isSubscriptionAvailable) {
+          this.subscriptionService.getCurrChannelSubscriptionTo(this.channelId).subscribe(subscription => {
+            this.subscription = subscription;
+          });
+        }
+
         this.channelService.getLinks(this.channel.id).subscribe(links => this.links = links);
       });
 
@@ -66,6 +79,38 @@ export class ChannelComponent implements OnInit {
       this.videoService.getChannelVideos(this.channelId, "avgRating", SortOrder.DESC).subscribe(videos => {
         this.bestRatedVideos = videos;
       });
+    });
+  }
+
+  get isSubscriptionAvailable(): boolean {
+    return !this.isCurrentUsersChannel && !!this.authService.currentChannelId;
+  }
+
+  get isCurrentUsersChannel(): boolean {
+    if (!this.channel?.userId || !this.authService.currentUserId) return false;
+    return this.channel?.userId === this.authService.currentUserId;
+  }
+  
+  get isCurrUserChannel(): boolean {
+    if (!this.authService.currentChannelId) return false;
+    return this.channelId === this.authService.currentChannelId;
+  }
+
+  get isSubscriptionExpanded(): boolean {
+    return !!this.subscription;
+  }
+
+  subscribeButtonInvoked() {
+    this.subscriptionService.subscribeTo(this.channelId).subscribe(subscription => {
+      this.subscription = subscription;
+      this.channel!.subscribersCount!++;
+    });
+  }
+
+  unsubscribeButtonInvoked() {
+    this.subscriptionService.unsubscribe(this.subscription!.id!).subscribe(() => {
+      this.subscription = null;
+      this.channel!.subscribersCount!--;
     });
   }
 

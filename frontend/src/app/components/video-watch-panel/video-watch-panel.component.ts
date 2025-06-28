@@ -7,6 +7,9 @@ import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
 import { AuthService } from '../../services/auth.service';
+import { SubscriptionService } from '../../services/subscription.service';
+import { Subscription } from '../../models/subscription.model';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-video-watch-panel',
@@ -18,8 +21,14 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
   @Input({required: true}) videoId!: number;
 
   video?: Video;
+  subscription?: Subscription | null;
 
-  constructor(private videoService: VideoService, private authService: AuthService, private router: Router) {}
+  constructor(
+    private videoService: VideoService,
+    private authService: AuthService,
+    private router: Router,
+    private subscriptionService: SubscriptionService
+  ) {}
 
   ngOnInit() {
     this.loadVideo();
@@ -30,9 +39,23 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
     return this.video?.channel?.userId === this.authService.currentUserId;
   }
 
+  get isSubscriptionAvailable(): boolean {
+    return !this.isCurrentUsersVideo && !!this.authService.currentChannelId;
+  }
+
   loadVideo() {
-    this.videoService.getFullVideoById(this.videoId).subscribe((video) => {
-      this.video = video;
+    this.videoService.getFullVideoById(this.videoId).pipe(
+      switchMap(video => {
+        this.video = video;
+
+        if (this.isSubscriptionAvailable) {
+          return this.subscriptionService.getCurrChannelSubscriptionTo(this.video!.channel!.id!);
+        }
+
+        return of(null);
+      })
+    ).subscribe(subscription => {
+      this.subscription = subscription;
     });
   }
 
@@ -42,5 +65,19 @@ export class VideoWatchPanelComponent implements OnInit, OnChanges {
 
   navigateToChannel(channelId: number, channelUuid: string) {
     this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
+  }
+
+  subscribeButtonInvoked() {
+    this.subscriptionService.subscribeTo(this.video!.channel!.id!).subscribe(subscription => {
+      this.subscription = subscription;
+      this.video!.channel!.subscribersCount!++;
+    });
+  }
+
+  unsubscribeButtonInvoked() {
+    this.subscriptionService.unsubscribe(this.subscription!.id!).subscribe(() => {
+      this.subscription = null;
+      this.video!.channel!.subscribersCount!--;
+    });
   }
 }
