@@ -73,6 +73,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/channel-links/{channelId}").permitAll()
                 .requestMatchers("/api/views/increment").permitAll()
                 .requestMatchers("/api/watch-history/batch/{viewerId}").permitAll()
+                .requestMatchers("/api/subscriptions/check").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

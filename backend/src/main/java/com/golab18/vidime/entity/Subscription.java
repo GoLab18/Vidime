@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "subscriptions", uniqueConstraints = {@UniqueConstraint(columnNames = {"subscriber_id", "channel_id"})})
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
