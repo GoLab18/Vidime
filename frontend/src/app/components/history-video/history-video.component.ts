@@ -15,7 +15,8 @@ import { FormatTimePipe } from '../../pipes/format-time.pipe';
 })
 export class HistoryVideoComponent {
   @Input({required: true}) video!: HistoryVideo;
-
+  
+  isExpanded = false;
   thumbnailLoaded = false;
 
   constructor(private router: Router) {}
@@ -24,7 +25,15 @@ export class HistoryVideoComponent {
     this.router.navigate(['/watch'], { queryParams: { i: id, v: videoUuid } });
   }
 
+  navigateToChannel(channelId: number, channelUuid: string) {
+    this.router.navigate(['/channel'], { queryParams: { i: channelId, c: channelUuid } });
+  }
+
   onImageLoad() {
     this.thumbnailLoaded = true;
+  }
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
   }
 }

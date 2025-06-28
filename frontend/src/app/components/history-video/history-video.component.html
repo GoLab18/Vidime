@@ -1,19 +1,34 @@
-<div id="history-video-card" (click)="navigateToVideo(video.id, video.uuid)">
-    <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}">
-        <div class="loading-placeholder"></div>
-        <img [src]="video.thumbnailUrl" (load)="onImageLoad()">
-        <div class="duration">{{ video.duration | formatDuration }}</div>
+<div id="history-video-card" tabindex="0">
+    <div id="main-info">
+        <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}" (click)="navigateToVideo(video.id, video.uuid)">
+            <div class="loading-placeholder"></div>
+            <img [src]="video.thumbnailUrl" (load)="onImageLoad()">
+            <div class="duration">{{ video.duration | formatDuration }}</div>
+        </div>
+        <div id="history-video-info">
+            <div id="tile-header">
+                <div class="video-title" (click)="navigateToVideo(video.id, video.uuid)">{{ video.title }}</div>
+            </div>
+            <div class="related-meta">
+                <span class="views">{{ video.views | formatNumber:'view':'views' }}</span>
+                <span class="dot">•</span>
+                <span class="addedAt">{{ video.addedAt | formatDate }}</span>
+            </div>
+            <div class="history-channel">
+                <div class="channel-avatar">
+                    <img [src]="video.channel.picture" (click)="navigateToChannel(video.channel.id, video.channel.uuid)">
+                </div>
+                <div class="channel-name">
+                    <span (click)="navigateToChannel(video.channel.id, video.channel.uuid)">{{ video.channel.name }}</span>
+                </div>
+                <div class="expand-button">
+                    <i class="material-icons" (click)="toggleExpand()">{{ isExpanded ? 'expand_less' : 'expand_more' }}</i>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="history-video-info">
-        <div id="tile-header">
-            <div class="video-title">{{ video.title }}</div>
-            <div class="tile-last-watched-at">Watched at {{ video.lastWatchedAt | formatTime }}</div>
-        </div>
-        <div class="related-meta">
-            <span class="views">{{ video.views | formatNumber:'view':'views' }}</span>
-            <span class="dot">•</span>
-            <span class="addedAt">{{ video.addedAt | formatDate }}</span>
-        </div>
-        <div class="related-channel">{{ video.channel!.name }}</div>
+    <div id="expanded-content" [ngClass]="{'expanded': isExpanded}">
+        <p>{{ video.description }}</p>
+        <div class="tile-timestamp tile-last-watched-at">Watched at {{ video.lastWatchedAt | formatTime }}</div>
     </div>
 </div>
