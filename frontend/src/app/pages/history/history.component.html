@@ -1,7 +1,14 @@
 <main id="main-history-container">
     <div id="history-content">
         @if (paginatedVideos) {
-            @for (video of paginatedVideos.content; track video.id) {
+            @for (video of paginatedVideos.content; let i = $index; track trackByVideoKey(i, video.id, video.lastWatchedAt)) {
+                @if (shouldShowDateHeader(paginatedVideos.content, i)) {
+                    <div class="date-header">
+                        <span class="date-header-span">
+                            {{ video.lastWatchedAt | formatWatchHistoryDate }}
+                        </span>
+                    </div>
+                }
                 <div class="history-video-wrapper">
                     <app-history-video [video]="video"></app-history-video>
                 </div>

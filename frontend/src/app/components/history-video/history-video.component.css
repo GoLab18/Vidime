@@ -1,8 +1,12 @@
+:host {
+  --dark-main: #1a1a1a;
+}
+
 #history-video-card {
   height: 120px;
   display: flex;
   align-items: center;
-  background: #1a1a1a;
+  background: var(--dark-main);
   border-radius: 10px;
   padding: 12px;
   cursor: pointer;
@@ -40,7 +44,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #1a1a1a;
+  background: var(--dark-main);
   background-image: linear-gradient(
     90deg,
     transparent,

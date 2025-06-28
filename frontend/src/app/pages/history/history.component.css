@@ -1,16 +1,61 @@
+:host {
+  --primary-color: #1db954;
+}
+
 #main-history-container {
+  display: flex;
+  justify-content: center;
   padding: 24px;
 }
 
 #history-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 24px;
+  width: auto;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .history-video-wrapper {
-    min-width: 640px;
-    max-width: 640px;
+  min-width: 640px;
+  max-width: 640px;
+}
+
+.date-header {
+  margin: 0 16px;
+  width: 100%;
+}
+
+.date-header-span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--primary-color);
+  position: relative;
+  cursor: pointer;
+}
+
+.date-header-span:hover {
+  cursor: pointer;
+}
+
+.date-header-span {
+  display: inline-block;
+  position: relative;
+}
+
+.date-header-span::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: all 0.2s ease;
+}
+
+.date-header-span:hover::before {
+  left: 0;
+  right: 0;
 }
