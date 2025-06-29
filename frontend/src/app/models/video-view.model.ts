@@ -1,4 +1,4 @@
 export interface VideoViewCreate {
-    viewerId?: number;
-    videoId: number;
+  viewerId?: number;
+  videoId: number;
 }
