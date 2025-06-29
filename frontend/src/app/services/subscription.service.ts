@@ -5,6 +5,7 @@ import { catchError, Observable, of, throwError } from 'rxjs';
 import { env } from '../../environments/env';
 import { Subscription } from '../models/subscription.model';
 import { DailyAggregation } from '../models/daily-aggregation.model';
+import { TimePeriod } from '../util/dates';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class SubscriptionService {
     return this.http.delete<void>(`${this.apiUrl}/unsub/${subscriptionId}`);
   }
 
-  getSubscriptionsByChannelPerDay(channelId: number, timePeriod: 'last7Days' | 'last30Days' | 'last90Days'): Observable<DailyAggregation[]> {
+  getSubscriptionsByChannelPerDay(channelId: number, timePeriod: TimePeriod): Observable<DailyAggregation[]> {
     const start = new Date(), end = new Date();
     switch (timePeriod) {
       case 'last7Days':

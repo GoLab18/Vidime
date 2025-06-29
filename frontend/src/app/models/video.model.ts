@@ -51,3 +51,14 @@ export interface HistoryVideo {
     addedAt: string;
     lastWatchedAt: string;
 }
+
+export interface StatsVideo {
+    id: number;
+    uuid: string;
+    title: string;
+    thumbnailUrl: string;
+    duration: number;
+    views: number;
+    addedAt: string;
+    viewsPeriod: number;
+}

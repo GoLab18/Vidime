@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { VideoViewCreate } from '../models/video-view.model';
 import { Observable } from 'rxjs';
 import { DailyAggregation } from '../models/daily-aggregation.model';
+import { TimePeriod } from '../util/dates';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class ViewService {
     this.lastUpdateTimestamp = null;
   }
 
-  getViewsByChannelPerDay(channelId: number, timePeriod: 'last7Days' | 'last30Days' | 'last90Days'): Observable<DailyAggregation[]> {
+  getViewsByChannelPerDay(channelId: number, timePeriod: TimePeriod): Observable<DailyAggregation[]> {
     const start = new Date(), end = new Date();
     switch (timePeriod) {
       case 'last7Days':

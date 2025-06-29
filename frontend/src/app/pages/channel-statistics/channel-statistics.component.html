@@ -63,6 +63,33 @@
             }
         </div>
     </div>
+
+    <div class="stats-group-container">
+        <div class="chart-container">
+            @if (isVideoDataLoading) {
+                <ng-container *ngTemplateOutlet="loadingTemplate; context: { title: 'videos statistics' }"></ng-container>
+            }
+            @if (videoDataErr) {
+                <div class="error">
+                    <p>{{ videoDataErr }}</p>
+                    <button (click)="loadVideoStatistics()" class="retry-button">Retry</button>
+                </div>
+            }
+            @if (!isVideoDataLoading && !videoDataErr) {
+                <div id="stat-videos-container">
+                    <div id="stat-videos-header">
+                        <span id="stat-videos-title">Top Videos from this period</span>
+                        <span id="stat-videos-latest-views">Latest views</span>
+                    </div>
+                    <div id="stat-videos-list">
+                        @for (video of statVideosData; let i = $index; track video.id) {
+                            <app-stats-video [video]="video"></app-stats-video>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </main>
 
 <ng-template #loadingTemplate let-title="title">

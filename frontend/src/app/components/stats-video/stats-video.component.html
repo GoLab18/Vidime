@@ -1,0 +1,22 @@
+<div id="stats-video-card" tabindex="0">
+    <div id="main-info">
+        <div class="image-container" [ngClass]="{'loading': !thumbnailLoaded}" (click)="navigateToVideo(video.id, video.uuid)">
+            <div class="loading-placeholder"></div>
+            <img [src]="video.thumbnailUrl" (load)="onImageLoad()">
+            <div class="duration">{{ video.duration | formatDuration }}</div>
+        </div>
+        <div id="stats-video-info">
+            <div id="tile-header">
+                <div class="video-title" (click)="navigateToVideo(video.id, video.uuid)">{{ video.title }}</div>
+            </div>
+            <div class="related-meta">
+                <span class="views">{{ video.views | formatNumber:'view':'views' }}</span>
+                <span class="dot">•</span>
+                <span class="addedAt">{{ video.addedAt | formatDate }}</span>
+            </div>
+        </div>
+        <div id="views-period-container">
+            <span>{{ video.views }}</span>
+        </div>
+    </div>
+</div>

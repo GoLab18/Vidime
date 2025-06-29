@@ -203,6 +203,30 @@
   background: var(--primary-color-dim);
 }
 
+#stat-videos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 8px 8px 8px;
+}
+
+#stat-videos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#stat-videos-title {
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#stat-videos-latest-views {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 768px) {
   .stats-group-container {
     padding: 16px;
