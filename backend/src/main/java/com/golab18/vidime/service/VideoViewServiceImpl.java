@@ -1,9 +1,12 @@
 package com.golab18.vidime.service;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.golab18.vidime.dto.DailyAggregation;
 import com.golab18.vidime.dto.VideoViewCreate;
 import com.golab18.vidime.entity.VideoView;
 import com.golab18.vidime.mapper.VideoViewMapper;
@@ -34,5 +37,20 @@ public class VideoViewServiceImpl implements VideoViewService {
         }
         
         videoViewRepository.save(videoView);
+    }
+
+    @Override
+    @Transactional
+    public List<DailyAggregation> countViewsByChannelPerDay(Long channelId, String start, String end) {
+        Date startDate = Date.valueOf(start);
+        Date endDate = Date.valueOf(end);
+        List<Object[]> buckets = videoViewRepository.countViewsByChannelPerDay(channelId, startDate, endDate);
+
+        return buckets.stream()
+            .map(row -> new DailyAggregation(
+                Date.valueOf(row[0].toString()),
+                ((Long) row[1])
+            ))
+            .collect(Collectors.toList());
     }
 }
