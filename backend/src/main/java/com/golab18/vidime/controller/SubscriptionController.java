@@ -1,5 +1,6 @@
 package com.golab18.vidime.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.golab18.vidime.dto.DailyAggregation;
 import com.golab18.vidime.dto.SubscriptionDto;
 import com.golab18.vidime.dto.SubscriptionPartiesDto;
 import com.golab18.vidime.service.SubscriptionService;
@@ -32,6 +34,16 @@ public class SubscriptionController {
         return sub
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+        @GetMapping("/count/{channelId}")
+    public ResponseEntity<List<DailyAggregation>> countSubscriptionsByChannelPerDay(
+        @PathVariable Long channelId,
+        @RequestParam String start,
+        @RequestParam String end
+    ) {
+        List<DailyAggregation> viewCounts = subscriptionService.countSubscriptionsByChannelPerDay(channelId, start, end);
+        return ResponseEntity.ok(viewCounts);
     }
     
     @PostMapping("/sub")
