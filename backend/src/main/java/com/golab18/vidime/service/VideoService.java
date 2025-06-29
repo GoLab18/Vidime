@@ -3,7 +3,10 @@ package com.golab18.vidime.service;
 import com.golab18.vidime.dto.VideoDto;
 import com.golab18.vidime.dto.VideoSlimDto;
 import org.springframework.data.domain.Sort;
+
+import com.golab18.vidime.dto.StatsVideo;
 import com.golab18.vidime.dto.VideoCreateDto;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +20,7 @@ public interface VideoService {
     List<VideoSlimDto> getMostViewedVideosLastWeekDecayed();
     List<VideoSlimDto> getBestRatedVideosLastWeekDecayed();
     List<VideoSlimDto> getChannelVideos(Long channelId, Sort sort);
+    List<StatsVideo> getStatsVideos(Long channelId, String start, String end);
     void updateVideo(Long id, VideoDto videoDto);
     void deleteVideo(Long id);
     void updateBayesianRatings();

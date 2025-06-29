@@ -29,7 +29,7 @@ public interface VideoViewRepository extends JpaRepository<VideoView, Long> {
     )
     SELECT
         dr.dt AS date,
-        COALESCE(COUNT(vv.id), 0) AS viewCount
+        COUNT(vv.id) AS viewCount
     FROM date_range dr
     LEFT JOIN video_views vv
         ON DATE(vv.viewed_at) = dr.dt
@@ -43,5 +43,5 @@ public interface VideoViewRepository extends JpaRepository<VideoView, Long> {
         @Param("channelId") Long channelId,
         @Param("start") Date start,
         @Param("end") Date end
-    );    
+    );
 }

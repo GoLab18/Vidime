@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.golab18.vidime.dto.StatsVideo;
 import com.golab18.vidime.dto.VideoCreateDto;
 import com.golab18.vidime.dto.VideoDto;
 import com.golab18.vidime.dto.VideoSlimDto;
@@ -66,6 +67,11 @@ public class VideoController {
     @GetMapping("/channel/{channelId}")
     public ResponseEntity<List<VideoSlimDto>> getChannelVideos(@PathVariable Long channelId, Sort sort) {
         return ResponseEntity.ok(videoService.getChannelVideos(channelId, sort));
+    }
+
+    @GetMapping("/stats/{channelId}")
+    public ResponseEntity<List<StatsVideo>> getStatsVideos(@PathVariable Long channelId, @RequestParam String start, @RequestParam String end) {
+        return ResponseEntity.ok(videoService.getStatsVideos(channelId, start, end));
     }
 
     @PostMapping("/update/{id}")

@@ -1,5 +1,6 @@
 package com.golab18.vidime.repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,8 +15,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.golab18.vidime.dto.AggregatedGlobalRatings;
+import com.golab18.vidime.dto.StatsVideo;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Video;
+import com.golab18.vidime.entity.VideoView;
 
 import jakarta.transaction.Transactional;
 
@@ -41,4 +44,21 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     @Transactional
     @Query("UPDATE Video SET decayedViews = :decayedViews WHERE id = :videoId")
     void updateDecayedViews(@Param("videoId") Long videoId, @Param("decayedViews") float decayedViews);
+
+    @Query("""
+    SELECT new com.golab18.vidime.dto.StatsVideo(
+        v.id, v.uuid, v.title, v.thumbnailUrl,
+        v.duration, v.views, v.addedAt, COUNT(vv.id)
+    )
+    FROM Video v
+    LEFT JOIN VideoView vv ON vv.video.id = v.id AND vv.viewedAt BETWEEN :start AND :end
+    WHERE v.channel.id = :channelId
+    GROUP BY v.id, v.uuid, v.title, v.thumbnailUrl, v.duration, v.views, v.addedAt
+    ORDER BY COUNT(vv.id) DESC
+    """)
+    List<StatsVideo> getStatsVideos(
+        @Param("channelId") Long channelId,
+        @Param("start") Date start,
+        @Param("end") Date end
+    );
 }

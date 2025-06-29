@@ -1,6 +1,7 @@
 package com.golab18.vidime.service;
 
 import com.golab18.vidime.dto.AggregatedGlobalRatings;
+import com.golab18.vidime.dto.StatsVideo;
 import com.golab18.vidime.dto.TagCreateDto;
 import com.golab18.vidime.dto.TagDto;
 import com.golab18.vidime.dto.VideoCreateDto;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,6 +113,13 @@ public class VideoServiceImpl implements VideoService {
         return videos.stream()
             .map(videoMapper::toSlimDto)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StatsVideo> getStatsVideos(Long channelId, String start, String end) {
+        Date startDate = Date.valueOf(start);
+        Date endDate = Date.valueOf(end);
+        return videoRepository.getStatsVideos(channelId, startDate, endDate);
     }
     
     @Override
