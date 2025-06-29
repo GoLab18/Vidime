@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { env } from '../../environments/env';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { VideoViewCreate } from '../models/video-view.model';
+import { Observable } from 'rxjs';
+import { DailyAggregation } from '../models/daily-aggregation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +62,29 @@ export class ViewService {
     this.currTimeWatchedSeconds = 0;
     this.hasIncremented = false;
     this.lastUpdateTimestamp = null;
+  }
+
+  getViewsByChannelPerDay(channelId: number, timePeriod: 'last7Days' | 'last30Days' | 'last90Days'): Observable<DailyAggregation[]> {
+    const start = new Date(), end = new Date();
+    switch (timePeriod) {
+      case 'last7Days':
+        start.setDate(start.getDate() - 6);
+        break;
+      case 'last30Days':
+        start.setDate(start.getDate() - 29);
+        break;
+      case 'last90Days':
+        start.setDate(start.getDate() - 89);
+        break;
+    }
+
+    const params = new HttpParams()
+      .set('start', start.toISOString().split('T')[0])
+      .set('end', end.toISOString().split('T')[0]);
+    
+    return this.http.get<DailyAggregation[]>(
+      `${this.apiUrl}/count/${channelId}`,
+      { params }
+    );
   }
 }

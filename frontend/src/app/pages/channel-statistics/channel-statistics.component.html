@@ -1,1 +1,31 @@
-<p>channel-statistics works!</p>
+<main id="main-content" class="statistics-container">
+    <h2>Channel Statistics</h2>
+
+    <div id="view-stats-container">
+        <div class="chart-container">
+            @if (isViewDataLoading) {
+                <ng-container *ngTemplateOutlet="loadingTemplate; context: { title: 'views statistics' }"></ng-container>
+            }
+            @if (viewDataErr) {
+                <div class="error">
+                    <p>{{ viewDataErr }}</p>
+                    <button (click)="loadViewStatistics()" class="retry-button">Retry</button>
+                </div>
+            }
+            @if (!isViewDataLoading && !viewDataErr) {
+                <div class="chart-wrapper">
+                    <div class="chart">
+                        <app-custom-line-chart [labels]="viewsLabels" [data]="viewsData" title="Views (Last 7 Days)"></app-custom-line-chart>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+<ng-template #loadingTemplate let-title="title">
+    <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading {{ title }}...</p>
+    </div>
+</ng-template>
