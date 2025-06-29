@@ -12,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.golab18.vidime.dto.HistoryVideo;
-import com.golab18.vidime.dto.WatchHistoryDto;
 import com.golab18.vidime.entity.WatchHistory;
 
 @Repository

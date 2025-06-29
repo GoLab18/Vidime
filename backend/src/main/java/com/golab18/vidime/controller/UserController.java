@@ -1,12 +1,8 @@
 package com.golab18.vidime.controller;
 
 import com.golab18.vidime.auth.AuthRequest;
-import com.golab18.vidime.dto.UserDto;
 import com.golab18.vidime.service.UserService;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Collections;
-import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

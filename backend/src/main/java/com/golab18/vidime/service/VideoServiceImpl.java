@@ -7,7 +7,6 @@ import com.golab18.vidime.dto.TagDto;
 import com.golab18.vidime.dto.VideoCreateDto;
 import com.golab18.vidime.dto.VideoDto;
 import com.golab18.vidime.dto.VideoSlimDto;
-import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Rating;
 import com.golab18.vidime.entity.Tag;
 import com.golab18.vidime.entity.Video;

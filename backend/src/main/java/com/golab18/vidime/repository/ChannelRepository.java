@@ -2,7 +2,6 @@ package com.golab18.vidime.repository;
 
 import com.golab18.vidime.dto.ChannelTrending;
 import com.golab18.vidime.entity.Channel;
-import com.golab18.vidime.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

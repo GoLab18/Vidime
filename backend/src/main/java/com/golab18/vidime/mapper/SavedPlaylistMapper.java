@@ -5,7 +5,6 @@ import java.time.Instant;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import com.golab18.vidime.dto.SavedPlaylistDto;
 import com.golab18.vidime.entity.SavedPlaylist;

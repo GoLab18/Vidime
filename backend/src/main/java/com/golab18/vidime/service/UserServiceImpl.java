@@ -1,7 +1,6 @@
 package com.golab18.vidime.service;
 
 import com.golab18.vidime.auth.AuthRequest;
-import com.golab18.vidime.dto.UserDto;
 import com.golab18.vidime.entity.User;
 import com.golab18.vidime.repository.UserRepository;
 import com.golab18.vidime.mapper.UserMapper;
@@ -13,9 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

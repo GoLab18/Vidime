@@ -10,7 +10,6 @@ import com.golab18.vidime.service.VideoViewService;
 
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;

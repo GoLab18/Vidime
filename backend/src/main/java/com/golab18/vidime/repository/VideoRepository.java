@@ -18,7 +18,6 @@ import com.golab18.vidime.dto.AggregatedGlobalRatings;
 import com.golab18.vidime.dto.StatsVideo;
 import com.golab18.vidime.entity.Channel;
 import com.golab18.vidime.entity.Video;
-import com.golab18.vidime.entity.VideoView;
 
 import jakarta.transaction.Transactional;
 

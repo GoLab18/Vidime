@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 import java.util.List;
-import com.golab18.vidime.entity.PlaylistVideo;
-import com.golab18.vidime.entity.SavedPlaylist;
 
 import lombok.Data;
 

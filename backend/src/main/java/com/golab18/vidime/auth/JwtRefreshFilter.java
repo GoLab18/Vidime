@@ -3,12 +3,10 @@ package com.golab18.vidime.auth;
 import java.io.IOException;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.golab18.vidime.entity.User;
 
 import jakarta.servlet.FilterChain;
