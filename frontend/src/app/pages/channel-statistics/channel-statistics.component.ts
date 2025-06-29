@@ -6,8 +6,10 @@ import { AuthService } from '../../services/auth.service';
 import { ChannelService } from '../../services/channel.service';
 import { ViewService } from '../../services/view.service';
 import { Channel } from '../../models/channel.model';
-import { DailyAggregation } from '../../models/daily-aggregation.model';
 import { CustomLineChartComponent } from '../../components/custom-line-chart/custom-line-chart.component';
+import { SubscriptionService } from '../../services/subscription.service';
+
+type TimePeriod = 'last7Days' | 'last30Days' | 'last90Days';
 
 @Component({
   selector: 'app-channel-statistics',
@@ -17,6 +19,14 @@ import { CustomLineChartComponent } from '../../components/custom-line-chart/cus
 })
 export class ChannelStatisticsComponent implements OnInit {
   currChannel: Channel | null = null;
+
+  isOpen = false;
+  timePeriod: TimePeriod = 'last7Days';
+  timeOptions: { value: TimePeriod; label: string }[] = [
+    { value: 'last7Days', label: 'Last 7 days' },
+    { value: 'last30Days', label: 'Last 30 days' },
+    { value: 'last90Days', label: 'Last 90 days' }
+  ];
 
   viewsData: number[] = [];
   viewsLabels: string[] = [];
@@ -31,7 +41,8 @@ export class ChannelStatisticsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private channelService: ChannelService,
-    private viewService: ViewService
+    private viewService: ViewService,
+    private subscriptionService: SubscriptionService
   ) {}
 
   ngOnInit() {
@@ -40,17 +51,41 @@ export class ChannelStatisticsComponent implements OnInit {
 
   loadChannelData() {
     this.channelService.getChannel(this.authService.currentChannelId!).subscribe((channel: Channel) => {
-        this.currChannel = channel;
-        this.loadViewStatistics();
-        this.loadSubscriptionStatistics();
-      });
+      this.currChannel = channel;
+
+      this.loadViewStatistics();
+      this.loadSubscriptionStatistics();
+    });
   }
 
-  loadViewStatistics(timePeriod: 'last7Days' | 'last30Days' | 'last90Days' = 'last7Days') {
+  onDateRangeChange() {
+    this.loadViewStatistics();
+    this.loadSubscriptionStatistics();
+  }
+
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
+
+  selectOption(value: TimePeriod) {
+    this.isOpen = false;
+
+    if (this.timePeriod === value) return;
+
+    this.timePeriod = value;
+    this.loadViewStatistics();
+    this.loadSubscriptionStatistics();
+  }
+
+  get selectedLabel(): string {
+    return this.timeOptions.find(option => option.value === this.timePeriod)!.label;
+  }
+
+  loadViewStatistics() {
     this.isViewDataLoading = true;
     this.viewDataErr = null;
     
-    this.viewService.getViewsByChannelPerDay(this.currChannel!.id!, timePeriod)
+    this.viewService.getViewsByChannelPerDay(this.currChannel!.id!, this.timePeriod)
       .pipe(
         finalize(() => this.isViewDataLoading = false)
       )
@@ -67,11 +102,11 @@ export class ChannelStatisticsComponent implements OnInit {
       });
   }
 
-  loadSubscriptionStatistics(timePeriod: 'last7Days' | 'last30Days' | 'last90Days' = 'last7Days') {
+  loadSubscriptionStatistics() {
     this.isSubscriptionDataLoading = true;
     this.subscriptionDataErr = null;
     
-    this.viewService.getViewsByChannelPerDay(this.currChannel!.id!, timePeriod)
+    this.subscriptionService.getSubscriptionsByChannelPerDay(this.currChannel!.id!, this.timePeriod)
       .pipe(
         finalize(() => this.isSubscriptionDataLoading = false)
       )

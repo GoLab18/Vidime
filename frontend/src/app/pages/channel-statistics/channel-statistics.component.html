@@ -1,7 +1,28 @@
-<main id="main-content" class="statistics-container">
-    <h2>Channel Statistics</h2>
+<main id="main-content">
+    <div id="stats-header">
+        <h2>Channel Statistics</h2>
+        <div class="date-range-selector">
+            <div class="custom-dropdown" (click)="toggleDropdown()" (keydown.enter)="toggleDropdown()" tabindex="0">
+                <div class="selected-option">
+                    <span>{{ selectedLabel }}</span>
+                    <i class="material-icons">{{ isOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</i>
+                </div>
+                <div class="dropdown-options" [class.open]="isOpen">
+                    @for (option of timeOptions; track option.value) {
+                        <div 
+                            class="dropdown-option"
+                            [class.selected]="timePeriod === option.value"
+                            (click)="selectOption(option.value); $event.stopPropagation()"
+                            (keydown.enter)="selectOption(option.value); $event.stopPropagation()"
+                            tabindex="0"
+                        >{{ option.label }}</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="view-stats-container">
+    <div class="stats-group-container">
         <div class="chart-container">
             @if (isViewDataLoading) {
                 <ng-container *ngTemplateOutlet="loadingTemplate; context: { title: 'views statistics' }"></ng-container>
@@ -15,7 +36,28 @@
             @if (!isViewDataLoading && !viewDataErr) {
                 <div class="chart-wrapper">
                     <div class="chart">
-                        <app-custom-line-chart [labels]="viewsLabels" [data]="viewsData" title="Views (Last 7 Days)"></app-custom-line-chart>
+                        <app-custom-line-chart [labels]="viewsLabels" [data]="viewsData" title="Views"></app-custom-line-chart>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="stats-group-container">
+        <div class="chart-container">
+            @if (isSubscriptionDataLoading) {
+                <ng-container *ngTemplateOutlet="loadingTemplate; context: { title: 'subscriptions statistics' }"></ng-container>
+            }
+            @if (subscriptionDataErr) {
+                <div class="error">
+                    <p>{{ subscriptionDataErr }}</p>
+                    <button (click)="loadSubscriptionStatistics()" class="retry-button">Retry</button>
+                </div>
+            }
+            @if (!isSubscriptionDataLoading && !subscriptionDataErr) {
+                <div class="chart-wrapper">
+                    <div class="chart">
+                        <app-custom-line-chart [labels]="subscriptionsLabels" [data]="subscriptionsData" title="Subscriptions"></app-custom-line-chart>
                     </div>
                 </div>
             }
