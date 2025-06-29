@@ -27,6 +27,14 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
     @Query("UPDATE Channel c SET c.videosAmount = c.videosAmount - 1 WHERE c.id = :channelId")
     void decrementVideosAmount(@Param("channelId") Long channelId);
 
+    @Modifying
+    @Query("UPDATE Channel c SET c.subscribersCount = c.subscribersCount + 1 WHERE c.id = :channelId")
+    void incrementSubscribersCount(@Param("channelId") Long channelId);
+
+    @Modifying
+    @Query("UPDATE Channel c SET c.subscribersCount = c.subscribersCount - 1 WHERE c.id = :channelId")
+    void decrementSubscribersCount(@Param("channelId") Long channelId);
+
     @Query("""
     SELECT new com.golab18.vidime.dto.ChannelTrending(c.id, c.uuid, c.name, c.picture, c.verified, c.subscribersCount, SUM(v.views))
     FROM Channel c 
