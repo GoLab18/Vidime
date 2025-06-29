@@ -17,11 +17,12 @@ export class HorizontalGroupScrollComponent implements AfterViewInit {
   itemGroupSize: number = 0;
   scrollStep: number = 0;
   scrollLeftVisible = false;
-  scrollRightVisible = true;
+  scrollRightVisible = false;
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.updateLayout();
+      this.handleScroll();
 
       window.addEventListener('resize', () => {
         this.updateLayout();
@@ -38,37 +39,35 @@ export class HorizontalGroupScrollComponent implements AfterViewInit {
   }
 
   updateLayout() {
-    let containerWidth = this.listContainer.nativeElement.offsetWidth;
-    
+    const container = this.listContainer.nativeElement;
+    const containerWidth = container.offsetWidth;
+    const scrollWidth = container.scrollWidth;
+  
     let itemWidth = 324;
     let itemsPerGroup = Math.floor(containerWidth / itemWidth);
-
+  
     this.itemGroupSize = Math.max(1, itemsPerGroup);
-
     this.scrollStep = this.itemGroupSize * itemWidth + 24;
-
-    // For when there are not enough items to fill the container
-    if (itemWidth * itemsPerGroup < containerWidth) {
-      this.scrollLeftVisible = false;
-      this.scrollRightVisible = false;
-    }
+  
+    this.scrollLeftVisible = container.scrollLeft > 0;
+    this.scrollRightVisible = scrollWidth > containerWidth;
   }
 
   handleScroll() {
-    let container = this.listContainer.nativeElement;
-    let scrollLeft = container.scrollLeft;
+    const container = this.listContainer.nativeElement;
+    const scrollLeft = container.scrollLeft;
 
     this.scrollLeftVisible = scrollLeft > 0;
     this.scrollRightVisible = scrollLeft < container.scrollWidth - container.clientWidth - 1;
   }
 
   handleScrollLeft() {
-    let newScroll = Math.max(0, this.listContainer.nativeElement.scrollLeft - this.scrollStep);
+    const newScroll = Math.max(0, this.listContainer.nativeElement.scrollLeft - this.scrollStep);
     this.listContainer.nativeElement.scrollTo({left: newScroll, behavior: 'smooth'});
   }
 
   handleScrollRight() {
-    let newScroll = this.listContainer.nativeElement.scrollLeft + this.scrollStep;
+    const newScroll = this.listContainer.nativeElement.scrollLeft + this.scrollStep;
     this.listContainer.nativeElement.scrollTo({left: newScroll, behavior: 'smooth'});
   }
 
