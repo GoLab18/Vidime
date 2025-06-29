@@ -49,11 +49,27 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['videoId'] && changes['videoUrl'] && (changes['videoUrl'].currentValue || changes['videoUrl'].previousValue)) {
+    if (!this.videoId) {
+      this.handleVideoUrlChange(changes);
+      this.handleThumbnailUrlChange(changes);
+      
+      return;
+    }
+
+    if (changes['videoId']) {
+      this.handleVideoUrlChange(changes);
+      this.handleThumbnailUrlChange(changes);
+    }
+  }
+
+  handleVideoUrlChange(changes: SimpleChanges) {
+    if (changes['videoUrl'] && (changes['videoUrl'].currentValue || changes['videoUrl'].previousValue)) {
       this.videoPlayer.nativeElement.src = changes['videoUrl'].currentValue;
       this.videoState = VideoState.PAUSED;
     }
-    
+  }
+
+  handleThumbnailUrlChange(changes: SimpleChanges) {
     if (changes['thumbnailUrl'] && (changes['thumbnailUrl'].currentValue || changes['thumbnailUrl'].previousValue)) {
       this.videoPlayer.nativeElement.poster = changes['thumbnailUrl'].currentValue;
     }
