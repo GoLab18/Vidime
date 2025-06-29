@@ -95,7 +95,7 @@ export class ChannelStatisticsComponent implements OnInit {
           this.viewsData = data.map(item => item.data);
         },
         error: _ => {
-          this.viewDataErr = 'Failed to load view statistics. Please try again later.';
+          this.viewDataErr = 'View statistics loading failed. Please try again later.';
           this.viewsLabels = [];
           this.viewsData = [];
         }
@@ -116,7 +116,7 @@ export class ChannelStatisticsComponent implements OnInit {
           this.subscriptionsData = data.map(item => item.data);
         },
         error: _ => {
-          this.subscriptionDataErr = 'Failed to load subscription statistics. Please try again later.';
+          this.subscriptionDataErr = 'Subscription statistics loading failed. Please try again later.';
           this.subscriptionsLabels = [];
           this.subscriptionsData = [];
         }
