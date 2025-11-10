@@ -28,7 +28,7 @@
 .list-wrapper::after {
   content: '';
   position: absolute;
-  top: 20px;
+  top: 0;
   bottom: 0;
   width: 80px;
   pointer-events: none;
